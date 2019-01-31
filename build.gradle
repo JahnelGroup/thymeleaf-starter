@@ -76,14 +76,25 @@ task unpack(type: Copy) {
 	from(zipTree(tasks.bootJar.outputs.files.singleFile))
 	into("build/dependency")
 }
+
 docker {
 	name "${project.group}/${bootJar.baseName}"
 	copySpec.from(tasks.unpack.outputs).into("dependency")
 	buildArgs(['DEPENDENCY': "dependency"])
 }
+// Uncomment if you want to automatically run a build before containerizing the app
+//docker.dependsOn build
 
-docker.dependsOn build
+dockerCompose {
 
-// work around for composeUp.dependsOn docker (it doesn't work)
-// see: https://github.com/palantir/gradle-docker/issues/151
-composeUp.dependsOn  { tasks.dockerTag }
+	full {
+		useComposeFiles = ['docker-compose.yml', 'docker-compose.app.yml']
+	}
+
+	deps {
+		useComposeFiles = ['docker-compose.yml']
+	}
+
+}
+// Uncomment if you want automatically want to build the app's docker container before running compose
+//composeUp.dependsOn  { tasks.dockerTag }
