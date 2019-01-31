@@ -4,6 +4,15 @@ Jahnel Group starter for Spring Boot and Thymeleaf.
 
 ## Structure 
 
+### Tech Stack
+
+| Tech | Version |
+| --- | --- |
+| Java | TBD |
+| Kotlin | TBD |
+| Spring Boot | TBD |
+| MariaDB | TBD |
+
 ### File Structure 
 
 The overall file structure is as follows:

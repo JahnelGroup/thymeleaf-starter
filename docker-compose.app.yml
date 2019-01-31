@@ -1,0 +1,18 @@
+# This docker-compose is expected to be merged with the based docker-compose.yml
+#
+# docker-compose -f 
+#
+# Reference: https://docs.docker.com/compose/extends/
+
+version: "3"
+services:
+
+  app:
+    image: com.jahnelgroup/thymeleaf-starter:latest
+    container_name: thymeleaf-starter
+    restart: always
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 8080:8080

@@ -1,9 +1,26 @@
-version: "2"
+version: "3"
 services:
 
-  app:
-    image: com.jahnelgroup/thymeleaf-starter:latest
-    container_name: thymeleaf-starter
-    restart: always
+  adminer:
+    image: adminer:4
+    networks:
+      - frontend
+      - backend
     ports:
-      - 8080:8080
+      - 8081:8080
+
+  db:
+    image: mariadb:10.4
+    container_name: mariadb
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+    restart: always
+    networks:
+      - backend
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootpassword"
+
+networks:
+  frontend:
+  backend:
