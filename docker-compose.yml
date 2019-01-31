@@ -1,0 +1,9 @@
+version: "2"
+services:
+
+  app:
+    image: com.jahnelgroup/thymeleaf-starter:latest
+    container_name: thymeleaf-starter
+    restart: always
+    ports:
+      - 8080:8080
