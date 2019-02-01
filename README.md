@@ -36,34 +36,34 @@ The overall file structure is as follows:
 
 ### Gradle
 
-Gradle is the build and dependency management tool and Docker is the containerization technology. This starter uses Gradle docker plugins to help simplify the process.
+Gradle is the build and dependency management tool and Docker is the containerization technology. This starter uses Gradle docker plugins to help simplify the process and they can be combined in sequence. 
 
-To run tests:
+**Clean/Test/Build:**
 
-```bash
-$ gradle test
-```
+| Command | Version |
+| --- | --- |
+| gradle clean | Delete distribution artifacts. |
+| gradle test  | Run all tests. |
+| gradle build | Build the app. |
 
-To build a fat spring-boot jar (build/libs/*.jar):
+**Docker:**
 
-```bash
-$ gradle build
-```
+| Command | Version |
+| --- | --- |
+| gradle clean build docker | Remove artifact, rebuild, and then build a docker container. |
+| gradle fullComposeUp | Start everything including the app (must have built the container first) |
+| gradle fullComposeDown | ^ Stops the full stack |
+| gradle depsComposeUp | Start everything including the app (must have built the container first) |
+| gradle depsComposeDown | ^ Stops the dependency stack |
 
-To build the docker container:
+If running locally the app is located at http://localhost:8080/
 
-```bash
-$ gradle docker
-$ docker images | grep thyme
-  com.jahnelgroup/thymeleaf-starter  latest 67dd8d0ea7d2  9 minutes ago  146MB
-```
+## AWS Elastic Beanstalk
 
-To bring up the stack with docker-compose:
+TODO: Configure aws cli and eb cli
 
-```bash
-$ gradle composeUp
-...
-BUILD SUCCESSFUL in 13s
-```
+Commands:
 
-Then navigate to http://localhost:8080/
+`eb list`
+`eb create --single --database`
+`eb setenv SPRING_PROFILES_ACTIVE=beanstalk`

@@ -6,3 +6,4 @@ spring:
     url: jdbc:mysql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}?createDatabaseIfNotExist=true
     username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
+    hikari.initialization-fail-timeout: 1

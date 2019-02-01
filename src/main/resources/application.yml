@@ -11,6 +11,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/jg_starter?createDatabaseIfNotExist=true
     username: root
     password: rootpassword
+    hikari.initialization-fail-timeout: 0
 
 logging:
   level:
