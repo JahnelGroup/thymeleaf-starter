@@ -35,7 +35,7 @@ apply plugin: 'com.palantir.docker'
 apply plugin: 'docker-compose'
 
 group = 'com.jahnelgroup'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -55,6 +55,7 @@ dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
 	runtimeOnly 'mysql:mysql-connector-java'
+	testRuntimeOnly "com.h2database:h2:1.4.192"
 	compile "org.flywaydb:flyway-core:5.2.4"
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -79,6 +80,10 @@ task unpack(type: Copy) {
 	dependsOn bootJar
 	from(zipTree(tasks.bootJar.outputs.files.singleFile))
 	into("build/dependency")
+}
+
+test {
+	systemProperty 'spring.profiles.active', 'h2'
 }
 
 docker {
