@@ -48,10 +48,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.security:spring-security-config'
+	implementation 'org.springframework:spring-context-support'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:+'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
-	implementation "com.h2database:h2:1.4.197"
+	runtimeOnly 'mysql:mysql-connector-java'
+	compile "org.flywaydb:flyway-core:5.2.4"
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'

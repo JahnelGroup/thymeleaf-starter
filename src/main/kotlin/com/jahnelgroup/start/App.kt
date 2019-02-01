@@ -1,4 +1,4 @@
-package com.jahnelgroup.thymeleafstarter
+package com.jahnelgroup.start
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -9,4 +9,3 @@ class App
 fun main(args: Array<String>) {
 	runApplication<App>(*args)
 }
-
