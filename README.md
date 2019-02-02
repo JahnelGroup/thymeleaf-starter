@@ -6,12 +6,12 @@ Jahnel Group starter for Spring Boot and Thymeleaf.
 
 ### Tech Stack
 
-| Tech | Version |
+| Component | Tech |
 | --- | --- |
-| Java | TBD |
-| Kotlin | TBD |
-| Spring Boot | TBD |
-| MariaDB | TBD |
+| Languages Java | Kotlin, Java, Groovy, HTML, CSS, JavaScript |
+| Frameworks | Spring Boot, Thymeleaf, Bootstrap |
+| Databases | MySQL, H2 |
+| Deployments | Docker, AWS Elastic Beanstalk |
 
 ### File Structure 
 
