@@ -8,7 +8,7 @@ Jahnel Group starter for Spring Boot and Thymeleaf.
 
 | Component | Tech |
 | --- | --- |
-| Languages Java | Kotlin, Java, Groovy, HTML, CSS, JavaScript |
+| Languages | Kotlin, Java, Groovy, HTML, CSS, JavaScript |
 | Frameworks | Spring Boot, Thymeleaf, Bootstrap |
 | Databases | MySQL, H2 |
 | Deployments | Docker, AWS Elastic Beanstalk |
