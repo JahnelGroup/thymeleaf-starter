@@ -68,6 +68,8 @@ Commands:
 `eb create --single --database`
 `eb setenv SPRING_PROFILES_ACTIVE=beanstalk`
 
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-configuration-methods-during.html
+
 ## Spring Boot Dev Tools
 
 [Spring Boot Dev Tools](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html) includes an additional set of tools that can make the application development experience a little more pleasant.
