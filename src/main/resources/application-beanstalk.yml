@@ -7,3 +7,8 @@ spring:
     username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
     hikari.initialization-fail-timeout: 1
+
+
+logging:
+  level:
+    org.springframework.security: WARN
