@@ -10,4 +10,9 @@ ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.jahnelgroup.start.AppKt"]
+
+#  This is faster than using the indirection provided by the fat jar launcher
+ARG MAIN_CLASS
+ENV MAIN_CLASS=$MAIN_CLASS
+
+ENTRYPOINT exec java -cp app:app/lib/* $MAIN_CLASS
