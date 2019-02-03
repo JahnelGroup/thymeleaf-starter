@@ -9,7 +9,7 @@ class WebMvcConfig : WebMvcConfigurer{
 
     override fun addViewControllers(registry: ViewControllerRegistry) {
         // Add direct routes, no controller needed
-        registry.addViewController("/index.html")
+//        registry.addViewController("/index.html")
         registry.addViewController("/login.html")
         registry.addViewController("/accessDenied.html")
     }

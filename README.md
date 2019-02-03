@@ -76,7 +76,7 @@ Commands:
 
 IDE's are fantastic but introduce complexity when it comes to watching file changes. As such Spring Boot Dev Tools can't easily automatically detect if files have changed within IntelliJ. 
 
-If you any change to take effect then trigger a build within IntelliJ and will cause Spring Boot to reload:
+If you want changes to take effect then triggering a build within IntelliJ will cause Spring Boot to reload:
 
 * \[Build\] then \[Rebuild Project]
 * Or use short cut `Ctrl + F9`  

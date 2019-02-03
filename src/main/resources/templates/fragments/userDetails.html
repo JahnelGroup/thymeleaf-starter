@@ -7,23 +7,28 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/style.css}" media="screen" />
 </head>
 <body>
 
-    <div th:replace="fragments/header :: navbar"></div>
+<div class="container">
 
-    <div role="main" class="container">
-        <div class="root-div">
-            <h1>Welcome, First name</h1>
+    <!-- ============================================================================ -->
+    <!-- Basic                                                                        -->
+    <!-- ============================================================================ -->
 
-            <h2>Basic details</h2>
-            <div th:replace="fragments/userDetails :: basic"></div>
-
-            <h2>Your roles</h2>
-            <div th:replace="fragments/userDetails :: roleList"></div>
-        </div>
+    <div th:fragment="basic">
+        <span th:text="${#authentication.principal.getUsername()}" />
     </div>
+
+    <!-- ============================================================================ -->
+    <!-- Role List                                                                    -->
+    <!-- ============================================================================ -->
+
+    <div th:fragment="roleList">
+        TODO
+    </div>
+
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
