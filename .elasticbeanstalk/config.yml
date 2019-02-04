@@ -1,0 +1,20 @@
+branch-defaults:
+  master:
+    environment: dev1
+    group_suffix: null
+deploy:
+  artifact: build/libs/app.jar
+global:
+  application_name: thymeleaf-starter
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Java 8
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: git
+  workspace_type: Application

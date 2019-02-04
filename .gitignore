@@ -50,6 +50,8 @@ hs_err_pid*
 /.nb-gradle/
 
 # Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+# not sure why these are ignored by default
+# https://stackoverflow.com/questions/47013874/what-is-the-correct-way-of-sharing-your-elasticbeanstalk-configuration-with-your
+#.elasticbeanstalk/*
+#!.elasticbeanstalk/*.cfg.yml
+#!.elasticbeanstalk/*.global.yml

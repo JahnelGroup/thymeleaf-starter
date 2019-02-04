@@ -72,6 +72,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
+// Kotlin
+// =========================
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
@@ -86,14 +88,19 @@ compileTestKotlin {
 	}
 }
 
+// Test
+// =========================
+test {
+	systemProperty 'spring.profiles.active', 'test'
+}
+
+// Docker
+// =========================
+// unpacking spring fat jar is faster in a docker container
 task unpack(type: Copy) {
 	dependsOn bootJar
 	from(zipTree(tasks.bootJar.outputs.files.singleFile))
 	into("build/dependency")
-}
-
-test {
-	systemProperty 'spring.profiles.active', 'test'
 }
 
 docker {
@@ -114,3 +121,13 @@ dockerCompose {
 }
 // automatically build the app's docker container before running compose with the app included
 fullComposeUp.dependsOn  { tasks.dockerTag }
+
+// AWS
+// =========================
+
+bootJar {
+	archiveName = 'app.jar'
+	from('ebextensions') {
+        into '.ebextensions'
+    }
+}
