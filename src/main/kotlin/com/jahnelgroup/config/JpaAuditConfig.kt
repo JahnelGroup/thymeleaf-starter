@@ -1,7 +1,7 @@
-package com.jahnelgroup.start.config
+package com.jahnelgroup.config
 
-import com.jahnelgroup.start.service.context.DateTimeService
-import com.jahnelgroup.start.service.context.UserContextService
+import com.jahnelgroup.service.context.DateTimeService
+import com.jahnelgroup.service.context.UserContextService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider

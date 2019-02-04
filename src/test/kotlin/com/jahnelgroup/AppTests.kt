@@ -1,4 +1,4 @@
-package com.jahnelgroup.start
+package com.jahnelgroup
 
 import org.junit.Test
 import org.junit.runner.RunWith

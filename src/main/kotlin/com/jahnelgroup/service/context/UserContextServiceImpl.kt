@@ -1,7 +1,7 @@
-package com.jahnelgroup.start.service.context
+package com.jahnelgroup.service.context
 
-import com.jahnelgroup.start.domain.user.User
-import com.jahnelgroup.start.domain.user.UserRepo
+import com.jahnelgroup.domain.user.User
+import com.jahnelgroup.domain.user.UserRepo
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 

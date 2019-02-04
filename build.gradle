@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		mainClassNameForDocker = 'com.jahnelgroup.start.AppKt'
+		mainClassNameForDocker = 'com.jahnelgroup.AppKt'
 		kotlinVersion = '1.2.71'
 		springBootVersion = '2.1.2.RELEASE'
 		gradleDockerVersion = '0.21.0'
@@ -25,6 +25,16 @@ buildscript {
 		classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:${gradleDockerVersion}")
 		classpath("com.avast.gradle:gradle-docker-compose-plugin:${gradleDockerComposeVersion}")
 	}
+}
+
+plugins {
+	id "org.flywaydb.flyway" version "5.2.4"
+}
+
+flyway {
+    url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
+    user = 'root'
+	password = 'rootpassword'
 }
 
 apply plugin: 'kotlin'

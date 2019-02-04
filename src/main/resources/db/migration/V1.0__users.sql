@@ -32,7 +32,10 @@ create table `user_group_members` (
 );
 
 insert into `users` (username, password, enabled) values
-  ('admin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', true);
+  ('admin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', true),
+  ('user', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', true);
 
 insert into `authorities` (username, authority) values
-  ('admin', 'ROLE_ADMIN');
+  ('admin', 'ROLE_ADMIN'),
+  ('admin', 'ROLE_USER'),
+  ('user', 'ROLE_USER');

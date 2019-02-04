@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.domain.user
+package com.jahnelgroup.domain.user
 
 import java.io.Serializable
 import javax.persistence.Embeddable

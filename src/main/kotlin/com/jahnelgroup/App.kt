@@ -1,4 +1,4 @@
-package com.jahnelgroup.start
+package com.jahnelgroup
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

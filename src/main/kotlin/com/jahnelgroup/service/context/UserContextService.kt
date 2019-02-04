@@ -1,6 +1,6 @@
-package com.jahnelgroup.start.service.context
+package com.jahnelgroup.service.context
 
-import com.jahnelgroup.start.domain.user.User
+import com.jahnelgroup.domain.user.User
 
 interface UserContextService {
 

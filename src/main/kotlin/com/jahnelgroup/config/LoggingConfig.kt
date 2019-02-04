@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.config
+package com.jahnelgroup.config
 
 import org.slf4j.LoggerFactory
 

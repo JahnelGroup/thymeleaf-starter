@@ -1,29 +1,20 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/style.css}" media="screen" />
-</head>
+<head th:replace="fragments/header :: head"></head>
 <body>
 
-    <div th:replace="fragments/header :: navbar"></div>
+<div th:replace="fragments/nav :: top_navbar"></div>
 
-    <div role="main" class="container">
-        <div class="root-div">
-            <h1>Welcome, First name</h1>
-
-            <h2>Basic details</h2>
-            <div th:replace="fragments/userDetails :: basic"></div>
-
-            <h2>Your roles</h2>
-            <div th:replace="fragments/userDetails :: roleList"></div>
-        </div>
+<div role="main" class="container">
+    <div class="root-div">
+        <h1>Welcome</h1>
+        <ul>
+            <li><span th:text="'Username ' + ${currentUser.username}"/></li>
+            <li><span th:text="'Username ' + ${currentUser.username}"/></li>
+            <li th:each="auth : ${currentUser.authorities}"><span th:text="${auth.id.authority}"</li>
+        </ul>
     </div>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.domain.user
+package com.jahnelgroup.domain.user
 
 import org.springframework.data.jpa.repository.JpaRepository
 

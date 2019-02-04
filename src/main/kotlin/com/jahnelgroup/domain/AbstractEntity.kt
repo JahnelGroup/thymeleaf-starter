@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.domain
+package com.jahnelgroup.domain
 
 import org.springframework.data.annotation.*
 import org.springframework.data.annotation.Version

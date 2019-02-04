@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.domain.user.group
+package com.jahnelgroup.domain.user.group
 
 import javax.persistence.*
 import javax.validation.constraints.NotNull

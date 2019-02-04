@@ -1,4 +1,4 @@
-package com.jahnelgroup.start.domain.user
+package com.jahnelgroup.domain.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
@@ -9,6 +9,10 @@ data class User (
 
     @field:Id
     var username: String,
+
+    var firstName: String,
+
+    var lastName: String,
 
     @get:JsonIgnore
     var password: String,

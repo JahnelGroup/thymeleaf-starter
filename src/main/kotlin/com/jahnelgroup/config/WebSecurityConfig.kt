@@ -1,6 +1,6 @@
 @file:Suppress("SpringJavaInjectionPointsAutowiringInspection")
 
-package com.jahnelgroup.start.config
+package com.jahnelgroup.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
