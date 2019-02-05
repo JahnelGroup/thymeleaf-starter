@@ -10,8 +10,7 @@
         <h1>Welcome</h1>
         <ul>
             <li><span th:text="'Username ' + ${currentUser.username}"/></li>
-            <li><span th:text="'Username ' + ${currentUser.username}"/></li>
-            <li th:each="auth : ${currentUser.authorities}"><span th:text="${auth.id.authority}"</li>
+            <li th:each="auth : ${currentUser.authorities}"><span th:text="${auth.id.authority}"/></li>
         </ul>
     </div>
 </div>

@@ -24,6 +24,7 @@ buildscript {
 		classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
 		classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:${gradleDockerVersion}")
 		classpath("com.avast.gradle:gradle-docker-compose-plugin:${gradleDockerComposeVersion}")
+		classpath("mysql:mysql-connector-java:8.0.15")
 	}
 }
 
@@ -104,6 +105,16 @@ test {
 	systemProperty 'spring.profiles.active', 'test'
 }
 
+// AWS
+// =========================
+
+bootJar {
+	archiveName = 'app.jar'
+	from('ebextensions') {
+		into '.ebextensions'
+	}
+}
+
 // Docker
 // =========================
 // unpacking spring fat jar is faster in a docker container
@@ -132,12 +143,5 @@ dockerCompose {
 // automatically build the app's docker container before running compose with the app included
 fullComposeUp.dependsOn  { tasks.dockerTag }
 
-// AWS
-// =========================
 
-bootJar {
-	archiveName = 'app.jar'
-	from('ebextensions') {
-        into '.ebextensions'
-    }
-}
+

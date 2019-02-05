@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: null
+    environment: jg-app
     group_suffix: null
 deploy:
   artifact: build/libs/app.jar
