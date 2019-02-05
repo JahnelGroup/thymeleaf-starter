@@ -19,44 +19,72 @@ The overall file structure is as follows:
 
 ```text
 /thymeleaf-starter/
+├── .elasticbeanstalk/
+│   └── config.yml
+├── ebextensions/
+│   └── env.config
+├── gradle/wrapper/
+│   └── gradle.*.[jar|properties]
 ├── src/main/
-│   └── kotlin/
-│       └── com/jahnelgroup/
-│           └── *.[kt|java]
+│   ├── kotlin/
+│   |   └── com/jahnelgroup/
+│   |       └── *.[kt|java]
 │   └── resources/
-│       └── static/
-│           └── *.[js|css]
-│       └── templates/
-│           └── *.html
+│       ├── static/
+│       |   └── *.[js|css]
+│       ├── templates/
+│       |   └── *.html
 │       └── application.[properties|yml]
+├── src/test/
+│   └── (testing framework)
 ├── Dockerfile
 ├── build.gradle
-└── docker-compose.yml
+├── docker-compose.full.yml
+├── docker-compose.yml
+└── settings.gradle
 ```
 
 ### Gradle
 
-Gradle is the build and dependency management tool and Docker is the containerization technology. This starter uses Gradle docker plugins to help simplify the process and they can be combined in sequence. 
+[Gradle](https://gradle.org/) is the build and dependency management tool used by this starter. Most actions can be accomplish through the Gradle tasks described here.  
 
 **Clean/Test/Build:**
 
-| Command | Version |
+| Command | Description |
 | --- | --- |
-| gradle clean | Delete distribution artifacts. |
-| gradle test  | Run all tests. |
-| gradle build | Build the app. |
+| gradle clean build | Deletes build artifacts and runs a fresh build. |
+| gradle test  | Run tests. |
 
 **Docker:**
 
-| Command | Version |
+| Command | Description |
 | --- | --- |
-| gradle clean build docker | Remove artifact, rebuild, and then build a docker container. |
+| gradle clean build docker | Clean, fresh build, then build docker image. |
 | gradle fullComposeUp | Start everything including the app (must have built the container first) |
 | gradle fullComposeDown | ^ Stops the full stack |
-| gradle depsComposeUp | Start everything including the app (must have built the container first) |
+| gradle depsComposeUp | Start only the app dependencies |
 | gradle depsComposeDown | ^ Stops the dependency stack |
 
-If running locally the app is located at http://localhost:8080/
+**Flyway:**
+
+| Command | Description |
+| --- | --- |
+| gradle [flywayMigrate](https://flywaydb.org/documentation/gradle/migrate) | Migrates the database |
+| gradle [flywayClean](https://flywaydb.org/documentation/gradle/clean) | Drops all objects in the configured schemas |
+| gradle [flywayInfo](https://flywaydb.org/documentation/gradle/info) | Prints the details and status information about all the migrations |
+| gradle [flywayValidate](https://flywaydb.org/documentation/gradle/validate) | Validates the applied migrations against the ones available on the classpath |
+| gradle [flywayBaseline](https://flywaydb.org/documentation/gradle/baseline) | Baselines an existing database, excluding all migrations up to and including baselineVersion |
+| gradle [flywayRepair](https://flywaydb.org/documentation/gradle/repair) | Repairs the schema history table |
+
+By default these Flyway commands are pointing to a local instance of the starter database.  
+
+```groovy
+flyway {
+    url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
+    user = 'root'
+	password = 'rootpassword'
+}
+```
 
 ## AWS Elastic Beanstalk
 

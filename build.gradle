@@ -142,6 +142,3 @@ dockerCompose {
 }
 // automatically build the app's docker container before running compose with the app included
 fullComposeUp.dependsOn  { tasks.dockerTag }
-
-
-
