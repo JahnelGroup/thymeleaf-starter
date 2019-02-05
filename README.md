@@ -42,13 +42,13 @@ The overall file structure is as follows:
 └── settings.gradle
 ```
 
-## Code, Build and Deploy
+## Quickstart
 
-Gradle is the build and dependency management tool used by this starter. Most actions can be accomplished through Gradle tasks.  
+Gradle is the build and dependency management tool used by this starter. Most actions can be accomplished through Gradle tasks described in the sections below.
 
 ### Active Development w/ IntelliJ
 
-When you're actively developing an application it's useful to be able to run it from within an IDE. This starter allows you to launch only the dependencies in docker containers leaving it up to you for how you'd like to launch the app, preferably from something like IntellIj where it's easy to debug. 
+When you're actively developing an application it's useful to be able to run it from within an IDE. This starter allows you to launch only the dependencies in docker containers leaving it up to you for how you'd like to launch the app, preferably from something like IntellIJ where it's easy to debug. 
 
 ![depsComposeUp.png](images/depsComposeUp.png)
 
@@ -58,7 +58,28 @@ Run only the dependencies in docker with:
 $ gradle depsComposeUp
 ```
 
-#### Running the entire stack locally with Docker
+### Running the entire stack locally with Docker
+
+Sometimes you just want to launch the entire stack locally without an IDE, perhaps a demo or showcase. This starter allows you to with a variation of composeUp.
+
+![fullComposeUp.png](images/fullComposeUp.png)
+
+```bash
+$ gradle fullComposeUp
+```
+
+### Deploying to AWS with Elastic Beanstalk
+
+AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications and services. It's basic concept is an *Applications* with one or more *Environments*. 
+
+To use this you must have:
+
+* An aws account with an *aws_access_key_id* and *aws_access_key_id*
+* Your account must be privileged enough to use the Elastic Beanstalk service
+* You must have installed and configured the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+* You must have installed and configured the [AWS Elastic Beanstalk CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html) 
+
+TODO..
 
 ## Gradle 
 
@@ -140,4 +161,4 @@ If you really want every change to trigger a reload then follow these steps.
 * \[File Menu] then \[Settings]
 * Expand \[Build, Execution, Deployment] then select Compiler
 * Enable "Build project automatically" then Apply then Ok
-* Restart Intellij
+* Restart IntelliJ
