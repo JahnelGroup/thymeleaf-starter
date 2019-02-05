@@ -2,18 +2,16 @@
 
 Jahnel Group starter for Spring Boot and Thymeleaf.  
 
-## Structure 
-
-### Tech Stack
+## Tech Stack
 
 | Component | Tech |
 | --- | --- |
-| Languages | Kotlin, Java, Groovy, HTML, CSS, JavaScript |
-| Frameworks | Spring Boot, Thymeleaf, Bootstrap |
-| Databases | MySQL, H2 |
-| Deployments | Docker, AWS Elastic Beanstalk |
+| Build & Deploy | [Gradle](https://gradle.org/), [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/), [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) |
+| Languages | [Kotlin](https://kotlinlang.org/), [Java](https://www.java.com/), [HTML](https://www.w3schools.com/html/), [CSS](https://www.w3schools.com/css/), [JavaScript](https://www.javascript.com/) |
+| Frameworks | [Spring Boot](http://spring.io/projects/spring-boot), [Thymeleaf](https://www.thymeleaf.org/), [Bootstrap](https://getbootstrap.com/) |
+| Databases | [MySQL](https://www.mysql.com/), [H2](http://www.h2database.com/) |
 
-### File Structure 
+## File Structure 
 
 The overall file structure is as follows:
 
@@ -44,24 +42,23 @@ The overall file structure is as follows:
 └── settings.gradle
 ```
 
-### Code, Build and Deploy
+## Code, Build and Deploy
 
-[Gradle](https://gradle.org/) is the build and dependency management tool used by this starter. Most actions can be accomplish through the Gradle tasks described in the section below. It also uses [Docker](https://www.docker.com/) to help simplify the environment setup. 
+Gradle is the build and dependency management tool used by this starter. Most actions can be accomplished through Gradle tasks.  
 
-#### Develop w/ IntelliJ
+### Active Development w/ IntelliJ
 
-Run only the dependencies (i.e., database) in docker and run the application in IntelliJ.
+When you're actively developing an application it's useful to be able to run it from within an IDE. This starter allows you to launch only the dependencies in docker containers leaving it up to you for how you'd like to launch the app, preferably from something like IntellIj where it's easy to debug. 
+
+![depsComposeUp.png](images/depsComposeUp.png)
+
+Run only the dependencies in docker with:
 
 ```bash
 $ gradle depsComposeUp
 ```
 
-Now starting the application in IntelliJ will connect to the dockerized database.
-
 #### Running the entire stack locally with Docker
-
-
-
 
 ## Gradle 
 
@@ -106,10 +103,8 @@ flyway {
     url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
     user = 'root'
 	password = 'rootpassword'
-	
-	configFiles = ['flyway/dev.conf']
 }
-```
+``` 
 
 ## AWS Elastic Beanstalk
 
