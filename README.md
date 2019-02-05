@@ -58,6 +58,12 @@ Run only the dependencies in docker with:
 $ gradle depsComposeUp
 ```
 
+Then to stop the dependencies stack:
+
+```bash
+$ gradle depsComposeDown
+```
+
 ### Running the entire stack locally with Docker
 
 Sometimes you just want to launch the entire stack locally without an IDE, perhaps a demo or showcase. This starter allows you to with a variation of composeUp.
@@ -68,18 +74,52 @@ Sometimes you just want to launch the entire stack locally without an IDE, perha
 $ gradle fullComposeUp
 ```
 
+Then to stop the full stack:
+
+```bash
+$ gradle fullComposeDown
+```
+
 ### Deploying to AWS with Elastic Beanstalk
 
-AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications and services. It's basic concept is an *Applications* with one or more *Environments*. 
+AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications and services. Its basic concept is deploying *Applications* into one or more *Environments*. It's a great way conduct rapid development during the early days of a project.  
 
-To use this you must have:
+#### Setup
+
+To use AWS Elastic Beanstalk you must have:
 
 * An aws account with an *aws_access_key_id* and *aws_access_key_id*
 * Your account must be privileged enough to use the Elastic Beanstalk service
 * You must have installed and configured the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * You must have installed and configured the [AWS Elastic Beanstalk CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html) 
 
-TODO..
+Validate that you're configured correctly by checking your identity:
+
+```bash
+$ aws sts get-caller-identity
+{
+    "Account": "<your_account_id>", 
+    "UserId": "<your_user_id>", 
+    "Arn": "<your_arn>"
+}
+```
+
+Type `eb` to make sure it's installed:
+
+```bash
+$ eb
+usage: eb (sub-commands ...) [options ...] {arguments ...}
+..
+..
+```
+
+#### Create Environment
+
+Create a single instance w/ single RDS:
+
+```bash
+$ 
+```
 
 ## Gradle 
 
