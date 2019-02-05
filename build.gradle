@@ -36,6 +36,7 @@ flyway {
     url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
     user = 'root'
 	password = 'rootpassword'
+	configFiles = ['flyway/dev.conf']
 }
 
 apply plugin: 'kotlin'

@@ -44,18 +44,41 @@ The overall file structure is as follows:
 └── settings.gradle
 ```
 
-### Gradle
+### Code, Build and Deploy
 
-[Gradle](https://gradle.org/) is the build and dependency management tool used by this starter. Most actions can be accomplish through the Gradle tasks described here.  
+[Gradle](https://gradle.org/) is the build and dependency management tool used by this starter. Most actions can be accomplish through the Gradle tasks described in the section below. It also uses [Docker](https://www.docker.com/) to help simplify the environment setup. 
 
-**Clean/Test/Build:**
+#### Develop w/ IntelliJ
+
+Run only the dependencies (i.e., database) in docker and run the application in IntelliJ.
+
+```bash
+$ gradle depsComposeUp
+```
+
+Now starting the application in IntelliJ will connect to the dockerized database.
+
+#### Running the entire stack locally with Docker
+
+
+
+
+## Gradle 
+
+### List Tasks
+
+| Command | Description |
+| --- | --- |
+| gradle tasks | List all tasks |
+
+### Clean/Test/Build
 
 | Command | Description |
 | --- | --- |
 | gradle clean build | Deletes build artifacts and runs a fresh build. |
 | gradle test  | Run tests. |
 
-**Docker:**
+### Docker
 
 | Command | Description |
 | --- | --- |
@@ -65,7 +88,7 @@ The overall file structure is as follows:
 | gradle depsComposeUp | Start only the app dependencies |
 | gradle depsComposeDown | ^ Stops the dependency stack |
 
-**Flyway:**
+### Flyway
 
 | Command | Description |
 | --- | --- |
@@ -76,13 +99,15 @@ The overall file structure is as follows:
 | gradle [flywayBaseline](https://flywaydb.org/documentation/gradle/baseline) | Baselines an existing database, excluding all migrations up to and including baselineVersion |
 | gradle [flywayRepair](https://flywaydb.org/documentation/gradle/repair) | Repairs the schema history table |
 
-By default these Flyway commands are pointing to a local instance of the starter database.  
+By default these Flyway commands are pointing to a local instance of the starter database per this configuration found in `build.gradle`.
 
 ```groovy
 flyway {
     url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
     user = 'root'
 	password = 'rootpassword'
+	
+	configFiles = ['flyway/dev.conf']
 }
 ```
 
