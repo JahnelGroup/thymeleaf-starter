@@ -194,7 +194,7 @@ If you want changes to take effect then triggering a build within IntelliJ will 
 
 #### Fully Automatic
 
-If you really want every change to trigger a reload then follow these steps. 
+If you really want every change to trigger a reload then follow additional steps described in [this article](https://www.romaniancoder.com/spring-boot-live-reload-with-intellij/).
 
 * \[Ctrl + Shift + A] then select Registry
 * Enable "compiler.automake.allow.when.app.running" then close

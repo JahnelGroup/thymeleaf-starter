@@ -55,7 +55,12 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
             .csrf().disable()
         .formLogin()
             .loginPage("/login.html")
-            .defaultSuccessUrl("/index.html")
+            .defaultSuccessUrl("/")
+        .and()
+            .logout()
+            .clearAuthentication(true)
+            .invalidateHttpSession(true)
+            .logoutSuccessUrl("/")
         .and().exceptionHandling().accessDeniedPage("/accessDenied.html")
     }
 }
