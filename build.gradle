@@ -5,6 +5,7 @@ buildscript {
 		springBootVersion = '2.1.2.RELEASE'
 		gradleDockerVersion = '0.21.0'
 		gradleDockerComposeVersion = '0.8.13'
+		thymeleafLayoutVersion = '2.3.0'
 	}
 	repositories {
 		mavenCentral()
@@ -75,6 +76,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutVersion}"
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testCompile "com.h2database:h2:1.4.192"

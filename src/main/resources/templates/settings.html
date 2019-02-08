@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/header :: head"></head>
 <body th:object="${currentUser}">
 
@@ -8,10 +8,58 @@
 <div role="main" class="container-fluid">
     <div class="root-div">
 
-        <div th:replace="fragments/nav :: settings_left_nav"></div>
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="settings_left_nav">
+            <div class="sidebar-sticky">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>General</span>
+                </h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#httpServletRequest.requestURI} == '/settings' ? 'active' : ''"
+                           th:href="@{/settings}">
+                            <span data-feather="home"></span>
+                            Account<span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#httpServletRequest.requestURI} == '/settings/preferences' ? 'active' : ''"
+                           th:href="@{/settings/preferences}">
+                            <span data-feather="file"></span>
+                            Preferences
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Administration</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#httpServletRequest.requestURI} == '/settings/users' ? 'active' : ''"
+                           th:href="@{/admin/settings/users}">
+                            <span data-feather="file-text"></span>
+                            Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#httpServletRequest.requestURI} == '/settings/groups' ? 'active' : ''"
+                           th:href="@{/admin/settings/groups}">
+                            <span data-feather="file-text"></span>
+                            Groups
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <head th:replace="fragments/user_settings :: profile"></head>
+            <section layout:fragment="content">
+                This content will be replaced by views in layouts/settings/*.html
+            </section>
         </main>
 
     </div>

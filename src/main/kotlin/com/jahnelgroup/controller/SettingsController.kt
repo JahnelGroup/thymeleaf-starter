@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping
 class SettingsController {
 
     @GetMapping("/settings")
-    fun index() = "settings"
+    fun user() = "layouts/settings/user"
+
+    @GetMapping("/settings/preferences")
+    fun preferences() = "layouts/settings/preferences"
 
 }
