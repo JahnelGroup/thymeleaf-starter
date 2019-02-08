@@ -14,6 +14,8 @@ data class User (
 
     var lastName: String,
 
+    var email: String,
+
     @get:JsonIgnore
     var password: String,
 
