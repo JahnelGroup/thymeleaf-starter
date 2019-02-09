@@ -15,10 +15,10 @@
         <div class="row">
             <div class="col-sm-10">
                 <h4>Users</h4>
-                <form class="form-inline" th:action="@{/admin/users/search}" method="get">
+                <form class="form-inline" th:action="@{/admin/users}" method="get">
                     <div class="form-group mr-sm-3 mb-2">
                         <label for="inputSearch" class="sr-only">Password</label>
-                        <input type="text" class="form-control" id="inputSearch" placeholder="Search terms">
+                        <input type="text" class="form-control" id="inputSearch" placeholder="Search terms" name="inputSearch" th:value="${inputSearch}">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Search</button>
                 </form>

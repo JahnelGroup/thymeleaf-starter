@@ -6,5 +6,5 @@ import java.util.*
 interface UserRepo : JpaRepository<User, Long> {
 
     fun findByUsername(username: String): Optional<User>
-
+    fun findByUsernameContainingIgnoreCase(username: String): List<User>
 }
