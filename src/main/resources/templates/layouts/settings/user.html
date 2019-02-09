@@ -5,11 +5,13 @@
 
 <div class="container">
 
+    <th:block layout:fragment="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/settings}">User Settings</a></li>
+        <li class="breadcrumb-item">Account</li>
+    </th:block>
+
     <div layout:fragment="content">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <!--<h1 class="h2"><span th:text="*{lastName}+', '+ *{firstName}"/></h1>-->
-            breadcrumb
-        </div>
+
 
         <div class="row">
 
