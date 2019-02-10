@@ -22,23 +22,15 @@
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Search</button>
                 </form>
-
-                <!--<form class="form-inline" th:action="@{/admin/users/search}" method="get">-->
-                    <!--<div class="form-group mr-sm-3 mb-2">-->
-                        <!--<label for="inputSearch">Find users by search terms.</label>-->
-                        <!--<div class="input-group">-->
-                            <!--<input type="text" class="form-control" id="inputSearch" placeholder="Search terms">-->
-                            <!--<button type="submit" class="mb-2 input-group-btn btn btn-primary">Search</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</form>-->
             </div>
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-primary">Create User</button>
-            </div>
+            <!--<div class="col-sm-2">-->
+                <!--<div class="d-flex align-items-end flex-column bd-highlight pb-2" style="height: 100%;">-->
+                    <!--<button type="submit" class="mt-auto btn btn-primary">Create User</button>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 
-        <div class="row">
+        <div th:if="${searchResults != null}" class="row">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -54,15 +46,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="user in vm.searchedUsers">
+                <tr th:each="user : ${searchResults}">
                     <th>
-                        <a ng-href="/user/{{user.username}}">{{user.firstName}} {{user.lastName}}</a>
+                        <a th:href="@{/user/${user.username}}"><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a>
                     </th>
                     <td>
-                        {{user.username}}
+                        <span th:text="${user.username}"></span>
                     </td>
                     <td>
-                        {{user.email}}
+                        <span th:text="${user.email}"></span>
                     </td>
                 </tr>
                 </tbody>

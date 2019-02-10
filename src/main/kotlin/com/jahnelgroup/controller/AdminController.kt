@@ -12,10 +12,9 @@ class AdminController(private var userRepo: UserRepo){
     @GetMapping("/admin/users")
     fun users(model: Model, @RequestParam inputSearch: String?): String {
         if(inputSearch != null){
-            model.addAttribute("results", userRepo.findByUsernameContainingIgnoreCase(inputSearch))
+            model.addAttribute("searchResults", userRepo.findByUsernameContainingIgnoreCase(inputSearch))
             model.addAttribute("inputSearch", inputSearch)
         }
-
         return "layouts/admin/users"
     }
 
