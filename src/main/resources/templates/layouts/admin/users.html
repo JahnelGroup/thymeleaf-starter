@@ -1,6 +1,16 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{settings}">
+
+<head th:fragment="head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" media="screen" />
+</head>
+
 <body>
 
 <div class="container">
@@ -11,6 +21,64 @@
     </th:block>
 
     <div layout:fragment="content">
+
+        <!-- ================================== -->
+        <!-- Invite User                        -->
+        <!-- ================================== -->
+        <div class="row">
+            <div class="col-sm-3">
+                <h4>User creation</h4>
+                Invite or create new users.
+            </div>
+            <div class="col-sm-9">
+                <section class="settings-section">
+                    <h5>Email invitation</h5>
+                    <form class="form-inline">
+                        <label class="sr-only" for="inviteEmail">Email</label>
+                        <input type="email" class="form-control mr-sm-2 col-4" id="inviteEmail" placeholder="Email">
+                        <button type="submit" class="btn btn-primary">Invite user</button>
+                    </form>
+                    <small class="form-text text-muted">Send an Email invitation to a new user.</small>
+                </section>
+                <section class="settings-section">
+                    <form>
+                        <h5>Create user</h5>
+                        <div class="form-group row col-4">
+                            <label for="createUsername">Username</label>
+                            <input type="text" class="form-control" id="createUsername" placeholder="Username">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="createPassword">Password</label>
+                                <input type="password" class="form-control" id="createPassword" placeholder="Password">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="form-group row col-4">
+                            <label for="createEmail">Email</label>
+                            <input type="email" class="form-control" id="createEmail" placeholder="Email">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="createFirstname">First name</label>
+                                <input type="text" class="form-control" id="createFirstname" placeholder="First name">
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="createLastname">Last name</label>
+                                <input type="text" class="form-control" id="createLastname" placeholder="Last name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create user</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-sm-10">
@@ -65,6 +133,18 @@
     </div>
 
 </div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- Feather Icons : https://github.com/feathericons/feather -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
 
 </body>
 </html>

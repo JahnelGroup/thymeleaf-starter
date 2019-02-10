@@ -18,12 +18,16 @@
     box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
 }
 
-.href-form-control {
-    display: block;
+/*
+ * Forms
+ */
+
+.settings-section {
+    margin-bottom: 1rem;
 }
 
-.help-block {
-    color: #707070;
+.href-form-control {
+    display: block;
 }
 
 /*
