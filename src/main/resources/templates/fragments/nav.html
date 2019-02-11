@@ -25,6 +25,7 @@
                         <span th:text="*{lastName}+', '+ *{firstName}"/>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/profile}">Profile</a>
                         <a class="dropdown-item" th:href="@{/settings}">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" th:href="@{/logout}">Logout</a>
