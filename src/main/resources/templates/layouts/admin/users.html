@@ -57,12 +57,13 @@
             </div>
             <div class="col-sm-9">
                 <section>
-                    <form th:action="@{/admin/user}" method="post" th:object="${createUser}">
+                    <form th:action="@{/admin/user}" method="post" th:object="${createUserForm}">
                         <h5>Create user</h5>
                         <div class="form-group row col-4">
                             <label for="createUsername">Username</label>
-                            <input type="text" class="form-control" id="createUsername" placeholder="Username" th:field="*{username}">
-                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</div>
+                            <input type="text" class="form-control" id="createUsername" placeholder="Username" th:field="*{username}"
+                                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</div>
                         </div>
                         <div class="row">
                             <div class="form-group col-4">

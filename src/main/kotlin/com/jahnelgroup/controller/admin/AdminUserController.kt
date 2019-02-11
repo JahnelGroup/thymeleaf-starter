@@ -1,5 +1,7 @@
 package com.jahnelgroup.controller.admin
 
+import com.jahnelgroup.controller.admin.form.CreateUserForm
+import com.jahnelgroup.controller.admin.form.CreateUserFormValidator
 import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.service.AdminUserService
 
@@ -9,13 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.WebDataBinder
-import org.springframework.web.bind.annotation.InitBinder
-import javax.validation.Valid
-import org.springframework.validation.BeanPropertyBindingResult
-import org.springframework.validation.Errors
-
-
+import org.springframework.validation.BindingResult
 
 
 @Controller
@@ -24,21 +20,20 @@ class AdminUserController(private var userRepo: UserRepo,
 
 //    @InitBinder
 //    fun initBinder(webDataBinder: WebDataBinder) {
-//        webDataBinder.addValidators(CreateUserValidator())
+//        webDataBinder.addValidators(CreateUserFormValidator())
 //    }
 
-    @ModelAttribute("createUser")
-    fun emptyCreateUser() = CreateUserForm()
+    @ModelAttribute("createUserForm")
+    fun createUserForm() = CreateUserForm()
 
     /**
      * Admin creating a new user.
      */
     @PostMapping("/admin/user")
-    fun createUser(model: Model, createUser: CreateUserForm): String{
-        val target = BeanPropertyBindingResult(createUser, "user")
-        CreateUserValidator().validate(createUser, target)
-        if( !target.hasErrors() ){
-            adminUserService.createUser(createUser.toUser())
+    fun createUser(model: Model, createUserForm: CreateUserForm, bindingResult: BindingResult): String{
+        CreateUserFormValidator().validate(createUserForm, bindingResult)
+        if( !bindingResult.hasErrors() ){
+            adminUserService.createUser(createUserForm.toUser())
         }
         return "layouts/admin/users"
     }
