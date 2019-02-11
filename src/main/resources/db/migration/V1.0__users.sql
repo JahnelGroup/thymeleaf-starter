@@ -35,10 +35,12 @@ create table `user_group_members` (
 );
 
 insert into `users` (username, password, email, first_name, last_name, enabled) values
-  ('admin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'szgaljic@jahnelgroup.com', 'Steven', 'Zgaljic', true),
-  ('user', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'djahnel@jahnelgroup.com', 'Darrin', 'Jahnel', true);
+  ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'szgaljic@jahnelgroup.com', 'Steven', 'Zgaljic', true),
+  ('darrin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'djahnel@jahnelgroup.com', 'Darrin', 'Jahnel', true),
+  ('jason', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'jasonjahnel@jahnelgroup.com', 'Jason', 'Jahnel', true);
 
 insert into `authorities` (username, authority) values
-  ('admin', 'ROLE_ADMIN'),
-  ('admin', 'ROLE_USER'),
-  ('user', 'ROLE_USER');
+  ('steven', 'ROLE_ADMIN'),
+  ('steven', 'ROLE_USER'),
+  ('darrin', 'ROLE_USER'),
+  ('jason', 'ROLE_USER');

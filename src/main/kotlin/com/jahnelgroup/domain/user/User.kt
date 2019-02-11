@@ -8,25 +8,29 @@ import javax.persistence.*
 data class User (
 
     @field:Id
-    var username: String? = null,
+    var username: String,
 
-    var firstName: String? = null,
+    var firstName: String,
 
-    var lastName: String? = null,
+    var lastName: String,
 
-    var email: String? = null,
-
-    @get:JsonIgnore
-    var password: String? = null,
+    var email: String,
 
     @get:JsonIgnore
-    var enabled: Boolean? = null,
+    var password: String,
+
+    @get:JsonIgnore
+    var enabled: Boolean = true,
 
     @field:OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "id.username", targetEntity = UserAuthority::class)
-    var authorities: Set<UserAuthority> = emptySet()
+    var authorities: MutableSet<UserAuthority> = mutableSetOf()
 
 ){
     fun isAdmin(): Boolean = authorities.any {
         it.id?.authority.equals("ROLE_ADMIN")
+    }
+
+    fun addAuthority(authority: String){
+        authorities.add(UserAuthority(AuthorityId(username,authority)))
     }
 }
