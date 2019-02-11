@@ -57,12 +57,12 @@
             </div>
             <div class="col-sm-9">
                 <section>
-                    <form th:action="@{/admin/user}" method="post" th:object="${createUser}" class="needs-validation">
+                    <form th:action="@{/admin/user}" method="post" th:object="${createUser}">
                         <h5>Create user</h5>
                         <div class="form-group row col-4">
                             <label for="createUsername">Username</label>
                             <input type="text" class="form-control" id="createUsername" placeholder="Username" th:field="*{username}">
-                            <div class="invalid-feedback">Username must be at least 4 characters.</div>
+                            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</td>
                         </div>
                         <div class="row">
                             <div class="form-group col-4">
