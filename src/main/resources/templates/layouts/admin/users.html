@@ -62,7 +62,7 @@
                         <div class="form-group row col-4">
                             <label for="createUsername">Username</label>
                             <input type="text" class="form-control" id="createUsername" placeholder="Username" th:field="*{username}">
-                            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</td>
+                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</div>
                         </div>
                         <div class="row">
                             <div class="form-group col-4">
