@@ -1,4 +1,4 @@
-package com.jahnelgroup.controller.admin.form
+package com.jahnelgroup.controller.administration.users.add
 
 import org.passay.*
 import org.springframework.validation.Errors

@@ -1,4 +1,4 @@
-package com.jahnelgroup.controller.admin.form
+package com.jahnelgroup.controller.administration.users.add
 
 import com.jahnelgroup.domain.user.User
 import javax.validation.constraints.NotNull

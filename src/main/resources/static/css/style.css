@@ -19,6 +19,28 @@
 }
 
 /*
+ * Breadcrumb
+ */
+.breadcrumb {
+    background-color: inherit;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: "›";
+}
+
+.breadcrumb-item.active {
+    font-weight: bold;
+    color: black;
+}
+
+.breadcrumb-item a {
+    color: grey;
+}
+
+/*
  * Profile
  */
 
