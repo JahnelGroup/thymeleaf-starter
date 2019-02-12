@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: head"></head>
-<body th:object="${currentUser}">
+<body>
 
     <!-- ============================================================================ -->
     <!-- Global Top Nav Fragment                                                               -->
     <!-- ============================================================================ -->
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="top_navbar">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="top_navbar" th:object="${currentUser}">
         <a class="navbar-brand" href="#">App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

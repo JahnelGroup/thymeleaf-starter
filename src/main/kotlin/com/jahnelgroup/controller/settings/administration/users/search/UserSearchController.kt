@@ -1,4 +1,4 @@
-package com.jahnelgroup.controller.administration.users.search
+package com.jahnelgroup.controller.settings.administration.users.search
 
 import com.jahnelgroup.domain.user.UserRepo
 import org.springframework.stereotype.Controller

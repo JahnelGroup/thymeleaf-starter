@@ -1,4 +1,4 @@
-package com.jahnelgroup.controller.administration.users.add
+package com.jahnelgroup.controller.settings.administration.users.add
 
 import com.jahnelgroup.config.loggerFor
 import com.jahnelgroup.domain.user.UserRepo
