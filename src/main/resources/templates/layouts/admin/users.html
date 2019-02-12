@@ -68,30 +68,35 @@
                         <div class="row">
                             <div class="form-group col-4">
                                 <label for="createPassword">Password</label>
-                                <input type="password" class="form-control" id="createPassword" placeholder="Password" th:field="*{password}">
-                                <div class="invalid-feedback">Passwords do not match.</div>
+                                <input type="password" class="form-control" id="createPassword" placeholder="Password" th:field="*{password}"
+                                       th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error.</div>
                             </div>
                             <div class="form-group col-4">
-                                <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                                <div class="invalid-feedback">Passwords do not match.</div>
+                                <label for="passwordConfrim">Confirm Password</label>
+                                <input type="password" class="form-control" id="passwordConfrim" placeholder="Confirm Password" th:field="*{passwordConfrim}"
+                                       th:classappend="${#fields.hasErrors('passwordConfrim')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordConfrim')}" th:errors="*{passwordConfrim}">Password confirm error.</div>
                             </div>
                         </div>
                         <div class="form-group row col-4">
                             <label for="createEmail">Email</label>
-                            <input type="email" class="form-control" id="createEmail" placeholder="Email" th:field="*{email}">
-                            <div class="invalid-feedback">Email is invalid.</div>
+                            <input type="email" class="form-control" id="createEmail" placeholder="Email" th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error.</div>
                         </div>
                         <div class="row">
                             <div class="form-group col-4">
                                 <label for="createFirstname">First name</label>
-                                <input type="text" class="form-control" id="createFirstname" placeholder="First name" th:field="*{firstName}">
-                                <div class="invalid-feedback">Please provide a first name.</div>
+                                <input type="text" class="form-control" id="createFirstname" placeholder="First name" th:field="*{firstName}"
+                                       th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error.</div>
                             </div>
                             <div class="form-group col-4">
                                 <label for="createLastname">Last name</label>
-                                <input type="text" class="form-control" id="createLastname" placeholder="Last name" th:field="*{lastName}">
-                                <div class="invalid-feedback">Please provide a last name.</div>
+                                <input type="text" class="form-control" id="createLastname" placeholder="Last name" th:field="*{lastName}"
+                                       th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error.</div>
                             </div>
                         </div>
 

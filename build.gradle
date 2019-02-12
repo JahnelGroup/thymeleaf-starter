@@ -65,24 +65,40 @@ configurations {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// Web and Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutVersion}"
+
+	// Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-config'
 	implementation 'org.springframework:spring-context-support'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:+'
+
+	// Database (h2 is in testing section)
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'mysql:mysql-connector-java'
+	compile "org.flywaydb:flyway-core:5.2.4"
+
+	// Production Support
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	// Development Support
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Kotlin
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
-	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutVersion}"
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'mysql:mysql-connector-java'
-	testCompile "com.h2database:h2:1.4.192"
-	compile "org.flywaydb:flyway-core:5.2.4"
+
+	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testCompile "com.h2database:h2:1.4.192"
+
+	// Other 3rd Party Libs
+	implementation "org.passay:passay:1.4.0" // password validation and generation
 }
 
 // Kotlin
