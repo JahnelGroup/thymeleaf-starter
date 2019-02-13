@@ -5,9 +5,13 @@
 
 <div class="container">
 
-    <th:block layout:fragment="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/settings}">User Settings</a></li>
+    <th:block layout:fragment="myBreadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/settings}">My Settings</a></li>
         <li class="breadcrumb-item active"><a th:href="@{/settings/account}">Account</a></li>
+    </th:block>
+    <th:block layout:fragment="otherUserBreadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{'/settings/'+${user.username}}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"/></a></li>
+        <li class="breadcrumb-item active"><a th:href="@{'/settings/'+${user.username}+'/account'}">Account</a></li>
     </th:block>
 
     <div layout:fragment="content">
