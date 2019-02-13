@@ -16,8 +16,8 @@
 <div class="container">
 
     <th:block layout:fragment="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/admin/users/search}">Administration</a></li>
-        <li class="breadcrumb-item active">Users</li>
+        <li class="breadcrumb-item"><a th:href="@{/admin/users}">Administration</a></li>
+        <li class="breadcrumb-item active"><a th:href="@{/admin/users}">Users</a></li>
     </th:block>
 
     <div layout:fragment="content">
@@ -32,16 +32,19 @@
                 Search or add users.
             </div>
             <div class="col-sm-8">
-                <section class="settings-row">
-                    <h5>Add user</h5>
-                    <span><a th:href="@{/admin/users/add}">Add a new user</a> to the system.</span>
-                </section>
+                <!--<section class="settings-row">-->
+                    <!--<h5>Add user</h5>-->
+                    <!--<span><a th:href="@{/admin/users/add}">Add a new user</a> to the system.</span>-->
+                <!--</section>-->
                 <section class="settings-row">
                     <h5>Search users</h5>
                     <form class="form-inline" th:action="@{/admin/users}" method="get">
                         <label class="sr-only" for="inputSearch">Search</label>
                         <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <div class="d-flex flex-grow-1 justify-content-between">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a th:href="@{/admin/users/add}" class="btn btn-primary">Add user</a>
+                        </div>
                     </form>
                     <small class="form-text text-muted">This will search against multiple fields.</small>
                 </section>
