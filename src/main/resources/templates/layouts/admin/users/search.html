@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{settings}">
+      layout:decorate="~{admin}">
 
 <head th:fragment="head">
     <!-- Required meta tags -->
@@ -38,7 +38,7 @@
                 </section>
                 <section class="settings-row">
                     <h5>Search users</h5>
-                    <form class="form-inline" th:action="@{/admin/users/search}" method="get">
+                    <form class="form-inline" th:action="@{/admin/users}" method="get">
                         <label class="sr-only" for="inputSearch">Search</label>
                         <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
                         <button type="submit" class="btn btn-primary">Search</button>
@@ -56,7 +56,13 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${searchResults}">
-                            <th><a th:href="@{'/settings/'+${user.username}}"><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a></th>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
+                                </div>
+                            </td>
                             <td><span th:text="${user.username}"></span></td>
                             <td><span th:text="${user.email}"></span></td>
                         </tr>

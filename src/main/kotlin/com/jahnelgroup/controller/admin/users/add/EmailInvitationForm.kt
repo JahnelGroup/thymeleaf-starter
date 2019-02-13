@@ -1,4 +1,4 @@
-package com.jahnelgroup.controller.settings.administration.users.add
+package com.jahnelgroup.controller.admin.users.add
 
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank

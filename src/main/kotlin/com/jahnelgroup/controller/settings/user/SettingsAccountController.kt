@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class UserSettingsAccountController(
+class SettingsAccountController(
         private var userRepo: UserRepo,
         private var userContextService: UserContextService){
 

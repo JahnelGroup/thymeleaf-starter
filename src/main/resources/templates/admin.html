@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/header :: head"></head>
-<body th:object="${user}">
+<body th:object="${currentUser}">
 
 <div th:replace="fragments/nav :: top_navbar"></div>
 
@@ -11,35 +11,27 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="settings_left_nav">
             <div class="sidebar-sticky">
                 <div class="d-flex align-items-center px-3 mt-4 mb-1">
-                    <img th:src="@{/images/jg-logo.jpeg}" alt="Avatar" class="settings-avatar"/>
-                    <span class="ml-2 font-weight-bold" th:text="${user.lastName} + ', ' + ${user.firstName}"/>
+                    <span style="width: 40px; height: 40px;" data-feather="shield"></span>
+                    <span class="ml-2 font-weight-bold">Administration</span>
                 </div>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>User Settings</span>
+                    <span>Manage</span>
                 </h6>
-                <ul class="nav flex-column">
+                <ul class="nav flex-column mb-2">
                     <li class="nav-item">
                         <a class="nav-link"
-                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/profile')} ? 'active' : ''"
-                           th:href="@{/settings/profile}">
-                            <span data-feather="home"></span>
-                            Profile<span class="sr-only">(current)</span>
+                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/users')} ? 'active' : ''"
+                           th:href="@{/admin/users}">
+                            <span data-feather="file-text"></span>
+                            Users
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/account')} ? 'active' : ''"
-                           th:href="@{/settings/account}">
-                            <span data-feather="file"></span>
-                            Account
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/preferences')} ? 'active' : ''"
-                           th:href="@{/settings/preferences}">
-                            <span data-feather="file"></span>
-                            Preferences
+                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/groups')} ? 'active' : ''"
+                           th:href="@{/admin/groups}">
+                            <span data-feather="file-text"></span>
+                            Groups
                         </a>
                     </li>
                 </ul>

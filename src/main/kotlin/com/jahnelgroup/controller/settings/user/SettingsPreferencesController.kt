@@ -8,21 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
-class UserSettingsProfileController(
+class SettingsPreferencesController(
         private var userRepo: UserRepo,
         private var userContextService: UserContextService){
 
-    @GetMapping("/settings")
-    fun settings() = "redirect:/settings/profile"
+    // Forward is the same as redirect but the URL remains the same
+    @GetMapping("/settings/preferences")
+    fun profile() = "forward:/settings/${userContextService.currentUsername()}/preferences"
 
-    // // Forward is the same as redirect but the URL remains the same
-    @GetMapping("/settings/profile")
-    fun profile() = "forward:/settings/${userContextService.currentUsername()}/profile"
-
-    @GetMapping("/settings/{user}/profile")
+    @GetMapping("/settings/{user}/preferences")
     fun profile(model: Model, @PathVariable user: String): String{
         model.addAttribute("user", userRepo.findByUsername(user).get())
-        return "layouts/settings/user/profile"
+        return "layouts/settings/user/preferences"
     }
 
 }

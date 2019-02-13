@@ -31,18 +31,25 @@
     content: "›";
 }
 
-.breadcrumb-item.active {
-    font-weight: bold;
-    color: black;
-}
-
 .breadcrumb-item a {
     color: grey;
+}
+
+.breadcrumb-item.active {
+    font-weight: bold;
+    /*color: black;*/
 }
 
 /*
  * Profile
  */
+
+.settings-avatar {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
 
 .avatar {
     vertical-align: middle;
