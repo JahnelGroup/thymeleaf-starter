@@ -13,6 +13,8 @@
                 <div class="d-flex align-items-center px-3 mt-4 mb-1">
                     <img th:src="@{/images/jg-logo.jpeg}" alt="Avatar" class="settings-avatar"/>
                     <span class="ml-2 font-weight-bold" th:text="${user.lastName} + ', ' + ${user.firstName}"/>
+                    <!--<span th:if="${user.equals(currentUser)}" class="ml-2 font-weight-bold" th:text="'User Settings'"/>-->
+                    <!--<span th:unless="${user.equals(currentUser)}" class="ml-2 font-weight-bold" th:text="${user.lastName} + ', ' + ${user.firstName}"/>-->
                 </div>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>User Settings</span>
