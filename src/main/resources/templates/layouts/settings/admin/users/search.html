@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${searchResults}">
-                            <th><a th:href="@{/user/${user.username}}"><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a></th>
+                            <th><a th:href="@{'/settings/'+${user.username}}"><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></a></th>
                             <td><span th:text="${user.username}"></span></td>
                             <td><span th:text="${user.email}"></span></td>
                         </tr>

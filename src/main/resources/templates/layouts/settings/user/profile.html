@@ -12,11 +12,17 @@
 
     <div layout:fragment="content">
 
-        <div class="row">
+        <!-- ================================== -->
+        <!-- User Account                       -->
+        <!-- ================================== -->
+
+        <div class="row pt-3 border-top">
 
             <section class="col-sm-3">
                 <h4>Main settings</h4>
-                These are your main account settings.
+                <span th:if="${currentUser.equals(user)}">These are your main account settings.</span>
+                <span th:unless="${currentUser.equals(user)}">These account settings are for
+                    <span class="font-weight-bold" th:text="${user.firstName} + ' ' + ${user.lastName}"/>.</span>
             </section>
 
             <form class="col-sm-9" th:action="@{/user/settings}" method="post">

@@ -18,7 +18,7 @@ class UserSearchController(private var userRepo: UserRepo){
             model.addAttribute("searchResults", userRepo.searchUser(inputSearch))
             model.addAttribute("inputSearch", inputSearch)
         }
-        return "layouts/admin/users/search"
+        return "layouts/settings/admin/users/search"
     }
 
 }
