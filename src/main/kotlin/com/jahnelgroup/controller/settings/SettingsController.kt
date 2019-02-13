@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping
 @Controller
 class SettingsController(private var userRepo: UserRepo, private var userContextService: UserContextService) {
 
-
-    @GetMapping("/settings/preferences")
-    fun preferences() = "layouts/settings/preferences"
-
     @GetMapping("/settings/users")
     fun users() = "layouts/settings/users"
 
