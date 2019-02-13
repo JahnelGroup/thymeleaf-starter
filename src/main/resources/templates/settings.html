@@ -22,7 +22,7 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/profile')} ? 'active' : ''"
-                           th:href="@{/settings/profile}">
+                           th:href="@{${user.equals(currentUser) ? '/settings/profile' : '/settings/'+user.username+'/profile'}}">
                             <span data-feather="home"></span>
                             Profile<span class="sr-only">(current)</span>
                         </a>
@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/account')} ? 'active' : ''"
-                           th:href="@{/settings/account}">
+                           th:href="@{${user.equals(currentUser) ? '/settings/account' : '/settings/'+user.username+'/account'}}">
                             <span data-feather="file"></span>
                             Account
                         </a>
@@ -38,7 +38,7 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/preferences')} ? 'active' : ''"
-                           th:href="@{/settings/preferences}">
+                           th:href="@{${user.equals(currentUser) ? '/settings/preferences' : '/settings/'+user.username+'/preferences'}}">
                             <span data-feather="file"></span>
                             Preferences
                         </a>
