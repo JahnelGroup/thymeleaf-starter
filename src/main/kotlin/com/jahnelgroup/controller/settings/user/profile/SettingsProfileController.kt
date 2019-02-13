@@ -1,11 +1,14 @@
-package com.jahnelgroup.controller.settings.user
+package com.jahnelgroup.controller.settings.user.profile
 
 import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.service.context.UserContextService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import javax.validation.Valid
 
 @Controller
 class SettingsProfileController(
@@ -24,8 +27,26 @@ class SettingsProfileController(
 
     @GetMapping("/settings/{user}/profile")
     fun profile(model: Model, @PathVariable user: String): String{
+        // TODO: user may be null
         model.addAttribute("user", userRepo.findByUsername(user).get())
         return "layouts/settings/user/profile"
     }
 
+    @PostMapping("/settings/{user}/profile")
+    fun updateProfile(model: Model, @PathVariable user: String,
+            @Valid updateProfileForm: UpdateProfileForm, bindingResult: BindingResult): String{
+
+        model.mergeAttributes(model.asMap())
+
+        if( !bindingResult.hasErrors() ){
+            // TODO: user may be null
+            var user = userRepo.findByUsername(user).get()
+            user.firstName = updateProfileForm.firstName!!
+            user.lastName = updateProfileForm.lastName!!
+            userRepo.save(user)
+            model.addAttribute("updateProfileSuccessMessage", "Success!")
+        }
+
+        return "layouts/settings/user/profile"
+    }
 }

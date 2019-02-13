@@ -29,7 +29,7 @@
                 <span>This information will appear on your profile.</span>
             </section>
 
-            <form class="col-sm-9" th:action="@{/user/settings}" method="post">
+            <form class="col-sm-9" th:action="@{'/settings/' + ${user.username} +  '/profile'}" method="post">
 
                 <div class="row" style="align-items: center">
                     <div class="form-group col-sm-5">
@@ -41,7 +41,6 @@
                         <a class="href-form-control" th:href="@{/user/email}">Change Email</a>
                     </div>
                 </div>
-
 
                 <div class="form-group row">
                     <div class="col-sm-4">
@@ -63,6 +62,10 @@
                     <div class="col-sm-3">
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
+                </div>
+
+                <div class="form-group row">
+                    <div th:if="${updateProfileSuccessMessage}" class="alert alert-success col-md-4 col-sm-6 text-center" role="alert" th:text="${updateProfileSuccessMessage}"/>
                 </div>
             </form>
 
