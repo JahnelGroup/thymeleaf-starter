@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin}">
+
+<head th:fragment="head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" media="screen" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <th:block layout:fragment="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/admin/users}">Administration</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/admin/users}">Users</a></li>
+        <li class="breadcrumb-item active">Add</li>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- ================================== -->
+        <!-- Invite user                        -->
+        <!-- ================================== -->
+
+        <div class="row pt-3 border-top">
+            <div class="col-sm-3">
+                <h4>Invite user</h4>
+                Invite a new user.
+            </div>
+            <div class="col-sm-9">
+                <section>
+                    <h5>Email invitation</h5>
+                    <form class="form-inline" th:action="@{/admin/users/add/invite}" method="post" th:object="${emailInvitationForm}">
+                        <label class="sr-only" for="inviteEmail">Email</label>
+                        <input type="email" class="form-control mr-sm-2 col-4" id="inviteEmail" placeholder="Email" th:field="*{email}"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                        <button type="submit" class="btn btn-primary">Invite user</button>
+                        <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback" th:errors="*{email}">Email error.</div>
+                    </form>
+
+                    <small class="form-text text-muted">Send an Email invitation to a new user.</small>
+                    <div th:if="${inviteSuccessMessage}" class="alert alert-success col-md-4 col-sm-6 text-center" role="alert" th:text="${inviteSuccessMessage}"/>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================================== -->
+        <!-- Create user                        -->
+        <!-- ================================== -->
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <h4>Create user</h4>
+                Create a new user.
+            </div>
+            <div class="col-sm-9">
+                <section>
+                    <form th:action="@{/admin/users/add/create}" method="post" th:object="${createUserForm}">
+                        <h5>Create user</h5>
+                        <div class="form-group row col-4">
+                            <label for="createUsername">Username</label>
+                            <input type="text" class="form-control" id="createUsername" placeholder="Username" th:field="*{username}"
+                                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error.</div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="createPassword">Password</label>
+                                <input type="password" class="form-control" id="createPassword" placeholder="Password" th:field="*{password}"
+                                       th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error.</div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="passwordConfrim">Confirm Password</label>
+                                <input type="password" class="form-control" id="passwordConfrim" placeholder="Confirm Password" th:field="*{passwordConfrim}"
+                                       th:classappend="${#fields.hasErrors('passwordConfrim')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordConfrim')}" th:errors="*{passwordConfrim}">Password confirm error.</div>
+                            </div>
+                        </div>
+                        <div class="form-group row col-4">
+                            <label for="createEmail">Email</label>
+                            <input type="email" class="form-control" id="createEmail" placeholder="Email" th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error.</div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="createFirstname">First name</label>
+                                <input type="text" class="form-control" id="createFirstname" placeholder="First name" th:field="*{firstName}"
+                                       th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error.</div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="createLastname">Last name</label>
+                                <input type="text" class="form-control" id="createLastname" placeholder="Last name" th:field="*{lastName}"
+                                       th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create user</button>
+                        </div>
+
+                        <div class="form-group">
+                            <div th:if="${createSuccessMessage}" class="alert alert-success col-md-4 col-sm-6 text-center" role="alert" th:text="${createSuccessMessage}"/>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- Feather Icons : https://github.com/feathericons/feather -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+</body>
+</html>

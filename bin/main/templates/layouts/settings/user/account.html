@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{settings}">
+<body>
+
+<div class="container">
+
+    <th:block layout:fragment="myBreadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/settings}">My Settings</a></li>
+        <li class="breadcrumb-item active"><a th:href="@{/settings/account}">Account</a></li>
+    </th:block>
+    <th:block layout:fragment="otherUserBreadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{'/settings/'+${user.username}}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"/></a></li>
+        <li class="breadcrumb-item active"><a th:href="@{'/settings/'+${user.username}+'/account'}">Account</a></li>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- ================================== -->
+        <!-- User Account                       -->
+        <!-- ================================== -->
+
+        <div class="row pt-3 border-top">
+
+            <section class="col-sm-3">
+                <h4>Main settings</h4>
+                <span th:if="${currentUser.equals(user)}">These are your main account settings.</span>
+                <span th:unless="${currentUser.equals(user)}">These account settings are for
+                    <span class="font-weight-bold" th:text="${user.firstName} + ' ' + ${user.lastName}"/>.</span>
+            </section>
+
+            <form class="col-sm-9" th:action="@{/user/settings}" method="post">
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label for="inputUsername" class="font-weight-bold">Username</label>
+                        <input disabled type="text" class="form-control" id="inputUsername" placeholder="Username" th:value="*{username}">
+                    </div>
+                    <span class="help-block col-sm-12">You cannot change your Username.</span>
+                </div>
+
+                <div class="row" style="align-items: center">
+                    <div class="form-group col-sm-4">
+                        <label for="inputPassword" class="font-weight-bold">Password</label>
+                        <input disabled type="password" class="form-control" id="inputPassword" placeholder="Email" value="******************">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label>&nbsp;</label>
+                        <a class="href-form-control" th:href="@{/user/password}">Change Password</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

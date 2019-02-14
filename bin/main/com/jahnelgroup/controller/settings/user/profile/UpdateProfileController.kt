@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import javax.validation.Valid
 
 @Controller
-class SettingsProfileController(
+class UpdateProfileController(
         private var userRepo: UserRepo,
         private var userContextService: UserContextService){
 
@@ -32,7 +32,7 @@ class SettingsProfileController(
         val user = userRepo.findByUsername(user).get()
         model.addAttribute("user", user)
         model.addAttribute("updateProfileForm",
-                UpdateProfileForm(firstName = user.firstName, lastName = user.lastName))
+                UpdateProfileForm(firstName = user.firstName, lastName = user.lastName, email = user.email))
         return "layouts/settings/user/profile"
     }
 
@@ -45,6 +45,7 @@ class SettingsProfileController(
             var user = userRepo.findByUsername(user).get()
             user.firstName = updateProfileForm.firstName!!
             user.lastName = updateProfileForm.lastName!!
+            user.email = updateProfileForm.email!!
             userRepo.save(user)
             model.addAttribute("updateProfileSuccessMessage", "Success!")
         }

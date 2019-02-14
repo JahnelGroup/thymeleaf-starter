@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin}">
+
+<head th:fragment="head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" media="screen" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <th:block layout:fragment="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/admin/users}">Administration</a></li>
+        <li class="breadcrumb-item active"><a th:href="@{/admin/users}">Users</a></li>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- ================================== -->
+        <!-- Add user                           -->
+        <!-- ================================== -->
+
+        <div class="row pt-3 border-top">
+            <div class="col-sm-3">
+                <h4>Users</h4>
+                Search or add users.
+            </div>
+            <div class="col-sm-8">
+                <!--<section class="settings-row">-->
+                    <!--<h5>Add user</h5>-->
+                    <!--<span><a th:href="@{/admin/users/add}">Add a new user</a> to the system.</span>-->
+                <!--</section>-->
+                <section class="settings-row">
+                    <h5>Search users</h5>
+                    <form class="form-inline" th:action="@{/admin/users}" method="get">
+                        <label class="sr-only" for="inputSearch">Search</label>
+                        <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
+                        <div class="d-flex flex-grow-1 justify-content-between">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a th:href="@{/admin/users/add}" class="btn btn-primary">Add user</a>
+                        </div>
+                    </form>
+                    <small class="form-text text-muted">This will search against multiple fields.</small>
+                </section>
+                <div th:if="${searchResults != null}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${searchResults}">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
+                                </div>
+                            </td>
+                            <td><span th:text="${user.username}"></span></td>
+                            <td><span th:text="${user.email}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<div class="col-sm-1">-->
+                <!--<div>&nbsp;</div>-->
+                <!--<button type="submit" class="btn btn-primary">Add user</button>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- Feather Icons : https://github.com/feathericons/feather -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+</body>
+</html>

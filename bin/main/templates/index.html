@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body th:object="${currentUser}">
+
+<div th:replace="fragments/nav :: top_navbar"></div>
+
+<div role="main" class="container">
+    <div class="root-div">
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h1><span th:text="'Welcome ' +  *{firstName}"/></h1>
+            <div class="card card-body bg-light">
+                <p><span><i class="fa fa-user"></i></span> <span class="font-weight-bold" th:text="*{username}"/></p>
+                <p><span><i class="fa fa-lock"></i></span> <span class="font-weight-bold">Roles:</span></p>
+                <ul>
+                    <li th:each="auth : *{authorities}"><span th:text="${auth.id.authority}"/></li>
+                </ul>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>
