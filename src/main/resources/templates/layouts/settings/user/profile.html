@@ -27,12 +27,12 @@
                 <span>This information will appear on your profile.</span>
             </section>
 
-            <form class="col-sm-9" th:action="@{'/settings/' + ${user.username} +  '/profile'}" method="post">
+            <form class="col-sm-9" th:action="@{'/settings/' + ${user.username} +  '/profile'}" method="post" th:object="${updateProfileForm}">
 
                 <div class="row" style="align-items: center">
                     <div class="form-group col-sm-5">
                         <label for="inputEmail" class="font-weight-bold">Email</label>
-                        <input disabled type="email" class="form-control" id="inputEmail" placeholder="Email" th:value="*{email}">
+                        <input disabled type="email" class="form-control" id="inputEmail" placeholder="Email" th:value="${user.email}">
                     </div>
                     <div class="form-group col-sm-3">
                         <label>&nbsp;</label>
@@ -43,17 +43,21 @@
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <label for="inputFirstName" class="font-weight-bold">First name</label>
-                        <input type="text" class="form-control" id="inputFirstName" placeholder="First name" th:value="*{firstName}">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First name" th:field="*{firstName}"
+                               th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error.</div>
+                        <small class="form-text text-muted">Your first name as displayed on your profile.</small>
                     </div>
-                    <span class="help-block col-sm-12">Your first name as displayed on your profile.</span>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <label for="inputLastName" class="font-weight-bold">Last name</label>
-                        <input type="text" class="form-control" id="inputLastName" placeholder="Last name" th:value="*{lastName}">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last name" th:field="*{lastName}"
+                               th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error.</div>
+                        <small class="form-text text-muted">Your last name as displayed on your profile.</small>
                     </div>
-                    <span class="help-block col-sm-12">Your last name as displayed on your profile.</span>
                 </div>
 
                 <div class="form-group row">
