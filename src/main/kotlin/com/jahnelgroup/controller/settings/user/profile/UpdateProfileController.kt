@@ -19,9 +19,6 @@ class UpdateProfileController(
     @GetMapping("/settings")
     fun settings() = "redirect:/settings/profile"
 
-    @GetMapping("/settings/{user}")
-    fun settingsUser(@PathVariable user: String) = "redirect:/settings/$user/profile"
-
     // Forward is the same as redirect but the URL remains the same
     @GetMapping("/settings/profile")
     fun profile() = "forward:/settings/${userContextService.currentUsername()}/profile"
