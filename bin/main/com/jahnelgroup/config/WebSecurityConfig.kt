@@ -49,7 +49,7 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-                .antMatchers("/login*").permitAll()
+                .antMatchers("/css/**", "/js/**", "/images/**", "/login*").permitAll()
                 .anyRequest().fullyAuthenticated()
         .and()
             .csrf().disable()
