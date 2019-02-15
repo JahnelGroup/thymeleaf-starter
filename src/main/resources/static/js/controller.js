@@ -13,6 +13,7 @@ const clickHandler = (event) => {
                     $('#updatePasswordForm').replaceWith(data);
                 }else{
                     $('#updatePasswordFormCloseButton').trigger('click')
+                    $('#updatePasswordSuccessToast').toast('show')
                     //location.href = '/settings/account';
                 }
             },
