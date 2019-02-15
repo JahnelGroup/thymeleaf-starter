@@ -29,32 +29,50 @@
                     <span class="font-weight-bold" th:text="${user.firstName} + ' ' + ${user.lastName}"/>.</span>
             </section>
 
-            <form class="col-sm-9" th:action="@{/user/settings}" method="post">
+            <!-- The real form is in the modal -->
+            <div class="col-sm-9">
 
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <label for="inputUsername" class="font-weight-bold">Username</label>
                         <input disabled type="text" class="form-control" id="inputUsername" placeholder="Username" th:value="*{username}">
+                        <small class="form-text text-muted">You cannot change your Username.</small>
                     </div>
-                    <span class="help-block col-sm-12">You cannot change your Username.</span>
                 </div>
 
-                <div class="row" style="align-items: center">
-                    <div class="form-group col-sm-4">
+                <div class="form-group row" style="align-items: center">
+                    <div class=" col-sm-4">
                         <label for="inputPassword" class="font-weight-bold">Password</label>
                         <input disabled type="password" class="form-control" id="inputPassword" placeholder="Email" value="******************">
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label>&nbsp;</label>
-                        <a class="href-form-control" th:href="@{/user/password}">Change Password</a>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
+                        <!-- changePasswordModal -->
+                        <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="changePasswordModalLabel">Change password</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Ajax Fragment -->
+                                    <div th:replace="fragments/modals/updatePassword :: updatePasswordForm"></div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
-
+            </div>
         </div>
-
     </div>
-
 </div>
 
 </body>
