@@ -62,7 +62,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
-                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}+'/profile'}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
                                     <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
                                 </div>
                             </td>

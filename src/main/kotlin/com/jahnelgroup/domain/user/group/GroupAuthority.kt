@@ -12,7 +12,7 @@ data class AuthorityId(
         var authority: String = ""
 ) : Serializable
 
-@Table(name = "group_authorities")
+@Table(name = "user_group_authorities")
 @Entity
 data class GroupAuthority(
         @EmbeddedId

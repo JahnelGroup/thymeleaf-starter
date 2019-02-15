@@ -3,6 +3,7 @@ package com.jahnelgroup.service.context
 import com.jahnelgroup.domain.user.User
 import com.jahnelgroup.domain.user.UserRepo
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,7 +20,13 @@ class UserContextServiceImpl(private val userRepo: UserRepo) : UserContextServic
     override fun currentAuthorities(): Set<String> {
         var user = SecurityContextHolder.getContext().authentication.principal as
                 org.springframework.security.core.userdetails.User
+
+        currentUserDetails().authorities
+
         return user.authorities.map{ it.authority }.toSet()
     }
+
+    override
+    fun currentUserDetails(): UserDetails = SecurityContextHolder.getContext().authentication.principal as UserDetails
 
 }

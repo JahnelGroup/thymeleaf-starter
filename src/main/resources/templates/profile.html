@@ -18,9 +18,18 @@
             <div class="row justify-content-center mb-1">
                 <span th:text="'@'+*{username} + ' - Member since January 1st, 2019'"/>
             </div>
+            <!--<div class="row justify-content-center mb-1">-->
+                <!--<span th:if="*{isAdmin()}" class="badge badge-pill badge-primary">Admin</span>-->
+                <!--<span class="badge badge-pill badge-light">User</span>-->
+            <!--</div>-->
+
             <div class="row justify-content-center mb-1">
-                <span th:if="*{isAdmin()}" class="badge badge-pill badge-primary">Admin</span>
-                <span class="badge badge-pill badge-light">User</span>
+                <span th:each="auth : ${userContextService.currentUserDetails().authorities}">
+                    <th:block th:switch="${auth.getAuthority()}">
+                        <span th:case="'ROLE_ADMIN'" class="badge badge-pill badge-primary mr-2">Admin</span>
+                        <span th:case="'ROLE_USER'" class="badge badge-pill badge-light mr-2">User</span>
+                    </th:block>
+                </span>
             </div>
 
             <!--<div class="card card-body bg-light">-->

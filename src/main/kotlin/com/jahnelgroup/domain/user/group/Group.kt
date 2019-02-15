@@ -2,7 +2,7 @@ package com.jahnelgroup.domain.user.group
 
 import javax.persistence.*
 
-@Table(name = "groups")
+@Table(name = "user_groups")
 @Entity
 data class Group (
 

@@ -3,12 +3,12 @@ package com.jahnelgroup.domain.user.group
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
-@Table(name = "group_members")
+@Table(name = "user_group_members")
 @Entity
 class GroupMember (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private var id: Long,
+        private var id: Long? = null,
 
         var username: String,
 
