@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin}">
 
+<body th:object="${group}">
+
 <head th:fragment="head">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,7 +19,8 @@
 
     <th:block layout:fragment="breadcrumb">
         <li class="breadcrumb-item"><a th:href="@{/admin/groups}">Administration</a></li>
-        <li class="breadcrumb-item active"><a th:href="@{/admin/groups}">Groups</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/admin/groups}">Groups</a></li>
+        <li class="breadcrumb-item active"><a th:href="@{'/admin/groups/'+${group.id}}"><span th:text="${group.groupName}"/></a></li>
     </th:block>
 
     <div layout:fragment="content">
@@ -28,21 +31,49 @@
 
         <div class="row pt-3 border-top">
             <div class="col-sm-3">
-                <h4>Groups</h4>
-                Search and manage groups.
+                <h4>Edit Group</h4>
+                Settings to manage a group.
             </div>
             <div class="col-sm-8">
                 <section class="settings-row">
-                    <h5>Search groups</h5>
-                    <form class="form-inline" th:action="@{/admin/groups}" method="get">
-                        <label class="sr-only" for="inputSearch">Search</label>
-                        <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
-                        <div class="d-flex flex-grow-1 justify-content-between">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                            <a th:href="@{/admin/groups/add}" class="btn btn-primary">Add group</a>
-                        </div>
-                    </form>
-                    <small class="form-text text-muted">Find groups within the system.</small>
+                    <h5><span th:text="${group.groupName} + ' members'"/></h5>
+                    <!--<div th:if="${searchResults != null}">-->
+                    <div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--<tr th:each="group : ${searchResults}">-->
+                            <tr>
+                                <td><a href="#" role="button">Remove</a></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>Zgaljic, Steven</span>
+                                    </div>
+                                </td>
+                                <td><span>szgaljic</span></td>
+                                <td><span>szgaljic@jahnelgroup.com</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" role="button">Remove</a></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>Jahnel, Darrin</span>
+                                    </div>
+                                </td>
+                                <td><span>djahnel</span></td>
+                                <td><span>djahnel@jahnelgroup.com</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </section>
                 <div th:if="${searchResults != null}">
                     <table class="table table-striped">

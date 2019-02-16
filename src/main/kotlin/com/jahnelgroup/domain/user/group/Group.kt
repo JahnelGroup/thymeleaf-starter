@@ -8,7 +8,7 @@ data class Group (
 
         @field:Id
         @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-        private var id: Long? = null,
+        var id: Long? = null,
 
         var groupName: String,
 
