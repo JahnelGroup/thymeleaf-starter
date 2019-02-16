@@ -18,11 +18,11 @@ class PasswordComplexityValidator : Validator {
         if( target is CreateUserForm ){
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "Field required.")
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "", "Field required.")
-            doValidate(target.password!!, target.passwordConfirm!!, errors)
+            doValidate(target.password, target.passwordConfirm, errors)
         }else if( target is UpdatePasswordForm ){
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "Field required.")
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "", "Field required.")
-            doValidate(target.password!!, target.passwordConfirm!!, errors)
+            doValidate(target.password, target.passwordConfirm, errors)
         }
     }
 

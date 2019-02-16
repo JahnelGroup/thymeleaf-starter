@@ -9,6 +9,8 @@ interface GroupRepo : JpaRepository<Group, Long>{
 
     fun findByGroupName(groupName: String): Optional<Group>
 
+    fun findByGroupNameLike(groupName: String): List<Group>
+
     @Query("""
         SELECT g
         FROM Group g JOIN GroupMember gm ON g.id = gm.group.id

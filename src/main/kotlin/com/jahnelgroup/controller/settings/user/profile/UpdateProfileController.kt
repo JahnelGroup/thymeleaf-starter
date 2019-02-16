@@ -26,10 +26,10 @@ class UpdateProfileController(
     @GetMapping("/settings/{user}/profile")
     fun profile(model: Model, @PathVariable user: String): String{
         // TODO: user may be null
-        val user = userRepo.findByUsername(user).get()
-        model.addAttribute("user", user)
+        val u = userRepo.findByUsername(user).get()
+        model.addAttribute("user", u)
         model.addAttribute("updateProfileForm",
-                UpdateProfileForm(firstName = user.firstName, lastName = user.lastName, email = user.email))
+                UpdateProfileForm(firstName = u.firstName, lastName = u.lastName, email = u.email))
         return "layouts/settings/user/profile"
     }
 
@@ -39,18 +39,17 @@ class UpdateProfileController(
 
         if( !bindingResult.hasErrors() ){
             // TODO: user may be null
-            var user = userRepo.findByUsername(user).get()
-            user.firstName = updateProfileForm.firstName!!
-            user.lastName = updateProfileForm.lastName!!
-            user.email = updateProfileForm.email!!
-            userRepo.save(user)
+            var u = userRepo.findByUsername(user).get()
+            u.firstName = updateProfileForm.firstName!!
+            u.lastName = updateProfileForm.lastName!!
+            u.email = updateProfileForm.email!!
+            userRepo.save(u)
             model.addAttribute("updateProfileSuccessMessage", "Success!")
         }
 
         // TODO: user may be null
-        val user = userRepo.findByUsername(user).get()
-        model.addAttribute("user", user)
-//        model.addAttribute("updateProfileForm", updateProfileForm)
+        val u = userRepo.findByUsername(user).get()
+        model.addAttribute("user", u)
 
         return "layouts/settings/user/profile"
     }

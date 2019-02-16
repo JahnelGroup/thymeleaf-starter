@@ -16,54 +16,49 @@
 <div class="container">
 
     <th:block layout:fragment="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/admin/users}">Administration</a></li>
-        <li class="breadcrumb-item active"><a th:href="@{/admin/users}">Users</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/admin/groups}">Administration</a></li>
+        <li class="breadcrumb-item active"><a th:href="@{/admin/groups}">Groups</a></li>
     </th:block>
 
     <div layout:fragment="content">
 
         <!-- ================================== -->
-        <!-- Search Users                       -->
+        <!-- Search Groups                      -->
         <!-- ================================== -->
 
         <div class="row pt-3 border-top">
             <div class="col-sm-3">
-                <h4>Users</h4>
-                Search and manage users.
+                <h4>Groups</h4>
+                Search and manage groups.
             </div>
             <div class="col-sm-8">
                 <section class="settings-row">
-                    <h5>Search users</h5>
-                    <form class="form-inline" th:action="@{/admin/users}" method="get">
+                    <h5>Search groups</h5>
+                    <form class="form-inline" th:action="@{/admin/groups}" method="get">
                         <label class="sr-only" for="inputSearch">Search</label>
                         <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
                         <div class="d-flex flex-grow-1 justify-content-between">
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a th:href="@{/admin/users/add}" class="btn btn-primary">Add user</a>
+                            <a th:href="@{/admin/groups/add}" class="btn btn-primary">Add group</a>
                         </div>
                     </form>
-                    <small class="form-text text-muted">This will search against multiple fields.</small>
+                    <small class="form-text text-muted">Find groups within the system.</small>
                 </section>
                 <div th:if="${searchResults != null}">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Email</th>
+                            <th>Group</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${searchResults}">
+                        <tr th:each="group : ${searchResults}">
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
-                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}+'/profile'}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
-                                    <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
+                                    <a th:href="@{'/admin/groups/' + group.id}"><span th:text="${group.groupName}"/></a>
+                                    <!--<span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>-->
                                 </div>
                             </td>
-                            <td><span th:text="${user.username}"></span></td>
-                            <td><span th:text="${user.email}"></span></td>
                         </tr>
                         </tbody>
                     </table>

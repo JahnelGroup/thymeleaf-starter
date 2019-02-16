@@ -46,9 +46,9 @@ class UpdateAccountController(
             PasswordComplexityValidator().validate(updatePasswordForm, bindingResult)
             if( !bindingResult.hasErrors() ){
                 // TODO: user may be null
-                var user = userRepo.findByUsername(user).get()
-                user.password = updatePasswordForm.password
-                userService.updatePassword(user)
+                var u = userRepo.findByUsername(user).get()
+                u.password = updatePasswordForm.password
+                userService.updatePassword(u)
             }
         }
 
@@ -56,8 +56,8 @@ class UpdateAccountController(
             response.setHeader("hasErrors", "true")
         }
 
-        var user = userRepo.findByUsername(user).get()
-        model.addAttribute("user", user)
+        var u = userRepo.findByUsername(user).get()
+        model.addAttribute("user", u)
 
         return "fragments/modals/updatePassword :: updatePasswordForm"
     }

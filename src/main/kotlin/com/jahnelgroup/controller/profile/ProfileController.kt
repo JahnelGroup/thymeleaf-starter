@@ -20,9 +20,9 @@ class ProfileController(
     @GetMapping("/profile/{user}")
     fun profile(model: Model,  @PathVariable user: String): String{
         // TODO: user may be null
-        val user = userRepo.findByUsername(user).get()
-        model.addAttribute("user", user)
-        model.addAttribute("groups", groupRepo.findAllByUsername(user.username))
+        val u = userRepo.findByUsername(user).get()
+        model.addAttribute("user", u)
+        model.addAttribute("groups", groupRepo.findAllByUsername(u.username))
         return "profile"
     }
 
