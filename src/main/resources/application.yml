@@ -13,6 +13,10 @@ spring:
     password: rootpassword
     hikari.initialization-fail-timeout: 0
 
+  # https://flywaydb.org/documentation/callbacks.html
+  flyway:
+    locations: classpath:/db/migration,/db/devdata
+
 logging:
   level:
     org.springframework.security: INFO

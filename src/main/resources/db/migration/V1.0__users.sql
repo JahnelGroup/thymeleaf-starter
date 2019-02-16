@@ -33,22 +33,3 @@ create table `user_group_members` (
   group_id bigint not null,
   constraint fk_group_members_group foreign key(group_id) references user_groups(id)
 );
-
-insert into `user_groups` (id, group_name) values
-  (1, 'Admin'),
-  (2, 'User');
-
-insert into `user_group_authorities` (group_id, authority) values
-  (1, 'ROLE_ADMIN'),
-  (2, 'ROLE_USER');
-
-insert into `users` (username, password, email, first_name, last_name, enabled) values
-  ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'szgaljic@jahnelgroup.com', 'Steven', 'Zgaljic', true),
-  ('darrin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'djahnel@jahnelgroup.com', 'Darrin', 'Jahnel', true),
-  ('jason', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'jasonjahnel@jahnelgroup.com', 'Jason', 'Jahnel', true);
-
-insert into `user_group_members` (username, group_id) values
-  ('steven', 1),
-  ('steven', 2),
-  ('darrin', 2),
-  ('jason',  2);

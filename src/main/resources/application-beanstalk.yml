@@ -8,6 +8,9 @@ spring:
     password: ${RDS_PASSWORD}
     hikari.initialization-fail-timeout: 1
 
+  # https://flywaydb.org/documentation/callbacks.html
+  flyway:
+    locations: classpath:/db/migration
 
 logging:
   level:
