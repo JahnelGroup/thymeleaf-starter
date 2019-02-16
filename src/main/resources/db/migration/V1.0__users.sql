@@ -35,8 +35,8 @@ create table `user_group_members` (
 );
 
 insert into `user_groups` (id, group_name) values
-  (1, 'Admins'),
-  (2, 'Users');
+  (1, 'Admin'),
+  (2, 'User');
 
 insert into `user_group_authorities` (group_id, authority) values
   (1, 'ROLE_ADMIN'),
@@ -50,5 +50,5 @@ insert into `users` (username, password, email, first_name, last_name, enabled) 
 insert into `user_group_members` (username, group_id) values
   ('steven', 1),
   ('steven', 2),
-  ('darrin', 1),
-  ('jason',  1);
+  ('darrin', 2),
+  ('jason',  2);

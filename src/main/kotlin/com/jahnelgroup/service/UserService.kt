@@ -33,4 +33,8 @@ class UserService(
         userRepo.save(user)
     }
 
+    fun getUserGroups(user: User){
+
+    }
+
 }
