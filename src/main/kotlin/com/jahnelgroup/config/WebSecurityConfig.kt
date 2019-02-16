@@ -61,6 +61,7 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/images/**", "/login*").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated()
         .and()
             .csrf().disable()
