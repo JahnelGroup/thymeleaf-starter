@@ -93,10 +93,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${searchResults}">
-                            <td><a href="#" role="button">Add</a></td>
                             <td>
+                                <a th:href="@{'/admin/groups/'+${group.id}+'/addMember?username='+${user.username}}" class="btn btn-sm btn-primary" role="button">Add</a>
+                            </td>
+                            <td class="d-flex align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}" th:text=""><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
                                     <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}+'/profile'}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
                                     <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
                                 </div>

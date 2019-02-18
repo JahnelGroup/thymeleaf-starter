@@ -13,8 +13,9 @@ class GroupMemberJdbcRepo(private var jdbcTemplate: NamedParameterJdbcTemplate) 
             jdbcTemplate.query("""
                 SELECT u.username, u.first_name, u.last_name, u.email
                 FROM users u
-                JOIN user_group_members ugm ON ugm.username = u.username
-                WHERE ugm.group_id != :groupId
+                JOIN user_group_members ugm on u.username = ugm.username
+                LEFT JOIN user_group_members ugm2 ON u.username = ugm2.username AND ugm2.group_id = :groupId
+                WHERE ugm.group_id <> :groupId AND ugm2.id IS NULL
             """.trimIndent(),
                     MapSqlParameterSource(mapOf("groupId" to groupId)),
                     BeanPropertyRowMapper<User>(User::class.java))
@@ -23,15 +24,18 @@ class GroupMemberJdbcRepo(private var jdbcTemplate: NamedParameterJdbcTemplate) 
             jdbcTemplate.query("""
                 SELECT u.username, u.first_name, u.last_name, u.email
                 FROM users u
-                JOIN user_group_members ugm ON ugm.username = u.username
-                WHERE ugm.group_id != :groupId AND (
-                    lower(u.username) like %:term% or
-                    lower(u.firstName) like %:term% or
-                    lower(u.lastName) like %:term% or
-                    lower(u.email) like %:term%
-                )
+                JOIN user_group_members ugm on u.username = ugm.username
+                LEFT JOIN user_group_members ugm2 ON u.username = ugm2.username AND ugm2.group_id = :groupId
+                WHERE
+                    (
+                        lower(u.username) like :term or
+                        lower(u.first_name) like :term or
+                        lower(u.last_name) like :term or
+                        lower(u.email) like :term
+                    )
+                    AND ugm.group_id <> :groupId AND ugm2.id IS NULL
             """.trimIndent(),
-                    MapSqlParameterSource(mapOf("groupId" to groupId, "term" to term)),
+                    MapSqlParameterSource(mapOf("groupId" to groupId, "term" to "%$term%")),
                     BeanPropertyRowMapper<User>(User::class.java))
 
 }

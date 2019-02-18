@@ -33,8 +33,18 @@ class UserService(
         userRepo.save(user)
     }
 
-    fun getUserGroups(user: User){
+    fun addUserToGroup(username: String, groupId: Long){
+        var group = groupRepo.findById(groupId).get()
+        groupMemberRepo.save(GroupMember(username = username, group = group))
+        logger.info("user {} added to group", username, group.groupName)
+    }
 
+    fun removeUserFromGroup(username: String, groupId: Long){
+//        groupMemberRepo.deleteById(
+//            groupRepo.findAllByUsername(username).find {
+//                it.id == groupId
+//            }!!.id!!
+//        )
     }
 
 }
