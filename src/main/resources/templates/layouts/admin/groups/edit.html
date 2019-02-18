@@ -37,8 +37,7 @@
             <div class="col-sm-8">
                 <section class="settings-row">
                     <h5><span th:text="${group.groupName} + ' members'"/></h5>
-                    <!--<div th:if="${searchResults != null}">-->
-                    <div>
+                    <div th:if="${members != null}">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -49,51 +48,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--<tr th:each="group : ${searchResults}">-->
-                            <tr>
+                            <!--<tr >-->
+                            <tr th:each="member : ${members}">
                                 <td><a href="#" role="button">Remove</a></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span>Zgaljic, Steven</span>
+                                        <a th:if="${member.equals(currentUser)}" th:href="@{/settings}"><span th:text="${member.lastName} + ', ' + ${member.firstName}"></span></a>
+                                        <a th:unless="${member.equals(currentUser)}" th:href="@{'/settings/'+${member.username}+'/profile'}"><span th:text="${member.lastName} + ', ' + ${member.firstName}"></span></a>
+                                        <span th:if="${member.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
                                     </div>
                                 </td>
-                                <td><span>szgaljic</span></td>
-                                <td><span>szgaljic@jahnelgroup.com</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" role="button">Remove</a></td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span>Jahnel, Darrin</span>
-                                    </div>
-                                </td>
-                                <td><span>djahnel</span></td>
-                                <td><span>djahnel@jahnelgroup.com</span></td>
+                                <td><span th:text="${member.username}"/></td>
+                                <td><span th:text="${member.email}"/></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-
                 </section>
-                <div th:if="${searchResults != null}">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Group</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="group : ${searchResults}">
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <a th:href="@{'/admin/groups/' + ${group.id}}"><span th:text="${group.groupName}"/></a>
-                                    <!--<span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>-->
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
         </div>
     </div>
