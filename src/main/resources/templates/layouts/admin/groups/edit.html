@@ -66,6 +66,52 @@
                     </div>
                 </section>
 
+
+
+
+
+                <section class="settings-row">
+                    <h5>Search users</h5>
+                    <form class="form-inline" th:action="@{/admin/users}" method="get">
+                        <label class="sr-only" for="inputSearch">Search</label>
+                        <input type="text" class="form-control mr-sm-2 col-4" id="inputSearch" name="inputSearch" placeholder="Search" th:value="${inputSearch}">
+                        <div class="d-flex flex-grow-1 justify-content-between">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a th:href="@{/admin/users/add}" class="btn btn-primary">Add user</a>
+                        </div>
+                    </form>
+                    <small class="form-text text-muted">This will search against multiple fields.</small>
+                </section>
+                <div th:if="${searchResults != null}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${searchResults}">
+                            <td><a href="#" role="button">Add</a></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <a th:if="${user.equals(currentUser)}" th:href="@{/settings}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <a th:unless="${user.equals(currentUser)}" th:href="@{'/settings/'+${user.username}+'/profile'}"><span th:text="${user.lastName} + ', ' + ${user.firstName}"></span></a>
+                                    <span th:if="${user.equals(currentUser)}" class="badge badge-pill badge-primary ml-2">You</span>
+                                </div>
+                            </td>
+                            <td><span th:text="${user.username}"></span></td>
+                            <td><span th:text="${user.email}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
             </div>
         </div>
     </div>

@@ -16,9 +16,18 @@ class AdminGroupEditController(
 ){
 
     @GetMapping("/admin/groups/{groupId}")
-    fun search(model: Model, @PathVariable groupId: Long): String {
+    fun search(model: Model, @PathVariable groupId: Long, @RequestParam inputSearch: String?): String {
         model.addAttribute("group", groupRepo.findById(groupId).get())
         model.addAttribute("members", userRepo.findByGroupId(groupId))
+
+        // search users
+        model.addAttribute("inputSearch", inputSearch)
+        if(!inputSearch.isNullOrBlank()){
+            model.addAttribute("searchResults", userRepo.searchUser(inputSearch!!))
+        }else{
+            model.addAttribute("searchResults", userRepo.findAll())
+        }
+
         return "layouts/admin/groups/edit"
     }
 
