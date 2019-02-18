@@ -49,4 +49,17 @@ class AdminGroupEditController(
         return "layouts/admin/groups/edit"
     }
 
+    @GetMapping("/admin/groups/{groupId}/removeMember")
+    fun removeMember(model: Model, @PathVariable groupId: Long, @RequestParam username: String): String{
+        userService.removeUserFromGroup(username, groupId)
+
+        model.addAttribute("group", groupRepo.findById(groupId).get())
+        model.addAttribute("members", userRepo.findByGroupId(groupId))
+
+        // TODO: Should retain inputSearch
+        model.addAttribute("searchResults", groupMemberJdbcRepo.searchNonMembers(groupId))
+
+        return "layouts/admin/groups/edit"
+    }
+
 }

@@ -50,7 +50,9 @@
                             <tbody>
                             <!--<tr >-->
                             <tr th:each="member : ${members}">
-                                <td><a href="#" role="button">Remove</a></td>
+                                <td>
+                                    <a th:href="@{'/admin/groups/'+${group.id}+'/removeMember?username='+${member.username}}" class="btn btn-sm btn-primary" role="button">Remove</a>
+                                </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <a th:if="${member.equals(currentUser)}" th:href="@{/settings}"><span th:text="${member.lastName} + ', ' + ${member.firstName}"></span></a>

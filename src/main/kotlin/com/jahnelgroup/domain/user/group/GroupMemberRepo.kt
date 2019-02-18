@@ -6,5 +6,7 @@ interface GroupMemberRepo : JpaRepository<GroupMember, Long>{
 
     fun findByUsername(username: String): List<GroupMember>
 
+    fun deleteByUsernameAndGroupId(username: String, id: Long)
+
 }
 
