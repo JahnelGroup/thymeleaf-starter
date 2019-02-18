@@ -1,6 +1,7 @@
 package com.jahnelgroup.controller.admin.groups.edit
 
 import com.jahnelgroup.domain.user.UserRepo
+import com.jahnelgroup.domain.user.group.GroupMemberJdbcRepo
 import com.jahnelgroup.domain.user.group.GroupMemberRepo
 import com.jahnelgroup.domain.user.group.GroupRepo
 import org.springframework.stereotype.Controller
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class AdminGroupEditController(
         private var groupRepo: GroupRepo,
+        private var groupMemberJdbcRepo: GroupMemberJdbcRepo,
         private var userRepo: UserRepo
 ){
 
@@ -22,12 +24,13 @@ class AdminGroupEditController(
 
         // search users
         model.addAttribute("inputSearch", inputSearch)
-        if(!inputSearch.isNullOrBlank()){
-            model.addAttribute("searchResults", userRepo.searchUser(inputSearch!!))
-        }else{
-            model.addAttribute("searchResults", userRepo.findAll())
-        }
-
+        model.addAttribute("searchResults",
+                if( inputSearch != null ) {
+                    groupMemberJdbcRepo.searchNonMembers(groupId, inputSearch)
+                }else {
+                    groupMemberJdbcRepo.searchNonMembers(groupId)
+                }
+        )
         return "layouts/admin/groups/edit"
     }
 

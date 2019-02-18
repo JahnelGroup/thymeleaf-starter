@@ -22,7 +22,7 @@ class UserService(
     // TODO: only Admin should be able to call this
     fun createUser(user: User){
         user.password = passwordEncoder.encode(user.password)
-        groupMemberRepo.save(GroupMember(username = user.username, group = groupRepo.findByGroupName("Users").get()))
+        groupMemberRepo.save(GroupMember(username = user.username, group = groupRepo.findByGroupName("User").get()))
         logger.info("createUser: {}", user)
         userRepo.save(user)
     }
