@@ -1,7 +1,9 @@
 package com.jahnelgroup.domain.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
 @Table(name = "users")
 @Entity

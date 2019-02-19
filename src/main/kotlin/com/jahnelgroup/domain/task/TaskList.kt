@@ -7,13 +7,15 @@ import javax.persistence.*
 @Entity
 data class TaskList(
 
-        var title: String,
+        var title: String
 
-        @field:OneToMany(
+): AbstractEntity(){
+
+        @OneToMany(
                 fetch = FetchType.EAGER,
                 cascade = [(CascadeType.ALL)],
                 orphanRemoval = true,
                 mappedBy = "taskList")
         var tasks: Set<Task> = emptySet()
 
-): AbstractEntity()
+}

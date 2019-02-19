@@ -10,8 +10,11 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <h1><span th:text="'Welcome ' +  *{firstName}"/></h1>
-            <div class="card card-body bg-light">
-                Todo List
+            <div th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="card card-body bg-light">
+                <span th:text="${taskList.title}"/>
+                <ul>
+                    <li th:each="task : ${taskList.tasks}" th:text="${task.description}"/>
+                </ul>
             </div>
         </main>
 

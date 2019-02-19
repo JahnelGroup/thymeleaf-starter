@@ -11,9 +11,11 @@ data class Task(
 
         var description: String,
 
-        var completed: Boolean,
+        var completed: Boolean
 
-        @field:ManyToOne
-        var taskList: TaskList
+): AbstractEntity(){
 
-): AbstractEntity()
+        @ManyToOne
+        var taskList: TaskList? = null
+
+}
