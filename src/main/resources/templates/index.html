@@ -16,14 +16,31 @@
         <div class="d-flex justify-content-center row">
             <div th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="card card-body bg-light col-lg-2 col-md-4 col-sm-6 m-2 p-2">
                 <span class="font-weight-bold" th:text="${taskList.title}"/>
-                <ul>
-                    <li th:each="task : ${taskList.tasks}" th:text="${task.description}"/>
-                </ul>
+                <div class="checkbox" th:each="task : ${taskList.tasks}">
+                    <label><input type="checkbox" value="" th:checked="${task.completed}" th:text="${task.description}"/></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- changePasswordModal -->
+        <div class="modal fade" id="editTaskListModal" tabindex="-1" role="dialog" aria-labelledby="editTaskListModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTaskListModalLabel">$Title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Ajax Fragment -->
+                    <div th:replace="fragments/modals/editTaskList :: editTaskListForm"></div>
+
+                </div>
             </div>
         </div>
 
     </div>
-
 
     <!--<div class="root-div">-->
 
