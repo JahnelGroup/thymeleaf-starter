@@ -18,7 +18,12 @@ create unique index ix_auth_username on authorities (username,authority);
 
 create table `user_groups` (
   id bigint auto_increment primary key,
-  group_name varchar(50) not null
+  group_name varchar(50) not null,
+  created_by varchar(50) not null,
+  created_datetime timestamp(2) not null,
+  last_modified_by varchar(50) not null,
+  last_modified_datetime timestamp(2) not null,
+  version smallint not null
 );
 
 create table `user_group_authorities` (
@@ -31,5 +36,10 @@ create table `user_group_members` (
   id bigint auto_increment primary key,
   username varchar(50) not null,
   group_id bigint not null,
+  created_by varchar(50) not null,
+  created_datetime timestamp(2) not null,
+  last_modified_by varchar(50) not null,
+  last_modified_datetime timestamp(2) not null,
+  version smallint not null,
   constraint fk_group_members_group foreign key(group_id) references user_groups(id)
 );

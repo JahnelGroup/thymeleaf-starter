@@ -37,6 +37,10 @@ flyway {
     url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
     user = 'root'
 	password = 'rootpassword'
+	locations = [
+		'filesystem:src/main/resources/db/migration',
+		'filesystem:src/main/resources/db/devdata'
+	]
 }
 
 apply plugin: 'kotlin'
