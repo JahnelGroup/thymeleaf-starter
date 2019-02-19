@@ -68,11 +68,12 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
         .formLogin()
             .loginPage("/login.html")
             .defaultSuccessUrl("/")
+
         .and()
             .logout()
             .clearAuthentication(true)
             .invalidateHttpSession(true)
             .logoutSuccessUrl("/")
-        .and().exceptionHandling().accessDeniedPage("/accessDenied.html")
+        .and().exceptionHandling().accessDeniedPage("/denied.html")
     }
 }
