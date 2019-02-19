@@ -1,6 +1,6 @@
 package com.jahnelgroup.controller
 
-import com.jahnelgroup.service.context.UserContextService
+import com.jahnelgroup.domain.context.UserContextService
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ModelAttribute
 

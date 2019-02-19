@@ -1,4 +1,4 @@
-package com.jahnelgroup.service.context
+package com.jahnelgroup.domain.context
 
 import com.jahnelgroup.domain.user.User
 import com.jahnelgroup.domain.user.UserRepo

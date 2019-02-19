@@ -1,4 +1,4 @@
-package com.jahnelgroup.service.context
+package com.jahnelgroup.domain.context
 
 import org.springframework.stereotype.Component
 import java.time.Instant

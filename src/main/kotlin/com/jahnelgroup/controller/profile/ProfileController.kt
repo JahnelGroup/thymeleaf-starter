@@ -2,7 +2,7 @@ package com.jahnelgroup.controller.profile
 
 import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.domain.user.group.GroupRepo
-import com.jahnelgroup.service.context.UserContextService
+import com.jahnelgroup.domain.context.UserContextService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping

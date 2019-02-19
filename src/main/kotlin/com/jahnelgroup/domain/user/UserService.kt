@@ -1,8 +1,6 @@
-package com.jahnelgroup.service
+package com.jahnelgroup.domain.user
 
 import com.jahnelgroup.config.loggerFor
-import com.jahnelgroup.domain.user.User
-import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.domain.user.group.GroupMember
 import com.jahnelgroup.domain.user.group.GroupMemberRepo
 import com.jahnelgroup.domain.user.group.GroupRepo

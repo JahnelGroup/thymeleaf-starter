@@ -2,7 +2,7 @@ package com.jahnelgroup.controller.admin.users.add
 
 import com.jahnelgroup.config.loggerFor
 import com.jahnelgroup.domain.user.UserRepo
-import com.jahnelgroup.service.UserService
+import com.jahnelgroup.domain.user.UserService
 import com.jahnelgroup.validator.PasswordComplexityValidator
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

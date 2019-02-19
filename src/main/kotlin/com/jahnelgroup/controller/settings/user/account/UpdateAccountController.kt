@@ -1,12 +1,11 @@
 package com.jahnelgroup.controller.settings.user.account
 
 import com.jahnelgroup.domain.user.UserRepo
-import com.jahnelgroup.service.UserService
-import com.jahnelgroup.service.context.UserContextService
+import com.jahnelgroup.domain.user.UserService
+import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.validator.PasswordComplexityValidator
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.ui.set
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute

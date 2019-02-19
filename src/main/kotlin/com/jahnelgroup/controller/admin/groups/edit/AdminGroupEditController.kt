@@ -2,9 +2,8 @@ package com.jahnelgroup.controller.admin.groups.edit
 
 import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.domain.user.group.GroupMemberJdbcRepo
-import com.jahnelgroup.domain.user.group.GroupMemberRepo
 import com.jahnelgroup.domain.user.group.GroupRepo
-import com.jahnelgroup.service.UserService
+import com.jahnelgroup.domain.user.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,7 +21,7 @@ class AdminGroupEditController(
     @GetMapping("/admin/groups/{groupId}")
     fun search(model: Model, @PathVariable groupId: Long, @RequestParam inputSearch: String?): String {
         model.addAttribute("group", groupRepo.findById(groupId).get())
-        model.addAttribute("members", userRepo.findByGroupId(groupId))
+        model.addAttribute("members", groupMemberJdbcRepo.searchMembers(groupId))
 
         // search users
         model.addAttribute("inputSearch", inputSearch)
@@ -41,7 +40,7 @@ class AdminGroupEditController(
         userService.addUserToGroup(username, groupId)
 
         model.addAttribute("group", groupRepo.findById(groupId).get())
-        model.addAttribute("members", userRepo.findByGroupId(groupId))
+        model.addAttribute("members", groupMemberJdbcRepo.searchMembers(groupId))
 
         // TODO: Should retain inputSearch
         model.addAttribute("searchResults", groupMemberJdbcRepo.searchNonMembers(groupId))
@@ -54,7 +53,7 @@ class AdminGroupEditController(
         userService.removeUserFromGroup(username, groupId)
 
         model.addAttribute("group", groupRepo.findById(groupId).get())
-        model.addAttribute("members", userRepo.findByGroupId(groupId))
+        model.addAttribute("members", groupMemberJdbcRepo.searchMembers(groupId))
 
         // TODO: Should retain inputSearch
         model.addAttribute("searchResults", groupMemberJdbcRepo.searchNonMembers(groupId))
