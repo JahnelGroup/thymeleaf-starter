@@ -22,11 +22,29 @@ insert ignore into `user_group_members` (id, username, group_id, created_by, cre
   (5, 'jason',  3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 );
 
 insert ignore into `task_lists` (id, title, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
-  (1, 'Shopping list', 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 );
+  (1, 'Shopping list' , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (2, 'Todo list'     , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (3, 'Reading'       , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (4, 'Place to go'   , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (5, 'BBall Drills'  , 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );
 
 insert ignore into `tasks` (id, description, completed, task_list_id, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
-  (1, 'Milk', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (2, 'Eggs', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (3, 'Bread', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (4, 'Cereal', true, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (5, 'Fruits', true, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 );
+  (1, 'Milk'                    , false , 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (2, 'Eggs'                    , false , 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (3, 'Bread'                   , false , 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (4, 'Cereal'                  , true  , 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (5, 'Fruits'                  , true  , 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (6, 'Repair leaky faucet'     , false , 2, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (7, 'Fix yard door'           , false , 2, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (8, 'Replace porch lights'    , true  , 2, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (9, 'Leading digital'         , false , 3, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (10, 'Blitzscaling'           , true  , 3, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (11, 'Sneaky Pete\'s'         , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (12, 'Pier 141'               , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (13, 'Bar Louies'             , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (14, 'House of Blues'         , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (15 , '21 Cones'              , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
+  (16, 'Pivot Shooting'         , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
+  (17, 'Chase Down Layups'      , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
+  (18, 'Pressure'               , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
+  (19, 'Dribble Knockout'       , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );

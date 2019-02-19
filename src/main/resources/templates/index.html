@@ -5,20 +5,39 @@
 
 <div th:replace="fragments/nav :: top_navbar"></div>
 
-<div role="main" class="container">
-    <div class="root-div">
+<div role="main" class="container-fluid">
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <h1><span th:text="'Welcome ' +  *{firstName}"/></h1>
-            <div th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="card card-body bg-light">
-                <span th:text="${taskList.title}"/>
+    <div class="root-div">
+        <div class="d-flex justify-content-center row my-3">
+            <div class="col-6">
+                <input type="text" class="form-control" id="newTaskDescription" placeholder="Take a note..."/>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center row">
+            <div th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="card card-body bg-light col-lg-2 col-md-4 col-sm-6 m-2 p-2">
+                <span class="font-weight-bold" th:text="${taskList.title}"/>
                 <ul>
                     <li th:each="task : ${taskList.tasks}" th:text="${task.description}"/>
                 </ul>
             </div>
-        </main>
+        </div>
 
     </div>
+
+
+    <!--<div class="root-div">-->
+
+        <!--<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">-->
+            <!--<h1><span th:text="'Welcome ' +  *{firstName}"/></h1>-->
+            <!--<div th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="card card-body bg-light col-lg-2">-->
+                <!--<span th:text="${taskList.title}"/>-->
+                <!--<ul>-->
+                    <!--<li th:each="task : ${taskList.tasks}" th:text="${task.description}"/>-->
+                <!--</ul>-->
+            <!--</div>            -->
+        <!--</main>-->
+
+    <!--</div>-->
 </div>
 
 <div th:replace="fragments/footer"></div>
