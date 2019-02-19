@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import javax.sql.DataSource
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect
+import org.springframework.security.authentication.BadCredentialsException
+
+
 
 /**
  * Expression-Based Access Control
@@ -69,6 +72,14 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
                 // TODO: remove .html
             .loginPage("/login.html")
             .defaultSuccessUrl("/")
+            .failureHandler { request, response, exception ->
+                var errMsg = "Something went wrong."
+                if (exception::class.java.isAssignableFrom(BadCredentialsException::class.java)) {
+                    errMsg = "Invalid username or password."
+                }
+                request.getSession().setAttribute("loginMessage", errMsg)
+                response.sendRedirect("/login.html")
+            }
 
         .and()
             .logout()

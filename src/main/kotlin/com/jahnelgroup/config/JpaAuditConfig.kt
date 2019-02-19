@@ -25,7 +25,7 @@ class JpaAuditConfig {
     @Bean
     fun userContextProvider(userContextService: UserContextService): AuditorAware<String> {
         return AuditorAware<String>{
-            Optional.of(userContextService.currentUsername())
+            Optional.of(userContextService.currentUsername()!!)
         }
     }
 
