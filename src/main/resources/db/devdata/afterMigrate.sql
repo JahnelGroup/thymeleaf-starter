@@ -20,3 +20,13 @@ insert ignore into `user_group_members` (id, username, group_id, created_by, cre
   (3, 'steven', 3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (4, 'darrin', 3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (5, 'jason',  3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 );
+
+insert ignore into `task_lists` (id, title, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
+  (1, 'Shopping list', 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 );
+
+insert ignore into `tasks` (id, description, completed, task_list_id, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
+  (1, 'Milk', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (2, 'Eggs', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (3, 'Bread', false, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (4, 'Cereal', true, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (5, 'Fruits', true, 1, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 );
