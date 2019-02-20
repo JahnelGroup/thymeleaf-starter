@@ -23,20 +23,8 @@
             </div>
         </div>
 
-        <!-- changePasswordModal -->
-        <div class="modal fade" id="editTaskListModal" tabindex="-1" role="dialog" aria-labelledby="editTaskListModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTaskListModalLabel">$Title</h5>
-                    </div>
-
-                    <!-- Ajax Fragment -->
-                    <div th:replace="fragments/modals/editTaskList :: editTaskListForm"></div>
-
-                </div>
-            </div>
-        </div>
+        <!-- Ajax Fragment (Pop-up Modal) -->
+        <div th:replace="fragments/modals/editTaskList :: editTaskListForm"></div>
 
     </div>
 

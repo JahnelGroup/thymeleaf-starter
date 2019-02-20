@@ -4,8 +4,8 @@ var openEditTaskList = function(taskListId){
         url: '/tasklist/'+taskListId,
         type: 'get',
         success: function(data, textStatus, xhr) {
+            $('#editTaskListModal').replaceWith(data);
             $("#editTaskListModal").modal("show");
-            $('#editTaskListForm').replaceWith(data);
         }
     });
 
@@ -53,7 +53,7 @@ const clickHandler = (event) => {
     else if(target.classList.contains('task-list-task-description')){
         openEditTaskList(target.parentElement.parentElement.firstElementChild.value);
     }
-    
+
 }
 
 export { clickHandler }

@@ -4,26 +4,29 @@
 
 <div class="container">
 
-    <form th:fragment="editTaskListForm" id="editTaskListForm" method="post">
-        <div class="modal-body">
-            <div class="row">
-                <div class="form-group col-6">
-                    <label for="createPassword">Password</label>
-                    <input type="password" class="form-control" id="createPassword" placeholder="Password">
-
+    <div th:fragment="editTaskListForm" class="modal fade" id="editTaskListModal" tabindex="-1" role="dialog" aria-labelledby="editTaskListModalLabel" aria-hidden="true">
+        <div th:if="${taskList != null}" th:object="${taskList}" class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTaskListModalLabel" th:text="*{title}"></h5>
                 </div>
-                <div class="form-group col-6">
-                    <label for="passwordConfirm">Confirm Password</label>
-                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password" >
 
-                </div>
+                <form id="editTaskListForm" method="post" autocomplete="off" >
+                    <div class="modal-body">
+                        <div class="form-check my-2" th:each="task : *{tasks}">
+                            <input type="checkbox" class="form-check-input" value="" th:checked="${task.completed}"/>
+                            <input type="search" class="no-border" th:value="${task.description}"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="updatePasswordFormCloseButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="updatePasswordFormSaveButton" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
             </div>
         </div>
-        <div class="modal-footer">
-            <button id="updatePasswordFormCloseButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="updatePasswordFormSaveButton" type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-    </form>
+    </div>
 
 </div>
 
