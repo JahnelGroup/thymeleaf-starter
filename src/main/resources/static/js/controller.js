@@ -17,7 +17,7 @@ const clickHandler = (event) => {
     const target = event.target
 
     /**
-     * Settings > Account > Change Password Modal
+     * Settings > Account > Change Password Modal Save Button
      */
 
     if (target.id == 'updatePasswordFormSaveButton') {
@@ -32,7 +32,6 @@ const clickHandler = (event) => {
                 }else{
                     $('#updatePasswordFormCloseButton').trigger('click')
                     $('#updatePasswordSuccessToast').toast('show')
-                    //location.href = '/settings/account';
                 }
             },
             error: function (data) {
@@ -52,6 +51,25 @@ const clickHandler = (event) => {
     }
     else if(target.classList.contains('task-list-task-description')){
         openEditTaskList(target.parentElement.parentElement.firstElementChild.value);
+    }
+    else if(target.id == 'editTaskListFormSaveButton'){
+        event.preventDefault();
+        $.ajax({
+            url: $('#editTaskListForm').attr('action'),
+            type: 'post',
+            data: $('#editTaskListForm').serialize(),
+            success: function(data, textStatus, xhr) {
+                if( xhr.getResponseHeader("hasErrors") == "true" ){
+                    $('#editTaskListForm').replaceWith(data);
+                }else{
+                    $('#editTaskListFormCloseButton').trigger('click')
+                    // $('#editTaskListSuccessToast').toast('show')
+                }
+            },
+            error: function (data) {
+                $('#editTaskListForm').replaceWith(data);
+            }
+        });
     }
 
 }

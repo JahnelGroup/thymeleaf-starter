@@ -16,6 +16,6 @@ data class TaskList(
                 cascade = [(CascadeType.ALL)],
                 orphanRemoval = true,
                 mappedBy = "taskList")
-        var tasks: Set<Task> = emptySet()
+        var tasks: MutableList<Task> = mutableListOf()
 
 }
