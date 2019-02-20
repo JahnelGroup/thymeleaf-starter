@@ -4,8 +4,8 @@ import com.jahnelgroup.domain.task.TaskListRepo
 import com.jahnelgroup.domain.task.TaskRepo
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
 class TaskController(
@@ -15,8 +15,9 @@ class TaskController(
     /**
      * This is intended to be called asynchronously with ajax.
      */
-    @PostMapping("/tasklist/{taskListId}")
-    fun edit(model: Model, @PathVariable taskListId: String): String{
+    @GetMapping("/tasklist/{taskListId}")
+    fun edit(model: Model, @PathVariable taskListId: Long): String{
+        model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
         return "fragments/modals/editTaskList :: editTaskListForm"
     }
 
