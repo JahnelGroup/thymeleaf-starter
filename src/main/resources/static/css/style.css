@@ -129,3 +129,10 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     font-size: .75rem;
     text-transform: uppercase;
 }
+
+/*
+ * Tasks
+ */
+.task-complete {
+    text-decoration: line-through;
+}

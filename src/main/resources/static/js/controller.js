@@ -62,8 +62,7 @@ const clickHandler = (event) => {
                 if( xhr.getResponseHeader("hasErrors") == "true" ){
                     $('#editTaskListForm').replaceWith(data);
                 }else{
-                    $('#editTaskListFormCloseButton').trigger('click')
-                    // $('#editTaskListSuccessToast').toast('show')
+                    window.location = '/'
                 }
             },
             error: function (data) {
@@ -72,6 +71,37 @@ const clickHandler = (event) => {
         });
     }
 
+    /**
+     * Checking / Unchecking to Strike/UnStrike box
+     */
+    else if(target.classList.contains('task-list-task-checkbox')) {
+        var task = {
+            "id": target.parentElement.firstElementChild.value,
+            "description": target.parentElement.lastElementChild.value,
+            "completed": target.checked
+        }
+
+        $.ajax({
+            url: '/api/task/'+task.id,
+            contentType: "application/json",
+            type: 'post',
+            data: task,
+            success: function(data, textStatus, xhr) {
+                if( xhr.getResponseHeader("hasErrors") == "true" ){
+                    alert("Something went wrong.")
+                }
+
+                if( target.checked ){
+                    target.parentElement.lastElementChild.classList.add("task-complete")
+                }else{
+                    target.parentElement.lastElementChild.classList.remove("task-complete")
+                }
+            },
+            error: function (data) {
+                alert("Something went wrong.")
+            }
+        });
+    }
 }
 
 export { clickHandler }

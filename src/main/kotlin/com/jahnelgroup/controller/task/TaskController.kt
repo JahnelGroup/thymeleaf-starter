@@ -1,32 +1,37 @@
 package com.jahnelgroup.controller.task
 
+import com.jahnelgroup.config.loggerFor
+import com.jahnelgroup.domain.task.Task
 import com.jahnelgroup.domain.task.TaskList
 import com.jahnelgroup.domain.task.TaskListRepo
 import com.jahnelgroup.domain.task.TaskRepo
+import org.springframework.http.HttpStatus
+import org.springframework.http.RequestEntity
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * AJAX Endpoints
+ */
 @Controller
 class TaskController(
         private var taskRepo: TaskRepo,
         private var taskListRepo: TaskListRepo) {
 
-    /**
-     * This is intended to be called asynchronously with ajax.
-     */
+    val logger = loggerFor(TaskController::class.java)
+
     @GetMapping("/tasklist/{taskListId}")
-    fun get(model: Model, @PathVariable taskListId: Long): String{
+    fun getTaskList(model: Model, @PathVariable taskListId: Long): String{
         model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
         return "fragments/modals/editTaskList :: editTaskListForm"
     }
 
     @PostMapping("/tasklist/{taskListId}")
-    fun post(model: Model, @PathVariable taskListId: Long, taskList: TaskList,
+    fun postTaskList(model: Model, @PathVariable taskListId: Long, taskList: TaskList,
              bindingResult: BindingResult, response: HttpServletResponse): String{
 
         if( bindingResult.hasErrors() ){
@@ -40,5 +45,7 @@ class TaskController(
 
         return "fragments/modals/editTaskList :: editTaskListForm"
     }
+
+
 
 }

@@ -19,8 +19,14 @@ spring:
 
 logging:
   level:
-    org.springframework.security: INFO
+    org:
+      springframework: DEBUG
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 app:
   security:

@@ -67,10 +67,10 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated()
         .and()
-
+                .csrf().ignoringAntMatchers("/api/**")
                 // https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-logout
                 // .csrf().disable()
-
+                .and()
         .formLogin()
                 // TODO: remove .html
             .loginPage("/login.html")
