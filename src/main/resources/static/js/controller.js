@@ -1,14 +1,13 @@
 var openEditTaskList = function(taskListId){
     console.log("taskListId " + taskListId);
     $.ajax({
-        url: '/tasklist/'+taskListId,
+        url: '/tasklist/'+taskListId+'/modal',
         type: 'get',
         success: function(data, textStatus, xhr) {
             $('#editTaskListModal').replaceWith(data);
             $("#editTaskListModal").modal("show");
         }
     });
-
 }
 
 
@@ -110,7 +109,13 @@ const clickHandler = (event) => {
      * Reload the page when the modal closes
      */
     else if(target.id == 'editTaskListModal' && target.className == 'modal fade' ){
-        location.reload(true)
+        $.ajax({
+            url: '/tasklists',
+            type: 'get',
+            success: function(data) {
+                $('#task-lists').replaceWith(data);
+            }
+        });
     }
 }
 

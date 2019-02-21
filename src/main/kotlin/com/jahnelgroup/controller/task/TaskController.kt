@@ -24,10 +24,16 @@ class TaskController(
 
     val logger = loggerFor(TaskController::class.java)
 
-    @GetMapping("/tasklist/{taskListId}")
-    fun getTaskList(model: Model, @PathVariable taskListId: Long): String{
+    @GetMapping("/tasklist/{taskListId}/modal")
+    fun getTaskListModal(model: Model, @PathVariable taskListId: Long): String{
         model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
         return "fragments/modals/editTaskList :: editTaskListForm"
+    }
+
+    @GetMapping("/tasklists")
+    fun getTaskLists(model: Model): String{
+        model.addAttribute("taskListRepo", taskListRepo)
+        return "fragments/taskLists :: taskLists"
     }
 
     @PostMapping("/tasklist/{taskListId}")
@@ -46,6 +52,14 @@ class TaskController(
         return "fragments/modals/editTaskList :: editTaskListForm"
     }
 
+    @PostMapping(value = ["/api/task/{taskId}"], consumes = ["application/json"], produces = ["application/json"])
+    fun postTask(@PathVariable taskId: Long, @RequestBody task: Task): ResponseEntity<Task> {
+        // there are much better/safer ways to do this.
+        task.taskList = taskRepo.findById(taskId).get().taskList
+        taskRepo.save(task)
+        logger.info("Updated {}", task)
+        return ResponseEntity.ok().build<Task>()
+    }
 
 
 }
