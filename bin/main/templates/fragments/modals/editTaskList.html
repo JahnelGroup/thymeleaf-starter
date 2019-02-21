@@ -16,7 +16,7 @@
                         <div class="form-check my-2" th:each="task : *{tasks}">
                             <input type="hidden" th:field="*{tasks[__${taskStat.index}__].id}" />
                             <input type="checkbox" class="form-check-input task-list-task-checkbox" th:field="*{tasks[__${taskStat.index}__].completed}" />
-                            <input type="search" class="no-border tasks-listItem-update" th:classappend="${task.completed ? 'task-complete text-muted' : ''}" name="tasks" th:field="*{tasks[__${taskStat.index}__].description}" />
+                            <input type="search" class="no-border" th:classappend="${task.completed ? 'task-complete text-muted' : ''}" name="tasks" th:field="*{tasks[__${taskStat.index}__].description}" />
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -18,7 +18,12 @@ create unique index ix_auth_username on authorities (username,authority);
 
 create table `user_groups` (
   id bigint auto_increment primary key,
-  group_name varchar(50) not null
+  group_name varchar(50) not null,
+  created_by varchar(50) not null,
+  created_datetime timestamp(2) not null,
+  last_modified_by varchar(50) not null,
+  last_modified_datetime timestamp(2) not null,
+  version smallint not null
 );
 
 create table `user_group_authorities` (
@@ -31,16 +36,10 @@ create table `user_group_members` (
   id bigint auto_increment primary key,
   username varchar(50) not null,
   group_id bigint not null,
+  created_by varchar(50) not null,
+  created_datetime timestamp(2) not null,
+  last_modified_by varchar(50) not null,
+  last_modified_datetime timestamp(2) not null,
+  version smallint not null,
   constraint fk_group_members_group foreign key(group_id) references user_groups(id)
 );
-
-insert into `users` (username, password, email, first_name, last_name, enabled) values
-  ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'szgaljic@jahnelgroup.com', 'Steven', 'Zgaljic', true),
-  ('darrin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'djahnel@jahnelgroup.com', 'Darrin', 'Jahnel', true),
-  ('jason', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'jasonjahnel@jahnelgroup.com', 'Jason', 'Jahnel', true);
-
-insert into `authorities` (username, authority) values
-  ('steven', 'ROLE_ADMIN'),
-  ('steven', 'ROLE_USER'),
-  ('darrin', 'ROLE_USER'),
-  ('jason', 'ROLE_USER');

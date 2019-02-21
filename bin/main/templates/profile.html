@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: head"></head>
-<body th:object="${currentUser}">
+<body th:object="${user}">
 
 <div th:replace="fragments/nav :: top_navbar"></div>
 
@@ -18,10 +18,27 @@
             <div class="row justify-content-center mb-1">
                 <span th:text="'@'+*{username} + ' - Member since January 1st, 2019'"/>
             </div>
+
             <div class="row justify-content-center mb-1">
-                <span th:if="*{isAdmin()}" class="badge badge-pill badge-primary">Admin</span>
-                <span class="badge badge-pill badge-light">User</span>
+                <span class="badge badge-pill mr-2"
+                      th:each="g : ${groups}"
+                      th:classappend="${g.groupName.equals('Admin') ? 'badge-primary' : 'badge-secondary'}"
+                      th:text="${g.groupName}"/>
             </div>
+
+            <!--<div class="row justify-content-center mb-1">-->
+                <!--<span th:if="*{isAdmin()}" class="badge badge-pill badge-primary">Admin</span>-->
+                <!--<span class="badge badge-pill badge-light">User</span>-->
+            <!--</div>-->
+
+            <!--<div class="row justify-content-center mb-1">-->
+                <!--<span th:each="auth : ${userContextService.currentUserDetails().authorities}">-->
+                    <!--<th:block th:switch="${auth.getAuthority()}">-->
+                        <!--<span th:case="'ROLE_ADMIN'" class="badge badge-pill badge-primary mr-2">Admin</span>-->
+                        <!--<span th:case="'ROLE_USER'" class="badge badge-pill badge-light mr-2">User</span>-->
+                    <!--</th:block>-->
+                <!--</span>-->
+            <!--</div>-->
 
             <!--<div class="card card-body bg-light">-->
                 <!--<p><span><i class="fa fa-user"></i></span> <span class="font-weight-bold" th:text="*{username}"/></p>-->
@@ -30,6 +47,8 @@
                     <!--<li th:each="auth : *{authorities}"><span th:text="${auth.id.authority}"/></li>-->
                 <!--</ul>-->
             <!--</div>-->
+
+
         </main>
 
     </div>

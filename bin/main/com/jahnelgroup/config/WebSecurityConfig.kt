@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import javax.sql.DataSource
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect
+import org.springframework.security.authentication.BadCredentialsException
+
+
 
 /**
  * Expression-Based Access Control
@@ -21,6 +24,17 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapter() {
+
+    /**
+     * This would normally come from:
+     *      org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl.DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY
+     *
+     * but MySQL doesn't support a table with the name `groups` so we've renamed to `user_groups`
+     */
+    val DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY = ("select g.id, g.group_name, ga.authority "
+            + "from user_groups g, user_group_members gm, user_group_authorities ga "
+            + "where gm.username = ? " + "and g.id = ga.group_id "
+            + "and g.id = gm.group_id")
 
     @Value("\${app.security.password-encoder.security-strength}")
     var securityStrength: Int = -1
@@ -42,7 +56,7 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
     override fun configure(auth: AuthenticationManagerBuilder) {
         // https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#appendix-schema
         // To debug set breakpoints in JdbcDaoImpl.java
-        var jdbcAuth = auth.jdbcAuthentication()
+        var jdbcAuth = auth.jdbcAuthentication().groupAuthoritiesByUsername(DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
         jdbcAuth.dataSource(dataSource).passwordEncoder(passwordEncoder())
     }
 
@@ -50,17 +64,32 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/images/**", "/login*").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated()
         .and()
-            .csrf().disable()
+                .csrf().ignoringAntMatchers("/api/**")
+                // https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-logout
+                // .csrf().disable()
+                .and()
         .formLogin()
+                // TODO: remove .html
             .loginPage("/login.html")
             .defaultSuccessUrl("/")
+            .failureHandler { request, response, exception ->
+                var errMsg = "Something went wrong."
+                if (exception::class.java.isAssignableFrom(BadCredentialsException::class.java)) {
+                    errMsg = "Invalid username or password."
+                }
+                request.getSession().setAttribute("loginMessage", errMsg)
+                response.sendRedirect("/login.html")
+            }
+
         .and()
             .logout()
             .clearAuthentication(true)
             .invalidateHttpSession(true)
             .logoutSuccessUrl("/")
-        .and().exceptionHandling().accessDeniedPage("/accessDenied.html")
+                // TODO: remove .html
+        .and().exceptionHandling().accessDeniedPage("/denied.html")
     }
 }

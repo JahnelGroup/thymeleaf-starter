@@ -1,7 +1,7 @@
 package com.jahnelgroup.config
 
-import com.jahnelgroup.service.context.DateTimeService
-import com.jahnelgroup.service.context.UserContextService
+import com.jahnelgroup.domain.context.DateTimeService
+import com.jahnelgroup.domain.context.UserContextService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider
@@ -25,7 +25,7 @@ class JpaAuditConfig {
     @Bean
     fun userContextProvider(userContextService: UserContextService): AuditorAware<String> {
         return AuditorAware<String>{
-            Optional.of(userContextService.currentUsername())
+            Optional.of(userContextService.currentUsername()!!)
         }
     }
 

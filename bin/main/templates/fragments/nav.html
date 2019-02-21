@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="header :: head"></head>
 <body>
 
@@ -27,9 +27,12 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" th:href="@{/profile}">Profile</a>
                         <a class="dropdown-item" th:href="@{/settings}">Settings</a>
-                        <a class="dropdown-item" th:href="@{/admin}">Admin</a>
+                        <a class="dropdown-item" th:href="@{/admin}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item btn btn-link">Logout</button>
+                        </form>
+
                     </div>
                 </li>
             </ul>

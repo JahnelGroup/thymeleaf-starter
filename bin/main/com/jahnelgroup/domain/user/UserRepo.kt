@@ -17,4 +17,13 @@ interface UserRepo : JpaRepository<User, Long> {
         lower(u.lastName) like %:term% or
         lower(u.email) like %:term%""")
     fun searchUser(@Param("term") term: String): List<User>
+
+    @Query(nativeQuery = true, value = """
+        SELECT *
+        FROM users u
+        JOIN user_group_members ugm ON ugm.username = u.username
+        WHERE ugm.group_id = :groupId
+    """)
+    fun findByGroupId(groupId: Long): List<User>
+
 }

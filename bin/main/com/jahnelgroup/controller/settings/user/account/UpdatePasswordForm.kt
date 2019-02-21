@@ -4,8 +4,8 @@ import javax.validation.constraints.NotBlank
 
 data class UpdatePasswordForm(
         @field:NotBlank(message = "Field required.")
-        var password: String? = null,
+        var password: String = "",
 
         @field:NotBlank(message = "Field required.")
-        var passwordConfrim: String? = null
+        var passwordConfirm: String = ""
 )

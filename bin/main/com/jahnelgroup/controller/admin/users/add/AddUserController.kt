@@ -2,7 +2,8 @@ package com.jahnelgroup.controller.admin.users.add
 
 import com.jahnelgroup.config.loggerFor
 import com.jahnelgroup.domain.user.UserRepo
-import com.jahnelgroup.service.AdminUserService
+import com.jahnelgroup.domain.user.UserService
+import com.jahnelgroup.validator.PasswordComplexityValidator
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -13,7 +14,7 @@ import javax.validation.Valid
 
 @Controller
 class AddUserController(private var userRepo: UserRepo,
-                        private var adminUserService: AdminUserService){
+                        private var adminUserService: UserService){
 
     val logger = loggerFor(AddUserController::class.java)
 
@@ -46,10 +47,12 @@ class AddUserController(private var userRepo: UserRepo,
      */
     @PostMapping("/admin/users/add/create")
     fun createUser(model: Model, createUserForm: CreateUserForm, bindingResult: BindingResult): String{
-        CreateUserFormValidator().validate(createUserForm, bindingResult)
         if( !bindingResult.hasErrors() ){
-            adminUserService.createUser(createUserForm.toUser())
-            model.addAttribute("createSuccessMessage", "Success!")
+            PasswordComplexityValidator().validate(createUserForm, bindingResult)
+            if( !bindingResult.hasErrors() ){
+                adminUserService.createUser(createUserForm.toUser())
+                model.addAttribute("createSuccessMessage", "Success!")
+            }
         }
         return "layouts/admin/users/add"
     }

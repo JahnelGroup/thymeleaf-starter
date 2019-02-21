@@ -15,8 +15,8 @@ class AdminUserSearchController(private var userRepo: UserRepo){
     @GetMapping("/admin/users")
     fun search(model: Model, @RequestParam inputSearch: String?): String {
         model.addAttribute("inputSearch", inputSearch)
-        if(inputSearch != null){
-            model.addAttribute("searchResults", userRepo.searchUser(inputSearch))
+        if(!inputSearch.isNullOrBlank()){
+            model.addAttribute("searchResults", userRepo.searchUser(inputSearch!!))
         }else{
             model.addAttribute("searchResults", userRepo.findAll())
         }

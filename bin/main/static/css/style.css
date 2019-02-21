@@ -18,6 +18,18 @@
     box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
 }
 
+/* https://blog.maximerouiller.com/post/remove-the-x-from-internet-explorer-and-chrome-input-type-search/ */
+/* clears the 'X' from Internet Explorer */
+input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
+
+/* clears the 'X' from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+
 /*
  * Breadcrumb
  */
@@ -116,4 +128,11 @@
 .sidebar-heading {
     font-size: .75rem;
     text-transform: uppercase;
+}
+
+/*
+ * Tasks
+ */
+.task-complete {
+    text-decoration: line-through;
 }
