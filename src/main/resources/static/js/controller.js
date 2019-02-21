@@ -77,7 +77,8 @@ const clickHandler = (event) => {
     else if(target.classList.contains('task-list-task-checkbox')) {
         var task = {
             "id": target.parentElement.firstElementChild.value,
-            "description": target.parentElement.lastElementChild.value,
+            "description": target.parentElement.lastElementChild.value ?
+                target.parentElement.lastElementChild.value : target.parentElement.lastElementChild.textContent,
             "completed": target.checked
         }
 
@@ -85,7 +86,7 @@ const clickHandler = (event) => {
             url: '/api/task/'+task.id,
             contentType: "application/json",
             type: 'post',
-            data: task,
+            data: JSON.stringify(task),
             success: function(data, textStatus, xhr) {
                 if( xhr.getResponseHeader("hasErrors") == "true" ){
                     alert("Something went wrong.")
@@ -93,14 +94,23 @@ const clickHandler = (event) => {
 
                 if( target.checked ){
                     target.parentElement.lastElementChild.classList.add("task-complete")
+                    target.parentElement.lastElementChild.classList.add("text-muted")
                 }else{
                     target.parentElement.lastElementChild.classList.remove("task-complete")
+                    target.parentElement.lastElementChild.classList.remove("text-muted")
                 }
             },
             error: function (data) {
                 alert("Something went wrong.")
             }
         });
+    }
+
+    /**
+     * Reload the page when the modal closes
+     */
+    else if(target.id == 'editTaskListModal' && target.className == 'modal fade' ){
+        location.reload(true)
     }
 }
 

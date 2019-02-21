@@ -16,9 +16,11 @@ class TaskRestController(
 
     val logger = loggerFor(TaskController::class.java)
 
-    @PostMapping(value = "/task/{taskId}", consumes = ["application/json"], produces = ["application/json"])
-    fun postTask(@PathVariable taskId: Long, @RequestBody task: RequestEntity<Task>): ResponseEntity<Task> {
-        taskRepo.save(task.body!!)
+    @PostMapping(value = ["/task/{taskId}"], consumes = ["application/json"], produces = ["application/json"])
+    fun postTask(@PathVariable taskId: Long, @RequestBody task: Task): ResponseEntity<Task> {
+        // there are much better/safer ways to do this.
+        task.taskList = taskRepo.findById(taskId).get().taskList
+        taskRepo.save(task)
         logger.info("Updated {}", task)
         return ResponseEntity.ok().build<Task>()
     }
