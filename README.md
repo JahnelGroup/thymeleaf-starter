@@ -16,11 +16,11 @@ Jahnel Group starter for Spring Boot and Thymeleaf.
 The overall file structure is as follows:
 
 ```text
-/thymeleaf-starter/
+thymeleaf-starter/
 ├── .elasticbeanstalk/
 │   └── config.yml
 ├── ebextensions/
-│   └── env.config
+│   └── *.config
 ├── gradle/wrapper/
 │   └── gradle.*.[jar|properties]
 ├── src/main/
@@ -28,8 +28,11 @@ The overall file structure is as follows:
 │   |   └── com/jahnelgroup/
 │   |       └── *.[kt|java]
 │   └── resources/
+│       ├── db/
+│       |   ├── devdata/*.sql
+│       |   └── migration/*.sql
 │       ├── static/
-│       |   └── *.[js|css]
+│       |   └── *.[css|images|js]
 │       ├── templates/
 │       |   └── *.html
 │       └── application.[properties|yml]
@@ -116,10 +119,18 @@ usage: eb (sub-commands ...) [options ...] {arguments ...}
 
 Make sure your application is built with the latest with `gradle clean build`.
 
-Create a single instance w/ single RDS, then follow the prompts to describe your environment. 
+Create a single instance + database by following the prompts to describe your environment. 
 
 ```bash
 $ eb create --single --database
+Enter Environment Name
+(default is thymeleaf-starter-dev): 
+Enter DNS CNAME prefix
+(default is thymeleaf-starter-dev): 
+
+Enter an RDS DB username (default is "ebroot"): 
+Enter an RDS DB master password: 
+Retype password to confirm: 
 2019-02-22 21:14:33    INFO    createEnvironment is starting.
 2019-02-22 21:14:34    INFO    Using elasticbeanstalk-us-east-1-12321471834 as Amazon S3 storage bucket for environment data.
 2019-02-22 21:14:59    INFO    Created security group named: awseb-e-fa2fszffed-stack-AWSEBSecurityGroup-13R271AAHRC7J
