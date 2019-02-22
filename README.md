@@ -109,16 +109,62 @@ Type `eb` to make sure it's installed:
 ```bash
 $ eb
 usage: eb (sub-commands ...) [options ...] {arguments ...}
-..
-..
+...
 ```
 
 #### Create Environment
 
-Create a single instance w/ single RDS:
+Make sure your application is built with the latest with `gradle clean build`.
+
+Create a single instance w/ single RDS, then follow the prompts to describe your environment. 
 
 ```bash
-$ 
+$ eb create --single --database
+2019-02-22 21:14:33    INFO    createEnvironment is starting.
+2019-02-22 21:14:34    INFO    Using elasticbeanstalk-us-east-1-12321471834 as Amazon S3 storage bucket for environment data.
+2019-02-22 21:14:59    INFO    Created security group named: awseb-e-fa2fszffed-stack-AWSEBSecurityGroup-13R271AAHRC7J
+2019-02-22 21:15:15    INFO    Created EIP: 3.208.109.212
+2019-02-22 21:15:15    INFO    Creating RDS database named: bb2czfhgfe6e1pzu. This may take a few minutes.
+ -- Events -- (safe to Ctrl+C)
+```
+
+> Note that by databases created via Elastic Beanstalk will be permanently tied to this environment. If you delete the environment then the database will be destroyed. Also note that AWS will automatically inject your new database information (URL, DB name and credentials) for you which will be picked up by Spring with [application-beanstalk.yml](src/main/resources/application-beanstalk.yml)
+
+#### List environments and switch between them
+
+List available environments:
+
+```bash
+$ eb list
+* thymeleaf-starter-dev
+thymeleaf-starter-prod
+```
+
+Switch between them:
+
+```bash
+$ eb use thymeleaf-starter-prod
+```
+
+#### Redeploy new version to an existing environment.
+
+Make sure your application is built with the latest with `gradle clean build`.
+
+Make sure you're using the correct Elastic Beanstalk environment with `eb list` then redeploy:
+
+```bash
+$ eb deploy
+```
+
+#### Delete an environment
+
+```bash
+$ eb terminate
+The environment "thymeleaf-starter-dev" and all associated instances will be terminated.
+To confirm, type the environment name: thymeleaf-starter-dev
+2019-02-22 21:27:36    INFO    terminateEnvironment is starting.
+2019-02-22 21:27:53    INFO    Waiting for EC2 instances to terminate. This may take a few minutes.
+2019-02-22 21:31:26    INFO    Deleted EIP: 3.208.109.212
 ```
 
 ## Gradle 
@@ -136,6 +182,14 @@ $
 | gradle clean build | Deletes build artifacts and runs a fresh build. |
 | gradle test  | Run tests. |
 
+#### How does Gradle build the Spring Boot JAR?
+
+If you inspect the [build.gradle](build.gradle) file you'll noticed a bunch of plugins related to Spring. These will effectively run a normal build process but with further processing to make them executable. Read more about this process [Appendix E. The Executable Jar Format](https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html). 
+
+The only difference in this starter is the addition of the [.ebextensions](.ebextensions) directory for Elastic Beanstalk support. Review the `bootJar` task definition in [build.gradle](build.gradle) for how this is accomplished. 
+
+![depsComposeUp.png](images/gradleBuild.png)
+
 ### Docker
 
 | Command | Description |
@@ -145,6 +199,12 @@ $
 | gradle fullComposeDown | ^ Stops the full stack |
 | gradle depsComposeUp | Start only the app dependencies |
 | gradle depsComposeDown | ^ Stops the dependency stack |
+
+#### How does Gradle build the docker container?
+
+TODO.
+
+![depsComposeUp.png](images/gradleDocker.png)  
 
 ### Flyway
 
