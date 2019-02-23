@@ -169,9 +169,13 @@ Retype password to confirm:
  -- Events -- (safe to Ctrl+C)
 ```
 
-You can launch the application from the terminal with `eb open`.
-
 > Note that by databases created via Elastic Beanstalk will be permanently tied to this environment. If you delete the environment then the database will be destroyed. Also note that AWS will automatically inject your new database information (URL, DB name and credentials) for you which will be picked up by Spring with [application-beanstalk.yml](src/main/resources/application-beanstalk.yml)
+
+You can launch the application from the terminal with:
+ 
+```bash
+$ eb open
+```
 
 #### List environments and switch between them
 
