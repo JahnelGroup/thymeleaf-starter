@@ -49,6 +49,13 @@ thymeleaf-starter/
 
 Gradle is the build and dependency management tool used by this starter. Most actions can be accomplished through Gradle tasks described in the sections below.
 
+### The Application
+
+This project is a simple user management application protected with a login using group based authorization. It is seeded with an `Admin` and `User` group and a couple of users. For demonstration purposes it has the functionality of a basic Todo list.  
+ 
+* Default admin account = **steven / pass**
+* Default database root account = **root / rootpassword** 
+
 ### Active Development w/ IntelliJ
 
 When you're actively developing an application it's useful to be able to run it from within an IDE. This starter allows you to launch only the dependencies in docker containers leaving it up to you for how you'd like to launch the app, preferably from something like IntellIJ where it's easy to debug. 
@@ -201,11 +208,9 @@ If you inspect the [build.gradle](build.gradle) file you'll noticed a bunch of p
 
 The only difference in this starter is the addition of the [.ebextensions](.ebextensions) directory for Elastic Beanstalk support. Review the `bootJar` task definition in [build.gradle](build.gradle) for how this is accomplished. 
 
-![depsComposeUp.png](images/gradleBuild.png)
+![gradleBuild.png](images/gradleBuild.png)
 
 ### Docker
-
-All of these tasks have their origins as pure docker commands but bringing them into the Gradle ecosystem allows for a more uniform experience. Additionally it provides a platform for more interesting task combinations in the future.    
 
 | Command | Description |
 | --- | --- |
@@ -215,11 +220,13 @@ All of these tasks have their origins as pure docker commands but bringing them 
 | gradle depsComposeUp | Start only the app dependencies |
 | gradle depsComposeDown | ^ Stops the dependency stack |
 
+All of these tasks have their origins as pure docker commands but bringing them into the Gradle ecosystem allows for a more uniform experience. Additionally it provides a platform for more interesting task combinations in the future.
+
 #### How does Gradle build the docker container?
 
 This project uses the [palantir/gradle-docker](https://github.com/palantir/gradle-docker) Gradle plugin for building docker images. The library is powerful but we're just using it as a wrapping around invoking the [Dockerfile](Dockerfile). The architecture of this process was taken from the [Spring Boot with Docker](https://spring.io/guides/gs/spring-boot-docker/) guide.   
 
-![depsComposeUp.png](images/gradleDocker.png)  
+![gradleDocker.png](images/gradleDocker.png)  
 
 ### Flyway
 
@@ -232,31 +239,55 @@ This project uses the [palantir/gradle-docker](https://github.com/palantir/gradl
 | gradle [flywayBaseline](https://flywaydb.org/documentation/gradle/baseline) | Baselines an existing database, excluding all migrations up to and including baselineVersion |
 | gradle [flywayRepair](https://flywaydb.org/documentation/gradle/repair) | Repairs the schema history table |
 
-By default these Flyway commands are pointing to a local instance of the starter database per this configuration found in `build.gradle`.
+By default these Flyway commands are pointing to the local instance per the configuration found in `build.gradle`. 
 
 ```groovy
 flyway {
     url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
     user = 'root'
 	password = 'rootpassword'
+	locations = [
+		'filesystem:src/main/resources/db/migration',
+		'filesystem:src/main/resources/db/devdata'
+	]	
 }
+```
+
+The development seed data is separated out from the Flyway DDL migrations by specifying it as an additional Flyway location as shown above. It leverages Flyway callbacks to run the seed data as described in this article [How to create database test data for Spring Boot applications with Flyway DB](https://medium.com/@jonashavers/how-to-create-database-test-data-for-spring-boot-applications-with-flyway-db-294a436db7ee).
+
+```text
+src/main/
+└── resources/
+    ├── db/
+    |   ├── devdata/*.sql
+    |   └── migration/*.sql
 ```
 
 #### Running Flyway against a remote database. 
 
 TODO.
 
+Once you go beyond your local development environment you'll likely want to execute flyway commands against a remote database. You can do this a number of ways but this project prescribes a convention and best practice.
+
+flyway/dev.conf
+    flyway.url=jdbc:mysql://aa5loe2t8lhqny.cmrtv0eefojl.us-east-1.rds.amazonaws.com:3306/ebdb
+    
+flyway/credentials/dev.pass
+    flyway.user=ebroot
+    flyway.password=rootpassword
+    
+gradle -Dflyway.configFiles=flyway/dev.conf,flyway/credentials/dev.pass flywayInfo
+
+
 ## AWS Elastic Beanstalk
 
-TODO: Configure aws cli and eb cli
+TODO.
 
-Commands:
+### Getting quick health statistics
 
-`eb list`
-`eb create --single --database`
-`eb setenv SPRING_PROFILES_ACTIVE=beanstalk`
+You can easily get quick health statics about your application by running `eb health`
 
-https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-configuration-methods-during.html
+![ebHealth.png](images/ebHealth.png)  
 
 ## Spring Boot Dev Tools
 
