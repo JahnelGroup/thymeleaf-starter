@@ -180,6 +180,8 @@ To confirm, type the environment name: thymeleaf-starter-dev
 
 ## Gradle 
 
+Gradle commands can be run one at a time like `gradle clean` as well as combined like `gradle clean build`. Here is a cheat sheet for important Gradle tasks.
+
 ### List Tasks
 
 | Command | Description |
@@ -195,13 +197,15 @@ To confirm, type the environment name: thymeleaf-starter-dev
 
 #### How does Gradle build the Spring Boot JAR?
 
-If you inspect the [build.gradle](build.gradle) file you'll noticed a bunch of plugins related to Spring. These will effectively run a normal build process but with further processing to make them executable. Read more about this process [Appendix E. The Executable Jar Format](https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html). 
+If you inspect the [build.gradle](build.gradle) file you'll noticed a bunch of plugins related to Spring. These will effectively run a normal build process but with further processing to make the JAR executable. Read more about this process [Appendix E. The Executable Jar Format](https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html). 
 
 The only difference in this starter is the addition of the [.ebextensions](.ebextensions) directory for Elastic Beanstalk support. Review the `bootJar` task definition in [build.gradle](build.gradle) for how this is accomplished. 
 
 ![depsComposeUp.png](images/gradleBuild.png)
 
 ### Docker
+
+All of these tasks have their origins as pure docker commands but bringing them into the Gradle ecosystem allows for a more uniform experience. Additionally it provides a platform for more interesting task combinations in the future.    
 
 | Command | Description |
 | --- | --- |
@@ -213,7 +217,7 @@ The only difference in this starter is the addition of the [.ebextensions](.ebex
 
 #### How does Gradle build the docker container?
 
-TODO.
+This project uses the [palantir/gradle-docker](https://github.com/palantir/gradle-docker) Gradle plugin for building docker images. The library is powerful but we're just using it as a wrapping around invoking the [Dockerfile](Dockerfile). The architecture of this process was taken from the [Spring Boot with Docker](https://spring.io/guides/gs/spring-boot-docker/) guide.   
 
 ![depsComposeUp.png](images/gradleDocker.png)  
 
@@ -236,7 +240,11 @@ flyway {
     user = 'root'
 	password = 'rootpassword'
 }
-``` 
+```
+
+#### Running Flyway against a remote database. 
+
+TODO.
 
 ## AWS Elastic Beanstalk
 
