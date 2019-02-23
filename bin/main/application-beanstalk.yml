@@ -10,7 +10,7 @@ spring:
 
   # https://flywaydb.org/documentation/callbacks.html
   flyway:
-    locations: classpath:/db/migration
+    locations: classpath:/db/migration,/db/devdata
 
 logging:
   level:

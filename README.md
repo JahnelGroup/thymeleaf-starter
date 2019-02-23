@@ -1,6 +1,6 @@
 # Spring Boot Thymeleaf Starter
 
-Jahnel Group starter for Spring Boot and Thymeleaf.  
+Starter project based on Spring Boot and Thymeleaf.
 
 ## Tech Stack
 
@@ -48,6 +48,29 @@ thymeleaf-starter/
 ## Quickstart
 
 Gradle is the build and dependency management tool used by this starter. Most actions can be accomplished through Gradle tasks described in the sections below.
+
+### Requirements
+
+Please read the [Tooling Up](https://jahnelgroup.github.io/journey-through-spring/intro/gettingstarted-tools) section of Journey Through Spring for my thoughts on knowing your tools. 
+
+Most of the requirements needed will be provided through Gradle but you'll still need to install Gradle itself. I suggest using [SDKMAN!](https://sdkman.io/install) or an equivalent tool. 
+
+#### SDKMAN!
+
+If you've opted for SDKMAN! after [installing it](https://sdkman.io/install) then proceed with these installations as well.
+
+```bash
+$ sdk install gradle
+$ sdk install java
+$ sdk install kotlin
+$ sdk install gradle
+```
+
+#### Docker
+
+[Docker](https://en.wikipedia.org/wiki/Docker_(software)) is a computer program that performs operating-system-level virtualization, also known as "containerization". It makes the installation and management of software easier to handle. Docker use in this starter is intended only to assist in the local development process by making it easy to start dependencies like your database. If you do not wish to use it simply install the database on your own and update relevant configurations if needed accordingly.
+
+Follow these steps for [installing docker](https://docs.docker.com/install/) and [installing docker-compose](https://docs.docker.com/compose/install/).
 
 ### The Application
 
@@ -146,6 +169,8 @@ Retype password to confirm:
  -- Events -- (safe to Ctrl+C)
 ```
 
+You can launch the application from the terminal with `eb open`.
+
 > Note that by databases created via Elastic Beanstalk will be permanently tied to this environment. If you delete the environment then the database will be destroyed. Also note that AWS will automatically inject your new database information (URL, DB name and credentials) for you which will be picked up by Spring with [application-beanstalk.yml](src/main/resources/application-beanstalk.yml)
 
 #### List environments and switch between them
@@ -209,6 +234,12 @@ If you inspect the [build.gradle](build.gradle) file you'll noticed a bunch of p
 The only difference in this starter is the addition of the [.ebextensions](.ebextensions) directory for Elastic Beanstalk support. Review the `bootJar` task definition in [build.gradle](build.gradle) for how this is accomplished. 
 
 ![gradleBuild.png](images/gradleBuild.png)
+
+You can run this jar from the command line to also start the application:
+
+```bash
+$ java -jar build/libs/app.jar
+```
 
 ### Docker
 
