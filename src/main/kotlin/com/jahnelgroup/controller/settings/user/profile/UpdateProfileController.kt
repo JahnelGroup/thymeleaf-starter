@@ -1,7 +1,7 @@
 package com.jahnelgroup.controller.settings.user.profile
 
-import com.jahnelgroup.domain.user.UserRepo
 import com.jahnelgroup.domain.context.UserContextService
+import com.jahnelgroup.domain.user.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -12,7 +12,7 @@ import javax.validation.Valid
 
 @Controller
 class UpdateProfileController(
-        private var userRepo: UserRepo,
+        private var userService: UserService,
         private var userContextService: UserContextService){
 
     @GetMapping("/settings")
@@ -24,8 +24,7 @@ class UpdateProfileController(
 
     @GetMapping("/settings/{user}/profile")
     fun profile(model: Model, @PathVariable user: String): String{
-        // TODO: user may be null
-        val u = userRepo.findByUsername(user).get()
+        val u = userService.findByUsername(user)
         model.addAttribute("user", u)
         model.addAttribute("updateProfileForm",
                 UpdateProfileForm(firstName = u.firstName, lastName = u.lastName, email = u.email))
@@ -37,19 +36,16 @@ class UpdateProfileController(
             @Valid updateProfileForm: UpdateProfileForm, bindingResult: BindingResult): String{
 
         if( !bindingResult.hasErrors() ){
-            // TODO: user may be null
-            var u = userRepo.findByUsername(user).get()
-            u.firstName = updateProfileForm.firstName!!
-            u.lastName = updateProfileForm.lastName!!
-            u.email = updateProfileForm.email!!
-            userRepo.save(u)
+            userService.updateProfile(
+                    user,
+                    updateProfileForm.firstName!!,
+                    updateProfileForm.lastName!!,
+                    updateProfileForm.email!!)
+
             model.addAttribute("updateProfileSuccessMessage", "Success!")
         }
 
-        // TODO: user may be null
-        val u = userRepo.findByUsername(user).get()
-        model.addAttribute("user", u)
-
+        model.addAttribute("user", userService.findByUsername(user))
         return "layouts/settings/user/profile"
     }
 }

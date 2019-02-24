@@ -1,8 +1,7 @@
 package com.jahnelgroup.controller.settings.user.account
 
-import com.jahnelgroup.domain.user.UserRepo
-import com.jahnelgroup.domain.user.UserService
 import com.jahnelgroup.domain.context.UserContextService
+import com.jahnelgroup.domain.user.UserService
 import com.jahnelgroup.validator.PasswordComplexityValidator
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,7 +15,6 @@ import javax.validation.Valid
 
 @Controller
 class UpdateAccountController(
-        private var userRepo: UserRepo,
         private var userService: UserService,
         private var userContextService: UserContextService){
 
@@ -29,8 +27,7 @@ class UpdateAccountController(
 
     @GetMapping("/settings/{user}/account")
     fun profile(model: Model, @PathVariable user: String): String{
-        // TODO: user may be null
-        model.addAttribute("user", userRepo.findByUsername(user).get())
+        model.addAttribute("user", userService.findByUsername(user))
         return "layouts/settings/user/account"
     }
 
@@ -44,10 +41,7 @@ class UpdateAccountController(
         if(!bindingResult.hasErrors()){
             PasswordComplexityValidator().validate(updatePasswordForm, bindingResult)
             if( !bindingResult.hasErrors() ){
-                // TODO: user may be null
-                var u = userRepo.findByUsername(user).get()
-                u.password = updatePasswordForm.password
-                userService.updatePassword(u)
+                userService.updatePassword(user, updatePasswordForm.password)
             }
         }
 
@@ -55,9 +49,7 @@ class UpdateAccountController(
             response.setHeader("hasErrors", "true")
         }
 
-        var u = userRepo.findByUsername(user).get()
-        model.addAttribute("user", u)
-
+        model.addAttribute("user", userService.findByUsername(user))
         return "fragments/modals/updatePassword :: updatePasswordForm"
     }
 

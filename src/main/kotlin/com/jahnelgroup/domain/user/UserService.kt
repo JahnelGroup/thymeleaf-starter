@@ -6,6 +6,7 @@ import com.jahnelgroup.domain.user.group.GroupMemberRepo
 import com.jahnelgroup.domain.user.group.GroupRepo
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.lang.RuntimeException
 import javax.transaction.Transactional
 
 @Service
@@ -26,10 +27,20 @@ class UserService(
         userRepo.save(user)
     }
 
-    fun updatePassword(user: User){
-        user.password = passwordEncoder.encode(user.password)
-        logger.info("updatePassword: {}", user)
+    fun updatePassword(username: String, plainTextPassword: String){
+        var user = findByUsername(username)
+        user.password = passwordEncoder.encode(plainTextPassword)
         userRepo.save(user)
+        logger.info("user $username password was updated.")
+    }
+
+    fun updateProfile(username: String, firstName: String, lastName: String, email: String){
+        var user = findByUsername(username)
+        user.firstName = firstName
+        user.lastName = lastName
+        user.email = email
+        userRepo.save(user)
+        logger.info("user $username profile was updated.")
     }
 
     fun addUserToGroup(username: String, groupId: Long){
@@ -45,4 +56,8 @@ class UserService(
         logger.info("user {} removed from group {}", username, group.groupName)
     }
 
+    fun findByUsername(username: String) =
+            userRepo.findByUsername(username).orElseThrow {
+                RuntimeException("user by username '$username' does not exist");
+            }
 }

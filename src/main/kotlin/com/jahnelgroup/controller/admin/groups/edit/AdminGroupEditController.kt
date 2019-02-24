@@ -1,9 +1,8 @@
 package com.jahnelgroup.controller.admin.groups.edit
 
-import com.jahnelgroup.domain.user.UserRepo
+import com.jahnelgroup.domain.user.UserService
 import com.jahnelgroup.domain.user.group.GroupMemberJdbcRepo
 import com.jahnelgroup.domain.user.group.GroupRepo
-import com.jahnelgroup.domain.user.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 class AdminGroupEditController(
         private var groupRepo: GroupRepo,
         private var groupMemberJdbcRepo: GroupMemberJdbcRepo,
-        private var userService: UserService,
-        private var userRepo: UserRepo
+        private var userService: UserService
 ){
 
     @GetMapping("/admin/groups/{groupId}")
