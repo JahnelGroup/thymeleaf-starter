@@ -8,10 +8,7 @@ import com.jahnelgroup.domain.task.TaskRepo
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 
 /**
  * AJAX Endpoints
@@ -33,6 +30,16 @@ class TaskController(
     fun getTaskLists(model: Model): String{
         model.addAttribute("taskListRepo", taskListRepo)
         return "fragments/taskLists :: taskLists"
+    }
+
+    /**
+     * Ajax
+     */
+    @DeleteMapping(value = ["/api/tasklist/{taskListId}"], consumes = ["application/json"], produces = ["application/json"])
+    fun deleteTaskList(@PathVariable taskListId: Long): ResponseEntity<Task> {
+        taskListRepo.deleteById(taskListId)
+        logger.info("Deleted {}", taskListId)
+        return ResponseEntity.ok().build()
     }
 
     @PostMapping(value = ["/api/tasklist/{taskListId}"], consumes = ["application/json"], produces = ["application/json"])
@@ -60,11 +67,23 @@ class TaskController(
      * Ajax
      */
     @PostMapping(value = ["/api/task"], consumes = ["application/json"], produces = ["application/json"])
-    fun createTask(@RequestBody task: Task): ResponseEntity<Task> {
-        task.taskList = taskListRepo.save(TaskList("Todo"))
-        taskRepo.save(task)
-        logger.info("Created {}", task)
+    fun createTask(@RequestBody newTaskForm: NewTaskForm): ResponseEntity<Task> {
+        var newTaskList = taskListRepo.save(TaskList(
+                if( newTaskForm.title.isNullOrBlank() ) "Todo" else newTaskForm.title!!
+        ))
+
+        logger.info("Created newTaskList {}", newTaskList)
+
+        if( !newTaskForm.description.isNullOrBlank() ){
+            var newTask = Task(description = newTaskForm.description!!, completed = false)
+            newTask.taskList = newTaskList
+            taskRepo.save(newTask)
+            logger.info("Created newTaskList {}", newTask)
+        }
+
         return ResponseEntity.ok().build()
     }
+
+
 
 }

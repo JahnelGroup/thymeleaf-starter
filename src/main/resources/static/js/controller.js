@@ -102,18 +102,37 @@ const clickHandler = (event) => {
     }
 
     /**
-     * Refresh the tasklist when the edit button closes
+     * Refresh the tasklist when focus out of modal
      */
     else if(target.id == 'editTaskListModal' && target.className == 'modal fade' ){
+        reloadTaskList();
+    }
+
+    /**
+     * Edit task list close button
+     */
+    else if(target.id == 'editTaskListFormCloseButton'){
+        reloadTaskList();
+    }
+
+    /**
+     * Edit task list delete button
+     */
+    else if(target.id == 'editTaskListFormDeleteButton'){
         $.ajax({
-            url: '/tasklists',
-            type: 'get',
+            url: '/api/tasklist/'+$("#editTaskListFormTaskListId")[0].value,
+            type: 'delete',
+            contentType: "application/json",
             success: function(data) {
-                $('#task-lists').replaceWith(data);
+                reloadTaskList();
+                $("#editTaskListModal").modal("hide");
             }
         });
     }
 
+    /**
+     * Create a new task focus toggle
+     */
     else if(target.id == 'dummyTakeANoteTextbox'){
         $('#takeANoteUnfocused').hide()
         $('#takeANoteFocused').show()
@@ -158,7 +177,7 @@ const blurHandler = (event) => {
             var title = $("#newTaskTitle")[0].value;
             var description = $("#newTaskDescription")[0].value;
 
-            if( title != null || description != null ){
+            if( (title != null && title !== "") || (description != null && description !== "") ){
                 $.ajax({
                     url: '/api/task/',
                     contentType: "application/json",
@@ -170,12 +189,17 @@ const blurHandler = (event) => {
                     success: function(data, textStatus, xhr) {
                         $('#takeANoteFocused').hide()
                         $('#takeANoteUnfocused').show()
+                        $("#newTaskTitle").val(null)
+                        $("#newTaskDescription").val(null)
+
                         reloadTaskList();
                     }
                 });
             }else{
                 $('#takeANoteFocused').hide()
                 $('#takeANoteUnfocused').show()
+                $("#newTaskTitle").val(null)
+                $("#newTaskDescription").val(null)
             }
         }
     }
