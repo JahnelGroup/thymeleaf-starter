@@ -205,4 +205,14 @@ const blurHandler = (event) => {
     }
 }
 
-export { clickHandler, blurHandler }
+// For when clicking out of an updated field.
+const mouseHandler = (event) => {
+    const target = event.target
+
+    if( target.classList.contains('task-list-card') ){
+        console.log(event.type + " " + target.id)
+    }
+
+}
+
+export { clickHandler, blurHandler, mouseHandler }

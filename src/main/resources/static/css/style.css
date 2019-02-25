@@ -148,3 +148,9 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .task-complete {
     text-decoration: line-through;
 }
+
+.task-list-menu:after {
+    content: '\2807';
+    font-size: 1em;
+    color: #2e2e2e
+}
