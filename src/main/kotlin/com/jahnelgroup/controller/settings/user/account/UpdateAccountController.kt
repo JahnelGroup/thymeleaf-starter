@@ -50,7 +50,7 @@ class UpdateAccountController(
         }
 
         model.addAttribute("user", userService.findByUsername(user))
-        return "fragments/modals/updatePassword :: updatePasswordForm"
+        return "fragments/account :: updatePasswordModal"
     }
 
 }

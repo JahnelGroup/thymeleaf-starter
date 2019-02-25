@@ -23,13 +23,13 @@ class TaskController(
     @GetMapping("/tasklist/{taskListId}/modal")
     fun getTaskListModal(model: Model, @PathVariable taskListId: Long): String{
         model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
-        return "fragments/modals/editTaskList :: editTaskListForm"
+        return "fragments/task :: editTaskListModal"
     }
 
     @GetMapping("/tasklists")
     fun getTaskLists(model: Model): String{
         model.addAttribute("taskListRepo", taskListRepo)
-        return "fragments/taskLists :: taskLists"
+        return "fragments/task :: taskLists"
     }
 
     /**

@@ -8,14 +8,13 @@
 <div role="main" class="container-fluid">
 
     <div class="root-div">
-        <div th:replace="task/fragments/task :: takeANote"></div>
+        <div th:replace="fragments/task :: takeANote"></div>
 
         <!-- Ajax Fragment -->
-        <div th:replace="fragments/taskLists :: taskLists"></div>
+        <div th:replace="fragments/task :: taskLists"></div>
 
         <!-- Ajax Fragment (Pop-up Modal) -->
-        <div th:replace="fragments/modals/editTaskList :: editTaskListForm"></div>
-
+        <div th:replace="fragments/task :: editTaskListModal"></div>
     </div>
 
 </div>
