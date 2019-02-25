@@ -1,3 +1,9 @@
+/**
+ * ==========================================
+ * Common Functions
+ * ==========================================
+ */
+
 var reloadTaskList = function(){
     $.ajax({
         url: '/tasklists',
@@ -53,7 +59,6 @@ var updateTask = function(target){
 }
 
 var createTaskList = function(){
-    // TODO: Why are these arrays?
     var title = $("#newTaskTitle")[0].value;
     var description = $("#newTaskDescription")[0].value;
 
@@ -78,15 +83,18 @@ var createTaskList = function(){
     }
 }
 
+/**
+ * ==========================================
+ * Click Handler
+ * ==========================================
+ */
 
-/* handlers to delegate all click events. */
 const clickHandler = (event) => {
     const target = event.target
 
     /**
      * Settings > Account > Change Password Modal Save Button
      */
-
     if (target.id == 'updatePasswordFormSaveButton') {
         event.preventDefault();
         $.ajax({
@@ -108,7 +116,7 @@ const clickHandler = (event) => {
     }
 
     /**
-     * Home > Open Task List Modal
+     * Open 'Edit Task List'
      */
     else if(target.classList.contains('task-list-card')) {
         openEditTaskList(target.firstElementChild.value)
@@ -121,28 +129,22 @@ const clickHandler = (event) => {
     }
 
     /**
-     * Marking a task as complete or incomplete.
+     * Marking a task as 'complete' or 'incomplete'
      */
     else if(target.classList.contains('task-list-task-checkbox')) {
         updateTask(target);
     }
 
     /**
-     * Refresh the tasklist when focus out of modal
+     * Reload task list on clicking away from modal -or- clicking the close button
      */
-    else if(target.id == 'editTaskListModal' && target.className == 'modal fade' ){
+    else if((target.id == 'editTaskListModal' && target.className == 'modal fade')
+        || target.id == 'editTaskListFormCloseButton' ){
         reloadTaskList();
     }
 
     /**
-     * Edit task list close button
-     */
-    else if(target.id == 'editTaskListFormCloseButton'){
-        reloadTaskList();
-    }
-
-    /**
-     * Edit task list delete button
+     * Delete an entire task list
      */
     else if(target.id == 'editTaskListFormDeleteButton'){
         $.ajax({
@@ -157,7 +159,7 @@ const clickHandler = (event) => {
     }
 
     /**
-     * Create a new task focus toggle
+     * Toggle 'Take a Note' Fragment to show the focused form.
      */
     else if(target.id == 'dummyTakeANoteTextbox'){
         $('#takeANoteUnfocused').hide()
@@ -166,10 +168,19 @@ const clickHandler = (event) => {
     }
 }
 
-// For when clicking out of an updated field.
+
+/**
+ * ==========================================
+ * Blur Handler
+ * ==========================================
+ */
+
 const blurHandler = (event) => {
     const target = event.target
 
+    /**
+     * Update task list title
+     */
     if (target.id == 'editTaskListModalLabel') {
         $.ajax({
             url: '/api/tasklist/'+$("#editTaskListFormTaskListId")[0].value,
@@ -186,14 +197,14 @@ const blurHandler = (event) => {
     }
 
     /**
-     * Changing a task text
+     * Update a task take
      */
     else if ([...target.classList].includes('tasks-listItem-update')) {
         updateTask(target);
     }
 
     /**
-     * Bluring out of add a new task
+     * Create a new task / task list
      */
     else if (target.id =='newTaskTitle' || target.id == 'newTaskDescription'){
         if(event.relatedTarget == null ||
@@ -204,8 +215,11 @@ const blurHandler = (event) => {
 }
 
 /**
- * Mouse Events
+ * ==========================================
+ * Mouse Handler
+ * ==========================================
  */
+
 const mouseHandler = (event) => {
     const target = event.target
     if( target.classList.contains('task-list-card') ){
@@ -214,11 +228,17 @@ const mouseHandler = (event) => {
 }
 
 /**
- * Key Events
+ * ==========================================
+ * Key Handler
+ * ==========================================
  */
+
 const keyListener = (event) => {
     const target = event.target
 
+    /**
+     * Create a new task / task list when hitting enter
+     */
     if(target.id == 'newTaskTitle' || target.id == 'newTaskDescription' ){
         if (event.keyCode === 13) { // enter
             event.preventDefault();
@@ -226,6 +246,9 @@ const keyListener = (event) => {
         }
     }
 
+    /**
+     * Add a new task to an existing task list
+     */
     else if (target.id == 'newTaskInput' && event.type == 'keydown' ){
         var inp = String.fromCharCode(event.keyCode);
         if (/[a-zA-Z0-9-_ ]/.test(inp)){

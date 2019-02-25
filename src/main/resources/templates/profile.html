@@ -25,30 +25,6 @@
                       th:classappend="${g.groupName.equals('Admin') ? 'badge-primary' : 'badge-secondary'}"
                       th:text="${g.groupName}"/>
             </div>
-
-            <!--<div class="row justify-content-center mb-1">-->
-                <!--<span th:if="*{isAdmin()}" class="badge badge-pill badge-primary">Admin</span>-->
-                <!--<span class="badge badge-pill badge-light">User</span>-->
-            <!--</div>-->
-
-            <!--<div class="row justify-content-center mb-1">-->
-                <!--<span th:each="auth : ${userContextService.currentUserDetails().authorities}">-->
-                    <!--<th:block th:switch="${auth.getAuthority()}">-->
-                        <!--<span th:case="'ROLE_ADMIN'" class="badge badge-pill badge-primary mr-2">Admin</span>-->
-                        <!--<span th:case="'ROLE_USER'" class="badge badge-pill badge-light mr-2">User</span>-->
-                    <!--</th:block>-->
-                <!--</span>-->
-            <!--</div>-->
-
-            <!--<div class="card card-body bg-light">-->
-                <!--<p><span><i class="fa fa-user"></i></span> <span class="font-weight-bold" th:text="*{username}"/></p>-->
-                <!--<p><span><i class="fa fa-lock"></i></span> <span class="font-weight-bold">Roles:</span></p>-->
-                <!--<ul>-->
-                    <!--<li th:each="auth : *{authorities}"><span th:text="${auth.id.authority}"/></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-
-
         </main>
 
     </div>
