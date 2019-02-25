@@ -18,6 +18,18 @@
     box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
 }
 
+/* Don't highlight form elements */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+*:focus{
+    box-shadow: none !important;
+    border: solid 1px red( any color ) !important;
+}
+
 /* https://blog.maximerouiller.com/post/remove-the-x-from-internet-explorer-and-chrome-input-type-search/ */
 /* clears the 'X' from Internet Explorer */
 input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }

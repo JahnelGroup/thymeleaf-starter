@@ -1,3 +1,13 @@
+var reloadTaskList = function(){
+    $.ajax({
+        url: '/tasklists',
+        type: 'get',
+        success: function(data) {
+            $('#task-lists').replaceWith(data);
+        }
+    });
+}
+
 var openEditTaskList = function(taskListId){
     //$("#taskList"+taskListId).fadeTo('fast', 0.2)
     $.ajax({
@@ -91,8 +101,6 @@ const clickHandler = (event) => {
         updateTask(target);
     }
 
-
-
     /**
      * Refresh the tasklist when the edit button closes
      */
@@ -104,6 +112,12 @@ const clickHandler = (event) => {
                 $('#task-lists').replaceWith(data);
             }
         });
+    }
+
+    else if(target.id == 'dummyTakeANoteTextbox'){
+        $('#takeANoteUnfocused').hide()
+        $('#takeANoteFocused').show()
+        $('#newTaskDescription').focus()
     }
 }
 
@@ -131,6 +145,39 @@ const blurHandler = (event) => {
      */
     else if ([...target.classList].includes('tasks-listItem-update')) {
         updateTask(target);
+    }
+
+    /**
+     * Bluring out of add a new task
+     */
+    else if (target.id =='newTaskTitle' || target.id == 'newTaskDescription'){
+        if(event.relatedTarget == null ||
+            (event.relatedTarget.id != 'newTaskTitle' && event.relatedTarget.id != 'newTaskDescription') ){
+
+            // TODO: Why are these arrays?
+            var title = $("#newTaskTitle")[0].value;
+            var description = $("#newTaskDescription")[0].value;
+
+            if( title != null || description != null ){
+                $.ajax({
+                    url: '/api/task/',
+                    contentType: "application/json",
+                    type: 'post',
+                    data: JSON.stringify({
+                        "title": title,
+                        "description": description
+                    }),
+                    success: function(data, textStatus, xhr) {
+                        $('#takeANoteFocused').hide()
+                        $('#takeANoteUnfocused').show()
+                        reloadTaskList();
+                    }
+                });
+            }else{
+                $('#takeANoteFocused').hide()
+                $('#takeANoteUnfocused').show()
+            }
+        }
     }
 }
 

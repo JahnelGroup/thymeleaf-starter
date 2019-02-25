@@ -44,8 +44,11 @@ class TaskController(
         return ResponseEntity.ok().build()
     }
 
+    /**
+     * Ajax
+     */
     @PostMapping(value = ["/api/task/{taskId}"], consumes = ["application/json"], produces = ["application/json"])
-    fun postTask(@PathVariable taskId: Long, @RequestBody task: Task): ResponseEntity<Task> {
+    fun updateTask(@PathVariable taskId: Long, @RequestBody task: Task): ResponseEntity<Task> {
         // there are much better/safer ways to do this.
         task.taskList = taskRepo.findById(taskId).get().taskList
         taskRepo.save(task)
@@ -53,5 +56,15 @@ class TaskController(
         return ResponseEntity.ok().build()
     }
 
+    /**
+     * Ajax
+     */
+    @PostMapping(value = ["/api/task"], consumes = ["application/json"], produces = ["application/json"])
+    fun createTask(@RequestBody task: Task): ResponseEntity<Task> {
+        task.taskList = taskListRepo.save(TaskList("Todo"))
+        taskRepo.save(task)
+        logger.info("Created {}", task)
+        return ResponseEntity.ok().build()
+    }
 
 }
