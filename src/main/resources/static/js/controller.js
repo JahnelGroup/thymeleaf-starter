@@ -57,6 +57,9 @@ var createTaskList = function(){
     var title = $("#newTaskTitle")[0].value;
     var description = $("#newTaskDescription")[0].value;
 
+    $("#newTaskTitle").val(null)
+    $("#newTaskDescription").val(null)
+
     if( (title != null && title !== "") || (description != null && description !== "") ){
         $.ajax({
             url: '/api/task/',
@@ -69,16 +72,12 @@ var createTaskList = function(){
             success: function(data, textStatus, xhr) {
                 $('#takeANoteFocused').hide()
                 $('#takeANoteUnfocused').show()
-                $("#newTaskTitle").val(null)
-                $("#newTaskDescription").val(null)
                 reloadTaskList();
             }
         });
     }else{
         $('#takeANoteFocused').hide()
         $('#takeANoteUnfocused').show()
-        $("#newTaskTitle").val(null)
-        $("#newTaskDescription").val(null)
     }
 }
 
