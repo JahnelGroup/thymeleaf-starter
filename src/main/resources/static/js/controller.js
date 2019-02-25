@@ -52,6 +52,36 @@ var updateTask = function(target){
     });
 }
 
+var createTaskList = function(){
+    // TODO: Why are these arrays?
+    var title = $("#newTaskTitle")[0].value;
+    var description = $("#newTaskDescription")[0].value;
+
+    if( (title != null && title !== "") || (description != null && description !== "") ){
+        $.ajax({
+            url: '/api/task/',
+            contentType: "application/json",
+            type: 'post',
+            data: JSON.stringify({
+                "title": title,
+                "description": description
+            }),
+            success: function(data, textStatus, xhr) {
+                $('#takeANoteFocused').hide()
+                $('#takeANoteUnfocused').show()
+                $("#newTaskTitle").val(null)
+                $("#newTaskDescription").val(null)
+                reloadTaskList();
+            }
+        });
+    }else{
+        $('#takeANoteFocused').hide()
+        $('#takeANoteUnfocused').show()
+        $("#newTaskTitle").val(null)
+        $("#newTaskDescription").val(null)
+    }
+}
+
 
 /* handlers to delegate all click events. */
 const clickHandler = (event) => {
@@ -146,7 +176,7 @@ const blurHandler = (event) => {
 
     if (target.id == 'editTaskListModalLabel') {
         $.ajax({
-            url: '/api/tasklist/'+$("#editTaskListFormTaskListId")[0].value,  // TODO: Why is this an array?
+            url: '/api/tasklist/'+$("#editTaskListFormTaskListId")[0].value,
             contentType: "application/json",
             type: 'post',
             data: JSON.stringify({"title": target.value}),
@@ -172,47 +202,70 @@ const blurHandler = (event) => {
     else if (target.id =='newTaskTitle' || target.id == 'newTaskDescription'){
         if(event.relatedTarget == null ||
             (event.relatedTarget.id != 'newTaskTitle' && event.relatedTarget.id != 'newTaskDescription') ){
-
-            // TODO: Why are these arrays?
-            var title = $("#newTaskTitle")[0].value;
-            var description = $("#newTaskDescription")[0].value;
-
-            if( (title != null && title !== "") || (description != null && description !== "") ){
-                $.ajax({
-                    url: '/api/task/',
-                    contentType: "application/json",
-                    type: 'post',
-                    data: JSON.stringify({
-                        "title": title,
-                        "description": description
-                    }),
-                    success: function(data, textStatus, xhr) {
-                        $('#takeANoteFocused').hide()
-                        $('#takeANoteUnfocused').show()
-                        $("#newTaskTitle").val(null)
-                        $("#newTaskDescription").val(null)
-
-                        reloadTaskList();
-                    }
-                });
-            }else{
-                $('#takeANoteFocused').hide()
-                $('#takeANoteUnfocused').show()
-                $("#newTaskTitle").val(null)
-                $("#newTaskDescription").val(null)
-            }
+            createTaskList();
         }
     }
 }
 
-// For when clicking out of an updated field.
+/**
+ * Mouse Events
+ */
 const mouseHandler = (event) => {
     const target = event.target
-
     if( target.classList.contains('task-list-card') ){
-        console.log(event.type + " " + target.id)
+        //console.log(event.type + " " + target.id)
     }
-
 }
 
-export { clickHandler, blurHandler, mouseHandler }
+/**
+ * Key Events
+ */
+const keyListener = (event) => {
+    const target = event.target
+
+    if(target.id == 'newTaskTitle' || target.id == 'newTaskDescription' ){
+        if (event.keyCode === 13) { // enter
+            event.preventDefault();
+            createTaskList();
+        }
+    }
+
+    else if (target.id == 'newTaskInput' && event.type == 'keydown' ){
+        var inp = String.fromCharCode(event.keyCode);
+        if (/[a-zA-Z0-9-_ ]/.test(inp)){
+            var taskListId = $("#editTaskListFormTaskListId")[0].value
+            var newTaskIndex = $(".tasks-listItem-id").length;
+            event.preventDefault();
+
+            $.ajax({
+                url: '/api/tasklist/'+taskListId+'/task',
+                contentType: "application/json",
+                type: 'post',
+                data: JSON.stringify({description: event.key}),
+                success: function(data, textStatus, xhr) {
+                    if( xhr.getResponseHeader("hasErrors") == "true" ){
+                        alert("Something went wrong.")
+                    }
+
+                    var newTaskId = data.id;
+                    var newTaskDesc = data.description;
+
+                    $("<div class='form-check my-2'>" +
+                        "<input type='hidden' class='tasks-listItem-id' id='tasks"+newTaskIndex+".id' name='tasks["+newTaskIndex+"].id' value='"+newTaskId+"'>" +
+                        "<input type='checkbox' class='form-check-input task-list-task-checkbox' id='tasks4.completed1' name='tasks["+newTaskIndex+"].completed' value='true'>" +
+                        "<input type='hidden' name='_tasks["+newTaskIndex+"].completed' value='off'>" +
+                        "<input type='search' id='taskDescriptionId"+newTaskId+"' class='no-border tasks-listItem-update' name='tasks["+newTaskIndex+"].description' id='tasks"+newTaskIndex+".description'>" +
+                        "</div>").insertBefore("#newTaskDiv");
+
+                    // add value after focusing to move focus to the end
+                    $("#taskDescriptionId"+newTaskId).focus().val(newTaskDesc).keyup();
+                },
+                error: function (data) {
+                    alert("Something went wrong.")
+                }
+            });
+        }
+    }
+}
+
+export { clickHandler, blurHandler, mouseHandler, keyListener }

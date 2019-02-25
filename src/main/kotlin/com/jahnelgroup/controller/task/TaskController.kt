@@ -67,21 +67,34 @@ class TaskController(
      * Ajax
      */
     @PostMapping(value = ["/api/task"], consumes = ["application/json"], produces = ["application/json"])
-    fun createTask(@RequestBody newTaskForm: NewTaskForm): ResponseEntity<Task> {
+    fun newTaskAndList(@RequestBody newTaskForm: NewTaskForm): ResponseEntity<Task> {
         var newTaskList = taskListRepo.save(TaskList(
                 if( newTaskForm.title.isNullOrBlank() ) "Todo" else newTaskForm.title!!
         ))
 
-        logger.info("Created newTaskList {}", newTaskList)
+        logger.info("Created new task list {}", newTaskList)
 
         if( !newTaskForm.description.isNullOrBlank() ){
             var newTask = Task(description = newTaskForm.description!!, completed = false)
             newTask.taskList = newTaskList
             taskRepo.save(newTask)
-            logger.info("Created newTaskList {}", newTask)
+            logger.info("Created new task {}", newTask)
         }
 
         return ResponseEntity.ok().build()
+    }
+
+    /**
+     * Ajax
+     */
+    @PostMapping(value = ["/api/tasklist/{taskListId}/task"], consumes = ["application/json"], produces = ["application/json"])
+    fun newTaskExistingList(@PathVariable taskListId: Long, @RequestBody newTaskForm: NewTaskForm): ResponseEntity<Task> {
+        var existingTaskList = taskListRepo.findById(taskListId).get()
+        var newTask = Task(description = newTaskForm.description!!, completed = false)
+        newTask.taskList = existingTaskList
+        taskRepo.save(newTask)
+        logger.info("Created new task {} for existing task list {}", newTask, existingTaskList.title)
+        return ResponseEntity.ok().body(newTask)
     }
 
 

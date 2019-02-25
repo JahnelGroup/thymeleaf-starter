@@ -1,5 +1,6 @@
 package com.jahnelgroup.domain.task
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.jahnelgroup.domain.AbstractEntity
 import javax.persistence.Entity
 import javax.persistence.ManyToOne
@@ -15,6 +16,7 @@ data class Task(
 
 ): AbstractEntity(){
 
+        @JsonIgnore
         @ManyToOne
         var taskList: TaskList? = null
 

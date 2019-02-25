@@ -11,9 +11,6 @@
             <input class="task-list-task-checkbox" type="checkbox" value="" th:checked="${task.completed}"/>
             <label class="pl-2 task-list-task-description" th:classappend="${task.completed} ? 'task-complete text-muted' : ''" th:text="${task.description}"/>
         </div>
-        <nav class="navbar navbar-light bg-light flex-row-reverse pr-0 pb-0">
-            <div class="task-list-menu"></div>
-        </nav>
     </div>
 </div>
 

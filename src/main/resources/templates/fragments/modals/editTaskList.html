@@ -14,11 +14,19 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-check my-2" th:each="task : *{tasks}">
-                            <input type="hidden" th:field="*{tasks[__${taskStat.index}__].id}" />
+                            <input type="hidden" class="tasks-listItem-id" th:field="*{tasks[__${taskStat.index}__].id}" />
                             <input type="checkbox" class="form-check-input task-list-task-checkbox" th:field="*{tasks[__${taskStat.index}__].completed}" />
-                            <input type="search" class="no-border tasks-listItem-update" th:classappend="${task.completed ? 'task-complete text-muted' : ''}" name="tasks" th:field="*{tasks[__${taskStat.index}__].description}" />
+                            <input type="search" th:id="'taskDescriptionId'+task.id" class="no-border tasks-listItem-update" th:classappend="${task.completed ? 'task-complete text-muted' : ''}" name="tasks" th:field="*{tasks[__${taskStat.index}__].description}" />
                         </div>
+
+                        <!-- New Task -->
+                        <div id="newTaskDiv" class="checkbox task-list-task-wrapper">
+                            <span><i class="fa fa-plus"></i></span>
+                            <input id="newTaskInput" type="search" class="no-border text-muted" placeholder="New task" />
+                        </div>
+
                     </div>
+
                     <div class="modal-footer">
                         <button id="editTaskListFormDeleteButton" type="button" class="btn btn-sm btn-light">Delete</button>
                         <button id="editTaskListFormCloseButton" type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
