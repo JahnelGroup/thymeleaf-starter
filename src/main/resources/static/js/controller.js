@@ -59,6 +59,8 @@ var createTaskList = function(){
 
     $("#newTaskTitle").val(null)
     $("#newTaskDescription").val(null)
+    $('#takeANoteFocused').hide()
+    $('#takeANoteUnfocused').show()
 
     if( (title != null && title !== "") || (description != null && description !== "") ){
         $.ajax({
@@ -70,14 +72,9 @@ var createTaskList = function(){
                 "description": description
             }),
             success: function(data, textStatus, xhr) {
-                $('#takeANoteFocused').hide()
-                $('#takeANoteUnfocused').show()
                 reloadTaskList();
             }
         });
-    }else{
-        $('#takeANoteFocused').hide()
-        $('#takeANoteUnfocused').show()
     }
 }
 
