@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import javax.sql.DataSource
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect
 import org.springframework.security.authentication.BadCredentialsException
-
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 
 
 /**
@@ -23,6 +23,7 @@ import org.springframework.security.authentication.BadCredentialsException
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true) // TODO: Why does this trigger InMemoryDatabase to load?
 class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapter() {
 
     /**

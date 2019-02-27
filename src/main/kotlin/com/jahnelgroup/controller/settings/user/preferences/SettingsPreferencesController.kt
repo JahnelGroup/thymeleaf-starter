@@ -2,6 +2,7 @@ package com.jahnelgroup.controller.settings.user.preferences
 
 import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.domain.user.UserService
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,6 +17,7 @@ class SettingsPreferencesController(
     @GetMapping("/settings/preferences")
     fun profile() = "forward:/settings/${userContextService.currentUsername()}/preferences"
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @GetMapping("/settings/{user}/preferences")
     fun profile(model: Model, @PathVariable user: String): String{
         model.addAttribute("user", userService.findByUsername(user))

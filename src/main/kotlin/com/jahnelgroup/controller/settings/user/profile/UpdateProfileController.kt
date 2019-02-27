@@ -2,6 +2,7 @@ package com.jahnelgroup.controller.settings.user.profile
 
 import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.domain.user.UserService
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -22,6 +23,7 @@ class UpdateProfileController(
     @GetMapping("/settings/profile")
     fun profile() = "forward:/settings/${userContextService.currentUsername()}/profile"
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @GetMapping("/settings/{user}/profile")
     fun profile(model: Model, @PathVariable user: String): String{
         val u = userService.findByUsername(user)
@@ -31,6 +33,7 @@ class UpdateProfileController(
         return "layouts/settings/user/profile"
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @PostMapping("/settings/{user}/profile")
     fun updateProfile(model: Model, @PathVariable user: String,
             @Valid updateProfileForm: UpdateProfileForm, bindingResult: BindingResult): String{

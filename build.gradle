@@ -87,7 +87,7 @@ dependencies {
 	compile "org.flywaydb:flyway-core:5.2.4"
 
 	// Production Support
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	// Development Support
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

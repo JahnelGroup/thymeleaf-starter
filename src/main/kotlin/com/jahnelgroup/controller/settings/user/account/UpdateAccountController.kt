@@ -3,6 +3,8 @@ package com.jahnelgroup.controller.settings.user.account
 import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.domain.user.UserService
 import com.jahnelgroup.validator.PasswordComplexityValidator
+import org.springframework.data.repository.query.Param
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -25,8 +27,9 @@ class UpdateAccountController(
     @GetMapping("/settings/account")
     fun profile() = "forward:/settings/${userContextService.currentUsername()}/account"
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @GetMapping("/settings/{user}/account")
-    fun profile(model: Model, @PathVariable user: String): String{
+    fun profile(model: Model, @Param("user") @PathVariable user: String): String{
         model.addAttribute("user", userService.findByUsername(user))
         return "layouts/settings/user/account"
     }
@@ -34,6 +37,7 @@ class UpdateAccountController(
     /**
      * This is intended to be called asynchronously with ajax.
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @PostMapping("/settings/{user}/updatePassword")
     fun updatePassword(model: Model, @PathVariable user: String,
             @Valid updatePasswordForm: UpdatePasswordForm, bindingResult: BindingResult, response: HttpServletResponse): String{
