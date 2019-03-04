@@ -5,25 +5,18 @@ package com.jahnelgroup.config
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import javax.sql.DataSource
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect
-import org.springframework.security.authentication.BadCredentialsException
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+import javax.sql.DataSource
 
-
-/**
- * Expression-Based Access Control
- *      https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#el-access
- */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // TODO: Why does this trigger InMemoryDatabase to load?
 class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapter() {
 
     /**
@@ -60,6 +53,12 @@ class WebSecurityConfig(var dataSource: DataSource) : WebSecurityConfigurerAdapt
         var jdbcAuth = auth.jdbcAuthentication().groupAuthoritiesByUsername(DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
         jdbcAuth.dataSource(dataSource).passwordEncoder(passwordEncoder())
     }
+
+    /**
+     * This is needed to prevent the InMemoryDatabase auto-configuration from loading. This only occurs when @EnableGlobalSecurity is turned on.
+     */
+    @Bean
+    fun authenticationManagerBean2() = super.authenticationManagerBean()
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {

@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: thymeleaf-starter-dev
+    environment: null
     group_suffix: null
 deploy:
   artifact: build/libs/app.jar
