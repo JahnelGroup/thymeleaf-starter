@@ -1,6 +1,10 @@
 package com.jahnelgroup.domain.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.jahnelgroup.domain.AbstractEntity
+import org.springframework.data.annotation.*
+import java.time.Instant
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -22,6 +26,30 @@ data class User (
     var password: String,
 
     @get:JsonIgnore
-    var enabled: Boolean = true
+    var enabled: Boolean = true,
+
+    @get:JsonIgnore
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    var createdBy: String = "",
+
+    @get:JsonIgnore
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    var createdDatetime: Instant = Instant.now(),
+
+    @get:JsonIgnore
+    @LastModifiedBy
+    @Column(nullable = false)
+    var lastModifiedBy: String = "",
+
+    @get:JsonIgnore
+    @LastModifiedDate
+    @Column(nullable = false)
+    var lastModifiedDatetime: Instant = Instant.now(),
+
+    @Version
+    @Column(nullable = false)
+    var version: Long = 0
 
 )

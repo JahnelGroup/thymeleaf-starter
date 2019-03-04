@@ -6,7 +6,12 @@ create table `users` (
   email varchar(255) not null,
   first_name varchar(120) not null,
   last_name varchar(120) not null,
-  enabled boolean not null
+  enabled boolean not null,
+  created_by varchar(50) not null,
+  created_datetime timestamp(2) not null,
+  last_modified_by varchar(50) not null,
+  last_modified_datetime timestamp(2) not null,
+  version smallint not null
 );
 
 create table `authorities` (

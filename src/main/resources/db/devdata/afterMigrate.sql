@@ -1,7 +1,8 @@
-insert ignore into `users` (username, password, email, first_name, last_name, enabled) values
-  ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'szgaljic@jahnelgroup.com', 'Steven', 'Zgaljic', true),
-  ('darrin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'djahnel@jahnelgroup.com', 'Darrin', 'Jahnel', true),
-  ('jason', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.', 'jasonjahnel@jahnelgroup.com', 'Jason', 'Jahnel', true);
+insert ignore into `users` (username, password, email, first_name, last_name, enabled, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
+  ('system', 'system', 'system', 'system', 'system', true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0),
+  ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.' , 'szgaljic@jahnelgroup.com'    , 'Steven', 'Zgaljic' , true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0),
+  ('darrin', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.' , 'djahnel@jahnelgroup.com'     , 'Darrin', 'Jahnel'  , true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0),
+  ('jason', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.'  , 'jasonjahnel@jahnelgroup.com' , 'Jason' , 'Jahnel'  , true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0);
 
 insert ignore into `user_groups` (id, group_name, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
   (1, 'System', 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
@@ -15,7 +16,7 @@ insert ignore into `user_group_authorities` (group_id, authority) values
   (3, 'ROLE_USER');
 
 insert ignore into `user_group_members` (id, username, group_id, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
-  (1, 'system', 2, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
+  (1, 'system', 1, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (2, 'steven', 2, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (3, 'steven', 3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (4, 'darrin', 3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
@@ -39,7 +40,7 @@ insert ignore into `tasks` (id, description, completed, task_list_id, created_by
   (8, 'Replace porch lights'    , true  , 2, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (9, 'Leading digital'         , false , 3, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (10, 'Blitzscaling'           , true  , 3, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (11, 'Sneaky Pete\'s'         , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (11, 'Sneaky Petes'           , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (12, 'Pier 141'               , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (13, 'Bar Louies'             , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (14, 'House of Blues'         , false , 4, 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),

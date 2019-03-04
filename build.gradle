@@ -36,7 +36,7 @@ plugins {
 }
 
 flyway {
-    url = 'jdbc:mysql://127.0.0.1:3306/jg_starter'
+    url = 'jdbc:mysql://127.0.0.1:3306/jg_starter?useSSL=false'
     user = 'root'
 	password = 'rootpassword'
 	locations = [
