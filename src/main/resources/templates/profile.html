@@ -16,7 +16,7 @@
                 <h2><span th:text="*{firstName} + ' ' +  *{lastName}"/></h2>
             </div>
             <div class="row justify-content-center mb-1">
-                <span th:text="'@'+*{username} + ' - Member since January 1st, 2019'"/>
+                <span th:text="'@'+*{username} + ' - Member since '+*{#dates.format(createdDatetime, 'MMMM dd, yyyy')}"/>
             </div>
 
             <div class="row justify-content-center mb-1">
