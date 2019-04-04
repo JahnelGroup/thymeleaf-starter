@@ -27,7 +27,7 @@
                 These are your task preferences.
             </section>
 
-            <form class="col-sm-9" th:action="@{/user/preferences}" method="post">
+            <form class="col-sm-9" th:action="@{'/settings/' + ${user.username} +  '/preferences'}" method="post">
 
                 <div class="form-group row">
                     <div class="col-md-6">
