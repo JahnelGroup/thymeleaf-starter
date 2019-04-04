@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: thymeleaf-starter-dev
+    environment: null
     group_suffix: null
   user-preferences:
     environment: thymeleaf-starter-dev
