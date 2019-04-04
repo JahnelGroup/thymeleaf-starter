@@ -20,13 +20,17 @@ data class CreateUserForm (
         var password: String = "",
 
         @field:NotNull
-        var passwordConfirm: String = ""
+        var passwordConfirm: String = "",
+
+        @field:NotNull
+        var preferences: String = ""
 ){
     fun toUser() = User(
         username = this.username,
         firstName = this.firstName,
         lastName = this.lastName,
         email = this.email,
-        password = this.password
+        password = this.password,
+        preferences = this.preferences
     )
 }

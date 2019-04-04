@@ -47,6 +47,9 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <div th:if="${updatePreferencesSuccessMessage}" class="alert alert-success col-md-4 col-sm-6 text-center" role="alert" th:text="${updatePreferencesSuccessMessage}"/>
+                </div>
             </form>
 
         </div>
