@@ -8,6 +8,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
+import com.jahnelgroup.domain.preferences.Preferences
 
 @Table(name = "users")
 @Entity
@@ -22,7 +23,8 @@ data class User (
 
     var email: String,
 
-    var preferences: String,
+    //@Column(nullable = true, updatable = true)
+    //var preferences: Preferences?,
 
     @get:JsonIgnore
     var password: String,
