@@ -25,8 +25,8 @@ class UpdatePreferencesController(
     fun profile(model: Model, @PathVariable user: String): String{
         val u = userService.findByUsername(user)
         model.addAttribute("user", u)
-        //model.addAttribute("updatePreferencesForm",
-        //        UpdatePreferencesForm(preferences = u.preferences))
+        model.addAttribute("updatePreferencesForm",
+                UpdatePreferencesForm(preferences = u.preferences))
         return "layouts/settings/user/preferences"
     }
 
