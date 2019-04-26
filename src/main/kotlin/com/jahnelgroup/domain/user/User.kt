@@ -22,8 +22,6 @@ data class User (
 
     var email: String,
 
-    var preferences: String,
-
     @get:JsonIgnore
     var password: String,
 
