@@ -26,7 +26,7 @@ class UpdatePreferencesController(
         val u = userService.findByUsername(user)
         model.addAttribute("user", u)
         model.addAttribute("updatePreferencesForm",
-                UpdatePreferencesForm(preferences = u.preferences))
+                UpdatePreferencesForm(preferences = ""))
         return "layouts/settings/user/preferences"
     }
 
