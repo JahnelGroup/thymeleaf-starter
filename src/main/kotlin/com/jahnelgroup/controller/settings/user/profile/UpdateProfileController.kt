@@ -36,7 +36,7 @@ class UpdateProfileController(
     @PreAuthorize("hasRole('ROLE_ADMIN') || #user == authentication.name")
     @PostMapping("/settings/{user}/profile")
     fun updateProfile(model: Model, @PathVariable user: String,
-                      @Valid updateProfileForm: UpdateProfileForm, bindingResult: BindingResult): String{
+            @Valid updateProfileForm: UpdateProfileForm, bindingResult: BindingResult): String{
 
         if( !bindingResult.hasErrors() ){
             userService.updateProfile(
