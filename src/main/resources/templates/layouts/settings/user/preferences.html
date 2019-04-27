@@ -27,7 +27,7 @@
                 These are your task preferences.
             </section>
 
-            <form class="col-sm-9" th:action="@{/user/preferences}" method="post">
+            <form class="col-sm-9" th:action="@{'/settings/' + ${user.username} +  '/preferences'}" method="post">
 
                 <div class="form-group row">
                     <div class="col-md-6">
@@ -47,6 +47,9 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <div th:if="${updatePreferencesSuccessMessage}" class="alert alert-success col-md-4 col-sm-6 text-center" role="alert" th:text="${updatePreferencesSuccessMessage}"/>
+                </div>
             </form>
 
         </div>
