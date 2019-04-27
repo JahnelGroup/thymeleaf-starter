@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/header :: head"></head>
+<body th:object="${user}">
+
+<div th:replace="fragments/nav :: top_navbar"></div>
+
+<!-- Toasts -->
+<div th:replace="fragments/account :: updatePasswordSuccessToastFragment"></div>
+
+<div role="main" class="container-fluid">
+    <div class="root-div">
+
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" th:fragment="settings_left_nav">
+            <div class="sidebar-sticky">
+                <div class="d-flex align-items-center px-3 mt-4 mb-1">
+                    <img th:src="@{/images/jg-logo.jpeg}" alt="Avatar" class="settings-avatar"/>
+                    <span th:if="${user.equals(currentUser)}" class="ml-2 font-weight-bold" th:text="'My Settings'"/>
+                    <span th:unless="${user.equals(currentUser)}" class="ml-2 font-weight-bold" th:text="${user.lastName} + ', ' + ${user.firstName}"/>
+                </div>
+                <h6 th:unless="${user.equals(currentUser)}" class="sidebar-heading d-flex align-items-center px-3 mt-3 bg-warning text-darkp-3 mb-2 p-3">
+                    <span>You are editing another user</span>
+                </h6>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>User Settings</span>
+                </h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/profile')} ? 'active' : ''"
+                           th:href="@{${user.equals(currentUser) ? '/settings/profile' : '/settings/'+user.username+'/profile'}}">
+                            <i class="fa fa-user-circle"></i>
+                            Profile<span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/account')} ? 'active' : ''"
+                           th:href="@{${user.equals(currentUser) ? '/settings/account' : '/settings/'+user.username+'/account'}}">
+                            <i class="fa fa-id-card"></i>
+                            Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#strings.endsWith(#httpServletRequest.requestURI, '/preferences')} ? 'active' : ''"
+                           th:href="@{${user.equals(currentUser) ? '/settings/preferences' : '/settings/'+user.username+'/preferences'}}">
+                            <i class="fa fa-cog"></i>
+                            Preferences
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <!-- mb-3 border-bottom -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                <ol class="breadcrumb">
+                    <th:block th:if="${user.equals(currentUser)}" layout:fragment="myBreadcrumb"></th:block>
+                    <th:block th:if="!${user.equals(currentUser)}" layout:fragment="otherUserBreadcrumb"></th:block>
+                </ol>
+                <!--User settings > Account-->
+            </div>
+
+            <section layout:fragment="content">
+                This content will be replaced by views in layouts/settings/*.html
+            </section>
+        </main>
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>

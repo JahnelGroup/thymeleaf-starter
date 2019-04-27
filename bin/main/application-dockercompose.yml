@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://db:3306/jg_starter?createDatabaseIfNotExist=true&useSSL=false
+
+  # https://flywaydb.org/documentation/callbacks.html
+  flyway:
+    locations: classpath:/db/migration,/db/devdata

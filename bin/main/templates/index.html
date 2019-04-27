@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body th:object="${currentUser}">
+
+<div th:replace="fragments/nav :: top_navbar"></div>
+
+<div role="main" class="container-fluid">
+
+    <div class="root-div">
+        <div th:replace="fragments/task :: takeANote"></div>
+
+        <!-- Ajax Fragment -->
+        <div th:replace="fragments/task :: taskLists"></div>
+
+        <!-- Ajax Fragment (Pop-up Modal) -->
+        <div th:replace="fragments/task :: editTaskListModal"></div>
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>
