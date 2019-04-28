@@ -10,9 +10,9 @@ import javax.persistence.Table
 @Entity
 data class Task(
 
-        var description: String,
+        var description: String = "",
 
-        var completed: Boolean
+        var completed: Boolean = false
 
 ): AbstractEntity(){
 

@@ -7,7 +7,7 @@ import javax.persistence.*
 @Entity
 data class Group (
 
-        var groupName: String,
+        var groupName: String = "",
 
         @field:OneToMany(fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "id.groupId", targetEntity = GroupAuthority::class)
         var authorities: MutableSet<GroupAuthority> = mutableSetOf()

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 @Entity
 class GroupMember (
 
-        var username: String,
+        var username: String = "",
 
         @field:NotNull
         @field:ManyToOne

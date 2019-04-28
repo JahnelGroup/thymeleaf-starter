@@ -7,7 +7,7 @@ import javax.persistence.*
 @Entity
 data class TaskList(
 
-        var title: String
+        var title: String = ""
 
 ): AbstractEntity(){
 

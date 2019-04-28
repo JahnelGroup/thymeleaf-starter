@@ -14,16 +14,16 @@ import javax.persistence.Table
 data class User (
 
     @field:Id
-    var username: String,
+    var username: String = "",
 
-    var firstName: String,
+    var firstName: String = "",
 
-    var lastName: String,
+    var lastName: String = "",
 
-    var email: String,
+    var email: String = "",
 
     @get:JsonIgnore
-    var password: String,
+    var password: String = "",
 
     @get:JsonIgnore
     var enabled: Boolean = true,
