@@ -1,8 +1,6 @@
 buildscript {
 	ext {
 		mainClassNameForDocker = 'com.jahnelgroup.AppKt'
-		gradleDockerVersion = '0.21.0'
-		gradleDockerComposeVersion = '0.8.13'
 	}
 	repositories {
 		mavenCentral()
@@ -18,8 +16,8 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:${gradleDockerVersion}")
-		classpath("com.avast.gradle:gradle-docker-compose-plugin:${gradleDockerComposeVersion}")
+		classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.22.1")
+		classpath("com.avast.gradle:gradle-docker-compose-plugin:0.9.3")
 		classpath("mysql:mysql-connector-java:8.0.15")
 	}
 }
@@ -57,7 +55,7 @@ dependencies {
 	// Web and Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0"
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1"
 
 	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -85,10 +83,10 @@ dependencies {
 	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testCompile "com.h2database:h2:1.4.192"
+	testCompile "com.h2database:h2:1.4.199"
 
 	// Other 3rd Party Libs
-	implementation "org.passay:passay:1.4.0" // password validation and generation
+	implementation "org.passay:passay:1.5.0" // password validation and generation
 }
 
 // Kotlin

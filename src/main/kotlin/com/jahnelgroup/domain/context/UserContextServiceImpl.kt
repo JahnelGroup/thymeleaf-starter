@@ -27,7 +27,7 @@ class UserContextServiceImpl(private val userRepo: UserRepo) : UserContextServic
         var user = SecurityContextHolder.getContext().authentication?.principal as
                 org.springframework.security.core.userdetails.User
 
-        return user?.authorities?.map{ it.authority }?.toSet()
+        return user.authorities?.map{ it.authority }?.toSet()
     }
 
     override
