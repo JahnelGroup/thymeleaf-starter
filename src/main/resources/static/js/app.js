@@ -1,8 +1,23 @@
-import { clickHandler, blurHandler, mouseHandler, keyListener } from './controller.js'
+const modules = [
+    "./settings.js",
+    "./controller.js"
+];
 
-document.body.addEventListener('click'      , clickHandler  )
-document.body.addEventListener('focusout'   , blurHandler   )
-document.body.addEventListener('mouseover'  , mouseHandler  )
-document.body.addEventListener('mouseout'   , mouseHandler  )
-document.body.addEventListener('keydown'    , keyListener   )
-document.body.addEventListener('keyup'      , keyListener   )
+const listeners = {
+    'click'      :   'clickHandler',
+    'focusout'   :   'blurHandler' ,
+    'mouseover'  :   'mouseHandler',
+    'mouseout'   :   'mouseHandler',
+    'keydown'    :   'keyListener',
+    'keyup'      :   'keyListener'
+};
+
+modules.forEach(function(mod){
+    import(mod).then((mod) => {
+        for (const [key, value] of Object.entries(listeners)) {
+            if( mod[value] ){
+                document.body.addEventListener(key, mod[value])
+            }
+        }
+    });
+});
