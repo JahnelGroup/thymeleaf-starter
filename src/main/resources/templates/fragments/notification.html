@@ -22,7 +22,7 @@
 
     <div th:fragment="notificationList" id="notification-list" class="d-flex justify-content-center row">
         <div th:each="notification : ${notificationRepo.findAllByRecipient(currentUser.username)}">
-            <a href="#" class="notification" th:id="${notification.id}" th:text="${notification.content}" th:classappend="${notification.read ? '' : 'badge-primary'}" ></a>
+            <a href="#" class="dropdown-item notification" th:id="${notification.id}" th:text="${notification.content}" th:classappend="${notification.read ? '' : 'badge-primary'}" ></a>
             <div class="dropdown-divider"></div>
         </div>
     </div>
