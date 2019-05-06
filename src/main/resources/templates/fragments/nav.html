@@ -12,13 +12,35 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <!-- Ajax Fragment -->
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
+
+            <ul class="form-inline my-2 my-lg-0 navbar-nav">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link" href="#" id="navbarDropdownNotifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div th:if="${#lists.size(notificationRepo.findAllByRecipientAndIsRead(currentUser.username, false)) > 0}">
+                            <i class="fa fa-bell notification-bell" id="notificationBell"></i>
+                        </div>
+                        <div th:unless="${#lists.size(notificationRepo.findAllByRecipientAndIsRead(currentUser.username, false)) > 0}">
+                            <i class="fa fa-bell" id="notificationBell"></i>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-notification" aria-labelledby="navbarDropdownNotifications">
+                        <span class="dropdown-item">Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <div th:replace="fragments/notification :: notificationList"></div>
+                    </div>
+                </li>
+            </ul>
+
+            &nbsp;
+            &nbsp;
+
             <ul class="form-inline my-2 my-lg-0 navbar-nav">
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

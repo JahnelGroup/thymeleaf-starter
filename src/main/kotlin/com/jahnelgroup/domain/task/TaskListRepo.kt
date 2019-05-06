@@ -5,7 +5,12 @@ import org.springframework.data.jpa.repository.Query
 
 interface TaskListRepo : JpaRepository<TaskList, Long>{
 
-    @Query("select tl from TaskList tl where tl.createdBy = ?#{ principal?.username }")
+    @Query("select distinct tl " +
+            "from TaskList tl " +
+            "left join TaskListUser tlu " +
+            "on tl.id = tlu.taskList.id " +
+            "where tlu.username = ?#{ principal?.username } " +
+            "or tl.createdBy = ?#{ principal?.username }")
     fun findByCurrentUser() : List<TaskList>
 
 }

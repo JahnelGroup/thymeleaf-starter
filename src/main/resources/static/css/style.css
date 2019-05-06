@@ -132,3 +132,31 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .task-complete {
     text-decoration: line-through;
 }
+
+.task-list-users {
+    padding-top: 10px;
+}
+
+.notification {
+    padding: 10px 23px;
+    width: 100%;
+}
+.add-user-to-task-list {
+    right: 10px;
+    position: absolute;
+    width: 75px;
+}
+
+#inputSearchUsers{
+    display: inline-block;
+    width: unset;
+}
+
+.dropdown-menu-notification {
+    width: 350px;
+    text-align: left;
+}
+
+.notification-bell {
+    color: #007bff;
+}
