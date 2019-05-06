@@ -16,6 +16,17 @@ class NotificationController(
 
     val logger = loggerFor(NotificationController::class.java)
 
+
+    /**
+     * Ajax
+     */
+    @GetMapping("/api/notification")
+    fun getNotificationCount(model: Model) =
+            ResponseEntity.ok().body(
+                    notificationRepo
+                            .findAllByRecipient(
+                                    userContextService.currentUsername()!!))
+
     /**
      * Ajax
      */
@@ -43,13 +54,6 @@ class NotificationController(
         model.addAttribute("notifications", notificationRepo.findAllByRecipient(userContextService.currentUsername()!!))
         return "fragments/notification :: notificationList"
     }
-
-    @GetMapping("/notificationCount")
-    fun getNotificationCount(model: Model) =
-            ResponseEntity.ok().body(
-                    notificationRepo
-                            .findAllByRecipientAndIsRead(
-                                    userContextService.currentUsername()!!, false).size)
 
 }
 

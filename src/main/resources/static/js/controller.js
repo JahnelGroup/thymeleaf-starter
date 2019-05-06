@@ -167,10 +167,16 @@ var loadNotificatonList = function (){
 
 var reloadNotificationCount = function(){
     $.ajax({
-        url: '/notificationCount',
+        url: '/api/notification',
         type: 'get',
         success: function(data) {
-            if (data > 0 ) {
+            var unreadNotifications = 0;
+            data.forEach(function(n){
+                if (!n.read) {
+                    unreadNotifications++;
+                }
+            });
+            if (unreadNotifications > 0 ) {
                 $('#notificationBell').addClass('notification-bell');
             } else {
                 $('#notificationBell').removeClass('notification-bell');
