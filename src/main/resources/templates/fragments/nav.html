@@ -23,12 +23,7 @@
             <ul class="form-inline my-2 my-lg-0 navbar-nav">
                 <li class="nav-item dropdown active">
                     <a class="nav-link" href="#" id="navbarDropdownNotifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div th:if="${#lists.size(notificationRepo.findAllByRecipientAndIsRead(currentUser.username, false)) > 0}">
-                            <i class="fa fa-bell notification-bell" id="notificationBell"></i>
-                        </div>
-                        <div th:unless="${#lists.size(notificationRepo.findAllByRecipientAndIsRead(currentUser.username, false)) > 0}">
-                            <i class="fa fa-bell" id="notificationBell"></i>
-                        </div>
+                        <i class="fa fa-bell " id="notificationBell" th:classappend="${#lists.size(notificationRepo.findAllByRecipientAndIsRead(currentUser.username, false)) > 0 ? 'notification-bell' : ''}"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-notification" aria-labelledby="navbarDropdownNotifications">
                         <span class="dropdown-item">Notifications</span>
