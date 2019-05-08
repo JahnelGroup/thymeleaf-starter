@@ -49,3 +49,6 @@ insert ignore into `tasks` (id, description, completed, task_list_id, created_by
   (17, 'Chase Down Layups'      , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
   (18, 'Pressure'               , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
   (19, 'Dribble Knockout'       , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );
+
+  insert ignore into `preferences` values
+    (1, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', '0', 'steven', CURRENT_TIMESTAMP, NULL, NULL, 0);
