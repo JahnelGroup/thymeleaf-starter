@@ -42,7 +42,6 @@ class UpdatePreferencesController(
         if( !bindingResult.hasErrors() ) {
             val prefSortTasksAlpha = preferencesRepo.findByPreferenceName("sortTasksAlpha")
             prefSortTasksAlpha.value = updatePreferencesForm.sortTasksAlpha
-            System.out.println(updatePreferencesForm.sortTasksAlpha)
             preferencesRepo.save(prefSortTasksAlpha)
             model.addAttribute("updatePreferencesSuccessMessage", "Success!")
         }
