@@ -10,12 +10,12 @@ import javax.persistence.Table
 @Table(name = "preferences")
 @Entity
 data class Preferences(
-        var name: String?,
-        var description: String?,
-        var value: String?,
+        var name: String? = "",
+        var description: String? = "",
+        var value:  Boolean? = false,
 
-        @JsonIgnore
-        @field:OneToOne
-        var user: User
+        //@JsonIgnore
+        //@field:OneToOne
+        var user: String? = ""
 
 ): AbstractEntity()
