@@ -2,6 +2,8 @@ package com.jahnelgroup.controller.admin.users.add
 
 import com.jahnelgroup.config.loggerFor
 import com.jahnelgroup.domain.user.UserService
+import com.jahnelgroup.domain.user.preferences.PreferenceRepo
+import com.jahnelgroup.domain.user.preferences.Preferences
 import com.jahnelgroup.validator.PasswordComplexityValidator
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import javax.validation.Valid
 
 @Controller
-class AddUserController(private var userService: UserService){
+class AddUserController(private var userService: UserService,
+                        private var preferencesRepo: PreferenceRepo){
 
     val logger = loggerFor(AddUserController::class.java)
 
@@ -49,6 +52,7 @@ class AddUserController(private var userService: UserService){
             PasswordComplexityValidator().validate(createUserForm, bindingResult)
             if( !bindingResult.hasErrors() ){
                 userService.createUser(createUserForm.toUser())
+                preferencesRepo.save(Preferences("sortTasksAlpha", "Choose whether to sort tasks alphabetically", value = false, user = createUserForm.toUser().username))
                 model.addAttribute("createSuccessMessage", "Success!")
             }
         }
