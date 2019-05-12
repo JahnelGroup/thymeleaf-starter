@@ -43,13 +43,6 @@ class UserService(
         logger.info("user $username profile was updated.")
     }
 
-    fun updatePreferences(username: String, preferences: String){
-        //var user = findByUserName(username)
-        //user.preferences = preferences
-        //userRepo.save(user)
-        logger.info("user $username preferences were updated.")
-    }
-
     fun addUserToGroup(username: String, groupId: Long){
         var group = groupRepo.findById(groupId).get()
         groupMemberRepo.save(GroupMember(username = username, group = group))
