@@ -60,8 +60,6 @@ If you've opted for SDKMAN! after [installing it](https://sdkman.io/install) the
 ```bash
 $ sdk install gradle
 $ sdk install java
-$ sdk install kotlin
-$ sdk install gradle
 ```
 
 ### Gradle
