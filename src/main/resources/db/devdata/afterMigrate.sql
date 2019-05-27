@@ -50,7 +50,14 @@ insert ignore into `tasks` (id, description, completed, task_list_id, created_by
   (18, 'Pressure'               , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
   (19, 'Dribble Knockout'       , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );
 
-  insert ignore into `preferences` values
-    (1, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'steven', 'steven', CURRENT_TIMESTAMP, NULL, NULL, 0),
-    (2, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'jason', 'jason', CURRENT_TIMESTAMP, NULL, NULL, 0),
-    (3, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'darrin', 'darrin', CURRENT_TIMESTAMP, NULL, NULL, 0);
+insert ignore into `preferences` values
+  (1, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'steven', 'steven', CURRENT_TIMESTAMP, NULL, NULL, 0),
+  (2, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'jason', 'jason', CURRENT_TIMESTAMP, NULL, NULL, 0),
+  (3, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'darrin', 'darrin', CURRENT_TIMESTAMP, NULL, NULL, 0);
+
+insert ignore into `task_list_users` (id, task_list_id, username, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
+  (1, 1 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (2, 2 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (3, 3 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (4, 4 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
+  (5, 5 , 'darrin',  'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );

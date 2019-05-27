@@ -1,10 +1,9 @@
 package com.jahnelgroup.controller.task
 
 import com.jahnelgroup.config.loggerFor
-import com.jahnelgroup.domain.task.Task
-import com.jahnelgroup.domain.task.TaskList
-import com.jahnelgroup.domain.task.TaskListRepo
-import com.jahnelgroup.domain.task.TaskRepo
+import com.jahnelgroup.domain.context.UserContextService
+import com.jahnelgroup.domain.task.*
+import com.jahnelgroup.domain.user.UserRepo
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.*
 @Controller
 class TaskController(
         private var taskRepo: TaskRepo,
-        private var taskListRepo: TaskListRepo) {
+        private var taskListRepo: TaskListRepo,
+        private var userRepo: UserRepo,
+        private var userContextService: UserContextService) {
 
     val logger = loggerFor(TaskController::class.java)
 
@@ -68,12 +69,15 @@ class TaskController(
      */
     @PostMapping(value = ["/api/task"], consumes = ["application/json"], produces = ["application/json"])
     fun newTaskAndList(@RequestBody newTaskForm: NewTaskForm): ResponseEntity<Task> {
-        var newTaskList = taskListRepo.save(TaskList(
+        var newTaskList = TaskList(
                 if( newTaskForm.title.isNullOrBlank() ) "Todo" else newTaskForm.title!!
-        ))
-
+        )
+        newTaskList.addTaskListUser(
+                TaskListUser(
+                        username = userContextService.currentUsername()!!,
+                        taskList = newTaskList))
+        newTaskList = taskListRepo.save(newTaskList)
         logger.info("Created new task list {}", newTaskList)
-
         if( !newTaskForm.description.isNullOrBlank() ){
             var newTask = Task(description = newTaskForm.description!!, completed = false)
             newTask.taskList = newTaskList
@@ -97,6 +101,37 @@ class TaskController(
         return ResponseEntity.ok().body(newTask)
     }
 
+    @GetMapping("/tasklist/{taskListId}/shareModal")
+    fun getShareTaskListModal(model: Model, @PathVariable taskListId: Long, @RequestParam inputSearch: String?): String{
+        model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
+        return "fragments/task :: shareTaskListModal"
+    }
 
+    @GetMapping("/tasklist/{taskListId}/searchUsers")
+    fun shareSearch(model: Model, @PathVariable taskListId: Long, @RequestParam inputSearch: String?): String {
+        model.addAttribute("inputSearch", inputSearch)
+        if(!inputSearch.isNullOrBlank()){
+            model.addAttribute("searchResults", userRepo.searchUser(inputSearch!!))
+        }
+        return "fragments/task :: shareSearchResults"
+    }
+
+    @GetMapping("/tasklist/{taskListId}/userAccessModal")
+    fun getTaskListUserAccessModal(model: Model, @PathVariable taskListId: Long, @RequestParam inputSearch: String?): String{
+        model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
+        return "fragments/task :: userAccessModal"
+    }
+
+    /**
+     * Ajax
+     */
+    @PostMapping(value = ["/api/tasklist/{taskListId}/user"], consumes = ["application/json"], produces = ["application/json"])
+    fun addUserToTaskList(@PathVariable taskListId: Long, @RequestBody taskListUser: TaskListUser): ResponseEntity<TaskList> {
+        val existingTaskList = taskListRepo.findById(taskListId).get()
+        existingTaskList.addTaskListUser(taskListUser)
+        taskListRepo.save(existingTaskList)
+        logger.info("user {} added to taskList {}", taskListUser.username, existingTaskList.title)
+        return ResponseEntity.ok().body(existingTaskList)
+    }
 
 }

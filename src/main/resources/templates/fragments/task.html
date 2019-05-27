@@ -56,10 +56,18 @@
         <div th:id="'taskList'+${taskList.id}" th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="task-list-card card card-body bg-light col-lg-2 col-md-4 col-sm-6 m-2 p-2">
             <input type="hidden" name="taskListId" th:value="${taskList.id}"/>
             <span class="font-weight-bold task-list-title mb-2" th:text="${taskList.title}" />
-            <div class="checkbox task-list-task-wrapper" th:each="task : ${taskList.tasks}">
-                <input type="hidden" th:value="${task.id}"/>
-                <input class="task-list-task-checkbox" type="checkbox" value="" th:checked="${task.completed}"/>
-                <label class="pl-2 task-list-task-description" th:classappend="${task.completed} ? 'task-complete text-muted' : ''" th:text="${task.description}"/>
+            <div class="modal-body">
+                <div class="checkbox task-list-task-wrapper" th:each="task : ${taskList.tasks}">
+                    <input type="hidden" th:value="${task.id}"/>
+                    <input class="task-list-task-checkbox" type="checkbox" value="" th:checked="${task.completed}"/>
+                    <label class="pl-2 task-list-task-description" th:classappend="${task.completed} ? 'task-complete text-muted' : ''" th:text="${task.description}"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm add-user-to-task-list" th:value="${taskList.id}">
+                    <i class="fa fa-user"></i>
+                    Share
+                </button>
             </div>
         </div>
     </div>
@@ -90,7 +98,6 @@
                         </div>
 
                     </div>
-
                     <div class="modal-footer">
                         <button id="editTaskListFormDeleteButton" type="button" class="btn btn-sm btn-light">Delete</button>
                         <button id="editTaskListFormCloseButton" type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
@@ -99,6 +106,69 @@
             </form>
         </div>
     </div>
+
+    <div th:fragment="shareTaskListModal">
+        <div class="modal fade modal-lg" id="shareTaskListModal" tabindex="-1" role="dialog" aria-labelledby="shareTaskListModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <input type="hidden" th:value="${currentUser.username}" id="sender">
+                <input type="hidden" id="taskListIdToShare">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <input type="text" class="no-border modal-title" id="shareTaskListModalTitle" value="Share with others"/>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="inputSearchUsers" name="inputSearch" placeholder="Enter a username">
+                        <input type="button" id="searchUsers" value="Search" class="btn btn-primary">
+                        <div th:if="${taskList != null}">
+                            <div th:if="${taskList.users != null && #lists.size(taskList.users) > 1}" class="task-list-users">
+                                <div class="summary-shared-users">Shared with <span th:text="${#lists.size(taskList.users)-1}"></span> other user<span th:if="${#lists.size(taskList.users)-1 > 1}">s</span></div>
+                            </div>
+                        </div>
+                        <div th:replace="fragments/task :: shareSearchResults"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="shareTaskListFormCloseButton" type="button" class="btn btn-dark" data-dismiss="modal">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="userAccessModal">
+        <div class="modal fade modal-lg" id="userAccessModal" tabindex="-1" role="dialog" aria-labelledby="taskListUserAccessModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <input type="text" class="no-border modal-title" id="taskListUserAccessModalTitle" value="Users with access"/>
+                    </div>
+                    <div class="modal-body">
+                        <div th:if="${taskList != null}">
+                            <div th:if="${taskList.users != null && #lists.size(taskList.users) > 0}" class="task-list-users">
+                                <div th:each="user : ${taskList.users}">
+                                    <span th:text="${user.username}" />
+                                    <span th:if="${user.username.equals(currentUser.username)}" class="badge badge-pill badge-primary ml-2">You</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="taskListUserAccessModalCloseButton" type="button" class="btn btn-dark" data-dismiss="modal">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="shareSearchResults" id="shareSearchResults" aria-labelledby="shareSearchResults" >
+        <div th:if="${searchResults != null}">
+            <div class="form-check my-2" th:each="user : ${searchResults}">
+                <input type="checkbox" class="form-check-input share-user-checkbox" th:value="${user.username}"/>
+                <span th:text="${user.username}" class="no-border"></span>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 
