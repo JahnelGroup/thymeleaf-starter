@@ -10,10 +10,10 @@ import javax.persistence.Table
 @Entity
 data class TaskListUser(
 
-        var username: String,
+        var username: String? = null,
 
         @JsonIgnore
         @field:ManyToOne
-        var taskList: TaskList?
+        var taskList: TaskList? = null
 
 ): AbstractEntity()

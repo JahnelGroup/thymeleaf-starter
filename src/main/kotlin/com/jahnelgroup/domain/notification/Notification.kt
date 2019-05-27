@@ -8,8 +8,8 @@ import javax.persistence.Table
 @Table(name = "notifications")
 @Entity
 data class Notification(
-        var recipient: String?,
-        var sender: String?,
-        var content: String?,
+        var recipient: String? = null,
+        var sender: String? = null,
+        var content: String? = null,
         var isRead: Boolean = false
 ): AbstractEntity()
