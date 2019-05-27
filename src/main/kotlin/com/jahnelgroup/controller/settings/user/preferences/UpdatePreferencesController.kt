@@ -1,7 +1,9 @@
-package com.jahnelgroup.controller.settings.user.profile
+package com.jahnelgroup.controller.settings.user.preferences
+
 
 import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.domain.user.UserService
+import com.jahnelgroup.domain.user.preferences.PreferenceRepo
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -14,7 +16,8 @@ import javax.validation.Valid
 @Controller
 class UpdatePreferencesController(
         private var userService: UserService,
-        private var userContextService: UserContextService){
+        private var userContextService: UserContextService,
+        private var preferencesRepo: PreferenceRepo){
 
     // Forward is the same as redirect but the URL remains the same
     @GetMapping("/settings/preferences")
@@ -24,9 +27,10 @@ class UpdatePreferencesController(
     @GetMapping("/settings/{user}/preferences")
     fun profile(model: Model, @PathVariable user: String): String{
         val u = userService.findByUsername(user)
+        val prefSortTasksAlpha = preferencesRepo.findByPreferenceName("sortTasksAlpha")
         model.addAttribute("user", u)
         model.addAttribute("updatePreferencesForm",
-                UpdatePreferencesForm(preferences = ""))
+                UpdatePreferencesForm(sortTasksAlpha = prefSortTasksAlpha.value))
         return "layouts/settings/user/preferences"
     }
 
@@ -35,13 +39,12 @@ class UpdatePreferencesController(
     fun updatePreferences(model: Model, @PathVariable user: String,
                       @Valid updatePreferencesForm: UpdatePreferencesForm, bindingResult: BindingResult): String{
 
-        //if( !bindingResult.hasErrors() ){
-        //    userService.updatePreferences(
-        //            user,
-        //            updatePreferencesForm.preferences!!)
-
-        //    model.addAttribute("updatePreferencesSuccessMessage", "Success!")
-        //}
+        if( !bindingResult.hasErrors() ) {
+            val prefSortTasksAlpha = preferencesRepo.findByPreferenceName("sortTasksAlpha")
+            prefSortTasksAlpha.value = updatePreferencesForm.sortTasksAlpha
+            preferencesRepo.save(prefSortTasksAlpha)
+            model.addAttribute("updatePreferencesSuccessMessage", "Success!")
+        }
         model.addAttribute("updatePreferencesSuccessMessage", "Success!")
         model.addAttribute("user", userService.findByUsername(user))
         return "layouts/settings/user/preferences"
