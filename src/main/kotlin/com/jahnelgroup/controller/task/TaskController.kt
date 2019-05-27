@@ -3,6 +3,7 @@ package com.jahnelgroup.controller.task
 import com.jahnelgroup.config.loggerFor
 import com.jahnelgroup.domain.context.UserContextService
 import com.jahnelgroup.domain.task.*
+import com.jahnelgroup.domain.user.User
 import com.jahnelgroup.domain.user.UserRepo
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -72,18 +73,21 @@ class TaskController(
         var newTaskList = TaskList(
                 if( newTaskForm.title.isNullOrBlank() ) "Todo" else newTaskForm.title!!
         )
-        newTaskList.addTaskListUser(
-                TaskListUser(
-                        username = userContextService.currentUsername()!!,
-                        taskList = newTaskList))
+
+        // save the task list
         newTaskList = taskListRepo.save(newTaskList)
         logger.info("Created new task list {}", newTaskList)
+
+        // save the task
         if( !newTaskForm.description.isNullOrBlank() ){
             var newTask = Task(description = newTaskForm.description!!, completed = false)
             newTask.taskList = newTaskList
             taskRepo.save(newTask)
             logger.info("Created new task {}", newTask)
         }
+
+        // save the user
+        userContextService.currentUser()!!.myTaskLists.add(newTaskList)
 
         return ResponseEntity.ok().build()
     }
@@ -126,11 +130,17 @@ class TaskController(
      * Ajax
      */
     @PostMapping(value = ["/api/tasklist/{taskListId}/user"], consumes = ["application/json"], produces = ["application/json"])
-    fun addUserToTaskList(@PathVariable taskListId: Long, @RequestBody taskListUser: TaskListUser): ResponseEntity<TaskList> {
+    fun addUserToTaskList(@PathVariable taskListId: Long, @RequestBody taskListUser: Map<String, String>): ResponseEntity<TaskList> {
+        var userToShareWith: User = userRepo.findByUsername(taskListUser["username"]!!).get()
         val existingTaskList = taskListRepo.findById(taskListId).get()
-        existingTaskList.addTaskListUser(taskListUser)
+
+        userToShareWith.sharedTaskLists.add(existingTaskList)
+        existingTaskList.sharedWithUsers.add(userToShareWith)
+
+        userRepo.save(userToShareWith)
         taskListRepo.save(existingTaskList)
-        logger.info("user {} added to taskList {}", taskListUser.username, existingTaskList.title)
+
+        logger.info("user {} is sharing {} with user {}", userContextService.currentUser()!!.username, existingTaskList.title, userToShareWith.username)
         return ResponseEntity.ok().body(existingTaskList)
     }
 

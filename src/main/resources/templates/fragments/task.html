@@ -120,8 +120,8 @@
                         <input type="text" class="form-control" id="inputSearchUsers" name="inputSearch" placeholder="Enter a username">
                         <input type="button" id="searchUsers" value="Search" class="btn btn-primary">
                         <div th:if="${taskList != null}">
-                            <div th:if="${taskList.users != null && #lists.size(taskList.users) > 1}" class="task-list-users">
-                                <div class="summary-shared-users">Shared with <span th:text="${#lists.size(taskList.users)-1}"></span> other user<span th:if="${#lists.size(taskList.users)-1 > 1}">s</span></div>
+                            <div th:if="${taskList.sharedWithUsers != null && #lists.size(taskList.sharedWithUsers) > 1}" class="task-list-users">
+                                <div class="summary-shared-users">Shared with <span th:text="${#lists.size(taskList.sharedWithUsers)-1}"></span> other user<span th:if="${#lists.size(taskList.sharedWithUsers)-1 > 1}">s</span></div>
                             </div>
                         </div>
                         <div th:replace="fragments/task :: shareSearchResults"></div>
@@ -143,8 +143,8 @@
                     </div>
                     <div class="modal-body">
                         <div th:if="${taskList != null}">
-                            <div th:if="${taskList.users != null && #lists.size(taskList.users) > 0}" class="task-list-users">
-                                <div th:each="user : ${taskList.users}">
+                            <div th:if="${taskList.sharedWithUsers != null && #lists.size(taskList.sharedWithUsers) > 0}" class="task-list-users">
+                                <div th:each="user : ${taskList.sharedWithUsers}">
                                     <span th:text="${user.username}" />
                                     <span th:if="${user.username.equals(currentUser.username)}" class="badge badge-pill badge-primary ml-2">You</span>
                                 </div>

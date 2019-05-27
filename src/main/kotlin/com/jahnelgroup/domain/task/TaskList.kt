@@ -1,6 +1,7 @@
 package com.jahnelgroup.domain.task
 
 import com.jahnelgroup.domain.AbstractEntity
+import com.jahnelgroup.domain.user.User
 import java.util.ArrayList
 import javax.persistence.*
 
@@ -19,16 +20,7 @@ data class TaskList(
                 mappedBy = "taskList")
         var tasks: Set<Task> = mutableSetOf()
 
-        @OneToMany(
-                cascade = [(CascadeType.ALL)],
-                orphanRemoval = true,
-                mappedBy = "taskList")
-        var users = mutableSetOf<TaskListUser>()
-
-        fun addTaskListUser(taskListUser: TaskListUser): TaskList {
-                taskListUser.taskList = this
-                users.add(taskListUser)
-                return this
-        }
+        @ManyToMany(mappedBy = "sharedTaskLists")
+        var sharedWithUsers = mutableSetOf<User>()
 
 }

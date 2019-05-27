@@ -20,3 +20,11 @@ create table `tasks` (
   version smallint not null,
   constraint fk_task_task_lists foreign key(task_list_id) references task_lists(id)
 );
+
+create table `shared_task_lists` (
+  username varchar(50),
+  task_list_id bigint,
+  primary key (username, task_list_id),
+  constraint fk_users_username foreign key(username) references users(username),
+  constraint fk_task_lists_task_list_id foreign key(task_list_id) references task_lists(id)
+);
