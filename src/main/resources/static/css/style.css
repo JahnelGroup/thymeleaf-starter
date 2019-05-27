@@ -132,3 +132,35 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .task-complete {
     text-decoration: line-through;
 }
+
+.task-list-users {
+    padding-top: 10px;
+}
+
+.notification {
+    padding: .5rem 3.5rem;
+    overflow-x: hidden;
+}
+.add-user-to-task-list {
+    right: 10px;
+    position: absolute;
+    width: 75px;
+}
+
+#inputSearchUsers{
+    display: inline-block;
+    width: unset;
+}
+
+.dropdown-menu-notification {
+    width: 350px;
+    overflow-x: hidden;
+}
+
+.notification-bell {
+    color: #007bff;
+}
+
+.summary-shared-users {
+    cursor: pointer;
+}

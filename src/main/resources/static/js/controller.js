@@ -12,7 +12,8 @@ var reloadTaskList = function(){
             $('#task-lists').replaceWith(data);
         }
     });
-}
+};
+
 
 var openEditTaskList = function(taskListId){
     //$("#taskList"+taskListId).fadeTo('fast', 0.2)
@@ -81,7 +82,114 @@ var createTaskList = function(){
             }
         });
     }
-}
+};
+
+var openShareTaskListModal = function(target){
+    $.ajax({
+        url: '/tasklist/'+target.value+'/shareModal',
+        type: 'get',
+        success: function(data) {
+            $('#shareTaskListModal').replaceWith(data);
+            $('#taskListIdToShare').val(target.value);
+            $("#shareTaskListModal").modal("show");
+        }
+    });
+};
+
+var openTaskListUserAccessModal = function(){
+    $.ajax({
+        url: '/tasklist/'+ $('#taskListIdToShare').val() +'/userAccessModal',
+        type: 'get',
+        success: function(data) {
+            $('#userAccessModal').replaceWith(data);
+            $("#userAccessModal").modal("show");
+        }
+    });
+};
+
+var searchUsers = function(){
+    $.ajax({
+        url: '/tasklist/'+ $('#taskListIdToShare').val() +'/searchUsers?inputSearch=' + $('#inputSearchUsers').val(),
+        type: 'get',
+        success: function(data) {
+            $('#shareSearchResults').replaceWith(data);
+        }
+    });
+};
+
+var addUserToTaskList = function(target){
+    $.ajax({
+        url: '/api/tasklist/' + $('#taskListIdToShare').val() + '/user',
+        contentType: "application/json",
+        type: 'post',
+        data: JSON.stringify({
+            'username': target.value
+        }),
+        success: function(data) {
+            $.ajax({
+                url: '/api/notification',
+                contentType: "application/json",
+                type: 'post',
+                data: JSON.stringify({
+                    'content': $('#sender').val() + ' has shared a task list: ' + data.title,
+                    'recipient': target.value,
+                    'sender':  $('#sender').val()
+                })
+            });
+        }
+    });
+};
+
+var notificationClickHandler = function(target){
+    $.ajax({
+        url: '/api/notification/' + target.id,
+        contentType: "application/json",
+        type: 'put',
+        data: JSON.stringify({
+            "read": true
+        }),
+        success: function() {
+            target.classList.remove('badge-primary');
+            reloadNotificationCount();
+        }
+    });
+};
+
+var loadNotificatonList = function (){
+    $.ajax({
+        url: '/notificationList',
+        type: 'get',
+        success: function(data) {
+            $('#notification-list').replaceWith(data);
+        }
+    });
+};
+
+var reloadNotificationCount = function(){
+    $.ajax({
+        url: '/api/notification',
+        type: 'get',
+        success: function(data) {
+            var unreadNotifications = 0;
+            data.forEach(function(n){
+                if (!n.read) {
+                    unreadNotifications++;
+                }
+            });
+            if (unreadNotifications > 0 ) {
+                $('#notificationBell').addClass('notification-bell');
+            } else {
+                $('#notificationBell').removeClass('notification-bell');
+            }
+        }
+    });
+};
+
+
+$("#navbarDropdownNotifications").on('click',function(){
+    loadNotificatonList();
+});
+
 
 /**
  * ==========================================
@@ -98,11 +206,14 @@ const clickHandler = (event) => {
     if(target.classList.contains('task-list-card')) {
         openEditTaskList(target.firstElementChild.value)
     }
-    else if(target.classList.contains('task-list-title') || target.classList.contains('task-list-task-wrapper')){
+    else if(target.classList.contains('task-list-title')){
         openEditTaskList(target.parentElement.firstElementChild.value);
     }
-    else if(target.classList.contains('task-list-task-description')){
+    else if(target.classList.contains('task-list-task-wrapper')){
         openEditTaskList(target.parentElement.parentElement.firstElementChild.value);
+    }
+    else if(target.classList.contains('task-list-task-description')){
+        openEditTaskList(target.parentElement.parentElement.parentElement.firstElementChild.value);
     }
 
     /**
@@ -142,6 +253,26 @@ const clickHandler = (event) => {
         $('#takeANoteUnfocused').hide()
         $('#takeANoteFocused').show()
         $('#newTaskDescription').focus()
+    }
+
+    /**
+     * Creating a notification
+     */
+    else if(target.classList.contains('add-user-to-task-list') ||
+        target.parentElement.classList.contains('add-user-to-task-list')) {
+        openShareTaskListModal(target);
+    }
+    else if(target.id == 'searchUsers') {
+        searchUsers();
+    }
+    else if(target.classList.contains('share-user-span') || target.classList.contains('share-user-checkbox')) {
+        addUserToTaskList(target);
+    }
+    else if(target.classList.contains('notification')) {
+        notificationClickHandler(target);
+    }
+    else if(target.classList.contains('summary-shared-users')) {
+        openTaskListUserAccessModal();
     }
 }
 
@@ -264,4 +395,6 @@ const keyListener = (event) => {
     }
 }
 
+
 export { clickHandler, blurHandler, mouseHandler, keyListener }
+
