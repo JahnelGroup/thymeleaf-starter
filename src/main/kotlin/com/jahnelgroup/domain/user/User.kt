@@ -49,17 +49,6 @@ data class User(
 
         @Version
         @Column(nullable = false)
-        var version: Long = 0,
-
-        @get:JsonIgnore
-        @field:OneToMany(mappedBy = "createdBy", targetEntity = TaskList::class)
-        var myTaskLists: MutableSet<TaskList> = mutableSetOf<TaskList>(),
-
-        @JsonIgnore
-        @ManyToMany(cascade = arrayOf(CascadeType.ALL))
-        @JoinTable(name = "shared_task_lists",
-                joinColumns = arrayOf(JoinColumn(name = "username", referencedColumnName = "username")),
-                inverseJoinColumns = arrayOf(JoinColumn(name = "task_list_id", referencedColumnName = "id")))
-        var sharedTaskLists: MutableSet<TaskList> = mutableSetOf<TaskList>()
+        var version: Long = 0
 
 )

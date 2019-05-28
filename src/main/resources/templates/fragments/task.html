@@ -53,7 +53,7 @@
     <!-- ================================ -->
 
     <div th:fragment="taskLists" id="task-lists" class="d-flex justify-content-center row">
-        <div th:id="'taskList'+${taskList.id}" th:each="taskList : ${taskListRepo.findByCurrentUser()}" class="task-list-card card card-body bg-light col-lg-2 col-md-4 col-sm-6 m-2 p-2">
+        <div th:id="'taskList'+${taskList.id}" th:each="taskList : ${taskService.findAccessibleTaskLists()}" class="task-list-card card card-body bg-light col-lg-2 col-md-4 col-sm-6 m-2 p-2">
             <input type="hidden" name="taskListId" th:value="${taskList.id}"/>
             <span class="font-weight-bold task-list-title mb-2" th:text="${taskList.title}" />
             <div class="modal-body">
@@ -119,9 +119,9 @@
                     <div class="modal-body">
                         <input type="text" class="form-control" id="inputSearchUsers" name="inputSearch" placeholder="Enter a username">
                         <input type="button" id="searchUsers" value="Search" class="btn btn-primary">
-                        <div th:if="${taskList != null}">
-                            <div th:if="${taskList.sharedWithUsers != null && #lists.size(taskList.sharedWithUsers) > 1}" class="task-list-users">
-                                <div class="summary-shared-users">Shared with <span th:text="${#lists.size(taskList.sharedWithUsers)-1}"></span> other user<span th:if="${#lists.size(taskList.sharedWithUsers)-1 > 1}">s</span></div>
+                        <div th:if="${sharedTaskLists != null}">
+                            <div th:if="${sharedTaskLists != null && #lists.size(sharedTaskLists) > 1}" class="task-list-users">
+                                <div class="summary-shared-users">Shared with <span th:text="${#lists.size(sharedTaskLists)-1}"></span> other user<span th:if="${#lists.size(sharedTaskLists)-1 > 1}">s</span></div>
                             </div>
                         </div>
                         <div th:replace="fragments/task :: shareSearchResults"></div>

@@ -1,3 +1,6 @@
+--
+-- Users
+--
 insert ignore into `users` (username, password, email, first_name, last_name, enabled, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
   ('system', 'system', 'system', 'system', 'system', true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0),
   ('steven', '$2a$12$AcPJ5D0I1XXvSjDWgZGO4OJ9x33VRxPy/BqtNLe.pOaUmZpMD2EK.' , 'szgaljic@jahnelgroup.com'    , 'Steven', 'Zgaljic' , true, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0),
@@ -22,6 +25,9 @@ insert ignore into `user_group_members` (id, username, group_id, created_by, cre
   (4, 'darrin', 3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 ),
   (5, 'jason',  3, 'system', CURRENT_TIMESTAMP, 'system', CURRENT_TIMESTAMP, 0 );
 
+--
+-- Tasks and Task Lists
+--
 insert ignore into `task_lists` (id, title, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
   (1, 'Shopping list' , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
   (2, 'Todo list'     , 'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
@@ -50,14 +56,56 @@ insert ignore into `tasks` (id, description, completed, task_list_id, created_by
   (18, 'Pressure'               , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 ),
   (19, 'Dribble Knockout'       , true  , 5, 'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );
 
+--
+-- Preferences
+--
 insert ignore into `preferences` values
   (1, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'steven', 'steven', CURRENT_TIMESTAMP, NULL, NULL, 0),
   (2, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'jason', 'jason', CURRENT_TIMESTAMP, NULL, NULL, 0),
   (3, 'SortTasksAlpha', 'Choose whether to sort tasks alphabetically', 0, 'darrin', 'darrin', CURRENT_TIMESTAMP, NULL, NULL, 0);
 
-insert ignore into `task_list_users` (id, task_list_id, username, created_by, created_datetime, last_modified_by, last_modified_datetime, version) values
-  (1, 1 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (2, 2 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (3, 3 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (4, 4 , 'steven',  'steven', CURRENT_TIMESTAMP, 'steven', CURRENT_TIMESTAMP, 0 ),
-  (5, 5 , 'darrin',  'darrin', CURRENT_TIMESTAMP, 'darrin', CURRENT_TIMESTAMP, 0 );
+--
+-- ACL
+--
+insert ignore into `acl_class` values
+  (1, 'com.jahnelgroup.domain.task.TaskList');
+
+insert ignore into `acl_sid` values
+(1, true, 'steven'),
+(2, true, 'darrin'),
+(3, true, 'jason');
+
+insert ignore into `acl_object_identity` values
+  (1, 1, 1, null, 1, 1),
+  (2, 1, 2, null, 1, 1),
+  (3, 1, 3, null, 1, 1),
+  (4, 1, 4, null, 1, 1),
+  (5, 1, 5, null, 2, 1);
+
+-- R=1, W=2, C=4, D=8, A=16
+insert ignore into `acl_entry` values
+  (1, 1, 0, 1, 1 , 1, 0, 0),
+  (2, 1, 1, 1, 2 , 1, 0, 0),
+  (3, 1, 2, 1, 4 , 1, 0, 0),
+  (4, 1, 3, 1, 8 , 1, 0, 0),
+  (5, 1, 4, 1, 16, 1, 0, 0),
+  (6, 2, 0, 1, 1 , 1, 0, 0),
+  (7, 2, 1, 1, 2 , 1, 0, 0),
+  (8, 2, 2, 1, 4 , 1, 0, 0),
+  (9, 2, 3, 1, 8 , 1, 0, 0),
+  (10, 2, 4, 1, 16, 1, 0, 0),
+  (11, 3, 0, 1, 1 , 1, 0, 0),
+  (12, 3, 1, 1, 2 , 1, 0, 0),
+  (13, 3, 2, 1, 4 , 1, 0, 0),
+  (14, 3, 3, 1, 8 , 1, 0, 0),
+  (15, 3, 4, 1, 16, 1, 0, 0),
+  (16, 4, 0, 1, 1 , 1, 0, 0),
+  (17, 4, 1, 1, 2 , 1, 0, 0),
+  (18, 4, 2, 1, 4 , 1, 0, 0),
+  (19, 4, 3, 1, 8 , 1, 0, 0),
+  (20, 4, 4, 1, 16, 1, 0, 0),
+  (21, 5, 0, 2, 1 , 1, 0, 0),
+  (22, 5, 1, 2, 2 , 1, 0, 0),
+  (23, 5, 2, 2, 4 , 1, 0, 0),
+  (24, 5, 3, 2, 8 , 1, 0, 0),
+  (25, 5, 4, 2, 16, 1, 0, 0);

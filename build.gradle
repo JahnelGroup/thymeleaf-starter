@@ -59,10 +59,11 @@ dependencies {
 
 	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.security:spring-security-config'
-	implementation 'org.springframework:spring-context-support'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.security:spring-security-data' // SecurityEvaluationContextExtension
+	implementation 'org.springframework.security:spring-security-acl'
+	implementation 'org.springframework.security:spring-security-config'
+	implementation 'org.springframework:spring-context-support'
 
 	// Database (h2 is in testing section)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

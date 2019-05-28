@@ -20,7 +20,4 @@ data class TaskList(
                 mappedBy = "taskList")
         var tasks: Set<Task> = mutableSetOf()
 
-        @ManyToMany(mappedBy = "sharedTaskLists")
-        var sharedWithUsers = mutableSetOf<User>()
-
 }

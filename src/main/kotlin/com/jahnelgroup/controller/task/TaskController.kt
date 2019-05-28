@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.*
 class TaskController(
         private var taskRepo: TaskRepo,
         private var taskListRepo: TaskListRepo,
+        private var taskService: TaskService,
         private var userRepo: UserRepo,
-        private var userContextService: UserContextService) {
+        private var userContextService: UserContextService
+) {
 
     val logger = loggerFor(TaskController::class.java)
 
@@ -30,7 +32,7 @@ class TaskController(
 
     @GetMapping("/tasklists")
     fun getTaskLists(model: Model): String{
-        model.addAttribute("taskListRepo", taskListRepo)
+        model.addAttribute("taskService", taskService)
         return "fragments/task :: taskLists"
     }
 
@@ -86,8 +88,8 @@ class TaskController(
             logger.info("Created new task {}", newTask)
         }
 
-        // save the user
-        userContextService.currentUser()!!.myTaskLists.add(newTaskList)
+        // update ACL
+        taskService.addUserToTaskList(newTaskList.id!!, userContextService.currentUsername()!!)
 
         return ResponseEntity.ok().build()
     }
@@ -108,6 +110,7 @@ class TaskController(
     @GetMapping("/tasklist/{taskListId}/shareModal")
     fun getShareTaskListModal(model: Model, @PathVariable taskListId: Long, @RequestParam inputSearch: String?): String{
         model.addAttribute("taskList", taskListRepo.findById(taskListId).get())
+        model.addAttribute("sharedTaskLists", taskService.findSharedTaskLists())
         return "fragments/task :: shareTaskListModal"
     }
 
@@ -134,11 +137,7 @@ class TaskController(
         var userToShareWith: User = userRepo.findByUsername(taskListUser["username"]!!).get()
         val existingTaskList = taskListRepo.findById(taskListId).get()
 
-        userToShareWith.sharedTaskLists.add(existingTaskList)
-        existingTaskList.sharedWithUsers.add(userToShareWith)
-
-        userRepo.save(userToShareWith)
-        taskListRepo.save(existingTaskList)
+        taskService.addUserToTaskList(taskListId, userToShareWith.username)
 
         logger.info("user {} is sharing {} with user {}", userContextService.currentUser()!!.username, existingTaskList.title, userToShareWith.username)
         return ResponseEntity.ok().body(existingTaskList)
