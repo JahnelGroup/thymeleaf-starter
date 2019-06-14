@@ -9,7 +9,11 @@ data class Group (
 
         var groupName: String = "",
 
-        @field:OneToMany(fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "id.groupId", targetEntity = GroupAuthority::class)
+        @field:OneToMany(fetch = FetchType.LAZY,
+                cascade = [(CascadeType.ALL)],
+                orphanRemoval = true,
+                mappedBy = "id.groupId",
+                targetEntity = GroupAuthority::class)
         var authorities: MutableSet<GroupAuthority> = mutableSetOf()
 
         // Performance risk: Consider why you need this and how it will be used before adding it.

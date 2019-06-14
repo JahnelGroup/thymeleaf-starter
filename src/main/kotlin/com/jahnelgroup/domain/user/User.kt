@@ -1,7 +1,6 @@
 package com.jahnelgroup.domain.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.jahnelgroup.domain.AbstractEntity
 import org.springframework.data.annotation.*
 import java.time.Instant
 import javax.persistence.Column

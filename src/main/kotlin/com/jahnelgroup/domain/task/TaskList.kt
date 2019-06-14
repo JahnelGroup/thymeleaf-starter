@@ -1,7 +1,6 @@
 package com.jahnelgroup.domain.task
 
 import com.jahnelgroup.domain.AbstractEntity
-import java.util.ArrayList
 import javax.persistence.*
 
 @Table(name = "task_lists")
